@@ -1,6 +1,6 @@
 # WALANTU Trade Services
 
-A comprehensive web application for connecting customers with skilled tradespeople in Accra, Ghana.
+African portal for handymen and women — a comprehensive web application for connecting customers with skilled tradespeople in Accra, Ghana.
 
 ## Features
 
