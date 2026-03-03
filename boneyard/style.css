@@ -1,0 +1,1450 @@
+:root {
+    --primary: #2E8B57;
+    --primary-dark: #1f6e45;
+    --secondary: #FF6B35;
+    --dark: #2C3E50;
+    --light: #F8F9FA;
+    --gray: #6C757D;
+    --warning: #E74C3C;
+    --success: #27AE60;
+    --shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    --border-radius: 8px;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    line-height: 1.6;
+    color: var(--dark);
+    background-color: var(--light);
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 15px;
+}
+
+/* Header & Navigation */
+header {
+    background: white;
+    box-shadow: var(--shadow);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 0;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: bold;
+    font-size: 1.5rem;
+    color: var(--primary);
+}
+
+.logo img {
+    width: 50px;
+    height: 50px;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+    gap: 2rem;
+    align-items: center;
+}
+
+nav a {
+    text-decoration: none;
+    color: var(--dark);
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+nav a:hover, nav a:focus {
+    color: var(--primary);
+}
+
+.cta-button {
+    background: var(--primary);
+    color: white;
+    padding: 0.75rem 1.5rem;
+    border-radius: var(--border-radius);
+    border: none;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.3s ease;
+}
+
+.cta-button:hover, .cta-button:focus {
+    background: var(--primary-dark);
+    color: white;
+}
+
+.cta-button.large {
+    padding: 1rem 2rem;
+    font-size: 1.1rem;
+}
+
+.cta-button.secondary {
+    background: var(--gray);
+}
+
+.cta-button.secondary:hover {
+    background: #5a6268;
+}
+
+/* Hero Section */
+.hero {
+    background: linear-gradient(135deg, var(--primary) 0%, var(--primary-dark) 100%);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+}
+
+.hero-content h1 {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.hero-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    opacity: 0.9;
+}
+
+.guarantee-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 50px;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.guarantee-icon {
+    background: white;
+    color: var(--primary);
+    border-radius: 50%;
+    width: 24px;
+    height: 24px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+}
+
+/* Categories Grid */
+.categories {
+    padding: 4rem 0;
+}
+
+.categories h2, .testimonials h2, .pricing h2 {
+    text-align: center;
+    margin-bottom: 3rem;
+    font-size: 2.5rem;
+    color: var(--dark);
+}
+
+.categories-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+}
+
+.category-card {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    cursor: pointer;
+    border: 2px solid transparent;
+}
+
+.category-card:hover, .category-card:focus {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 15px rgba(0, 0, 0, 0.1);
+    border-color: var(--primary);
+}
+
+.category-card.selected {
+    border-color: var(--primary);
+    background: #f8fff8;
+}
+
+.category-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.category-card h3 {
+    margin-bottom: 1rem;
+    color: var(--dark);
+}
+
+.category-card input[type="radio"] {
+    display: none;
+}
+
+/* Testimonials */
+.testimonials {
+    background: #f8f9fa;
+    padding: 4rem 0;
+}
+
+.testimonials-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+}
+
+.testimonial-card {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.testimonial-content {
+    font-style: italic;
+    margin-bottom: 1.5rem;
+    color: var(--gray);
+}
+
+.testimonial-author strong {
+    display: block;
+    color: var(--dark);
+}
+
+.testimonial-author span {
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+/* Pricing */
+.pricing {
+    padding: 4rem 0;
+}
+
+.pricing-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+}
+
+.pricing-card {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    text-align: center;
+    border: 2px solid transparent;
+}
+
+.pricing-card:hover {
+    border-color: var(--primary);
+}
+
+.pricing-card h3 {
+    margin-bottom: 1rem;
+    color: var(--dark);
+}
+
+.price {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+/* Footer */
+footer {
+    background: var(--dark);
+    color: white;
+    padding: 3rem 0 1rem;
+}
+
+.footer-content {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.footer-section h3, .footer-section h4 {
+    margin-bottom: 1rem;
+}
+
+.footer-section ul {
+    list-style: none;
+}
+
+.footer-section ul li {
+    margin-bottom: 0.5rem;
+}
+
+.footer-section a {
+    color: #ccc;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-section a:hover, .footer-section a:focus {
+    color: white;
+}
+
+.footer-bottom {
+    text-align: center;
+    padding-top: 2rem;
+    border-top: 1px solid #444;
+    color: #ccc;
+}
+
+/* Form Styles */
+.form-group {
+    margin-bottom: 1.5rem;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+    color: var(--dark);
+}
+
+.form-control {
+    width: 100%;
+    padding: 0.75rem;
+    border: 2px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+.form-control:focus {
+    outline: none;
+    border-color: var(--primary);
+}
+
+.form-textarea {
+    min-height: 120px;
+    resize: vertical;
+}
+
+.form-text {
+    display: block;
+    margin-top: 0.25rem;
+    color: var(--gray);
+    font-size: 0.875rem;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    cursor: pointer;
+}
+
+.checkbox-label input[type="checkbox"] {
+    margin-top: 0.25rem;
+}
+
+/* Calendar Styles */
+.booking-calendar {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+.calendar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 0.5rem;
+}
+
+.calendar-day {
+    padding: 0.5rem;
+    text-align: center;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    border: 1px solid transparent;
+}
+
+.calendar-day:hover {
+    background: #f0f0f0;
+}
+
+.calendar-day.selected {
+    background: var(--primary);
+    color: white;
+}
+
+.calendar-day.disabled {
+    color: #ccc;
+    cursor: not-allowed;
+}
+
+.calendar-day.header {
+    font-weight: bold;
+    background: var(--light);
+    cursor: default;
+}
+
+.calendar-day.empty {
+    background: transparent;
+    cursor: default;
+}
+
+/* Form Steps */
+.form-step {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+.form-step.hidden {
+    display: none;
+}
+
+.form-navigation {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 2rem;
+}
+
+/* Insurance Options */
+.insurance-options {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.insurance-option {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    border: 2px solid #e0e0e0;
+    border-radius: var(--border-radius);
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.insurance-option:hover {
+    border-color: var(--primary);
+}
+
+.insurance-option input[type="radio"] {
+    margin: 0;
+}
+
+/* Mobile Menu */
+.mobile-menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0.5rem;
+}
+
+.hamburger {
+    display: block;
+    width: 25px;
+    height: 3px;
+    background: var(--dark);
+    position: relative;
+    transition: background 0.3s;
+}
+
+.hamburger::before,
+.hamburger::after {
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 3px;
+    background: var(--dark);
+    transition: transform 0.3s;
+}
+
+.hamburger::before {
+    top: -8px;
+}
+
+.hamburger::after {
+    top: 8px;
+}
+
+.mobile-menu-toggle[aria-expanded="true"] .hamburger {
+    background: transparent;
+}
+
+.mobile-menu-toggle[aria-expanded="true"] .hamburger::before {
+    transform: rotate(45deg);
+    top: 0;
+}
+
+.mobile-menu-toggle[aria-expanded="true"] .hamburger::after {
+    transform: rotate(-45deg);
+    top: 0;
+}
+
+/* Utility Classes */
+.text-center { text-align: center; }
+.mt-2 { margin-top: 2rem; }
+.mb-2 { margin-bottom: 2rem; }
+.hidden { display: none; }
+.sr-only { 
+    position: absolute; 
+    width: 1px; 
+    height: 1px; 
+    padding: 0; 
+    margin: -1px; 
+    overflow: hidden; 
+    clip: rect(0, 0, 0, 0); 
+    white-space: nowrap; 
+    border: 0; 
+}
+
+/* About Page Specific */
+.mission-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.guarantee-banner {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background: #f8fff8;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    border: 2px solid var(--primary);
+    margin-top: 2rem;
+}
+
+.guarantee-banner .guarantee-icon {
+    background: var(--primary);
+    color: white;
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+}
+
+.values-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.value-card {
+    text-align: center;
+    padding: 2rem;
+}
+
+.value-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+}
+
+.stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat-number {
+    display: block;
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.stat-label {
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+.cta-section {
+    background: var(--primary);
+    color: white;
+    padding: 4rem 0;
+    text-align: center;
+    margin-top: 4rem;
+}
+
+/* How It Works Specific */
+.process-steps {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.process-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.step-number {
+    background: var(--primary);
+    color: white;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    font-weight: bold;
+    flex-shrink: 0;
+}
+
+.guarantee-badge.large {
+    padding: 2rem;
+    background: #f8fff8;
+    border: 2px solid var(--primary);
+    border-radius: var(--border-radius);
+    text-align: left;
+}
+
+.guarantee-badge.large .guarantee-icon {
+    width: 40px;
+    height: 40px;
+    font-size: 1.2rem;
+}
+
+.insurance-plans {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.insurance-plan {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    border: 2px solid transparent;
+    text-align: center;
+}
+
+.insurance-plan.featured {
+    border-color: var(--primary);
+    transform: scale(1.05);
+}
+
+.plan-price {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary);
+    margin: 1rem 0;
+}
+
+.insurance-plan ul {
+    list-style: none;
+    text-align: left;
+    margin-top: 1rem;
+}
+
+.insurance-plan li {
+    margin-bottom: 0.5rem;
+    padding-left: 1.5rem;
+    position: relative;
+}
+
+.insurance-plan li:before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: var(--primary);
+    font-weight: bold;
+}
+
+.faq-grid {
+    display: grid;
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.faq-item {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.faq-item h3 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+}
+
+/* Terms Page */
+.terms-content {
+    background: white;
+    padding: 3rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.terms-header {
+    text-align: center;
+    margin-bottom: 3rem;
+    border-bottom: 2px solid var(--light);
+    padding-bottom: 2rem;
+}
+
+.last-updated {
+    color: var(--gray);
+    font-style: italic;
+}
+
+.terms-content section {
+    margin-bottom: 2rem;
+}
+
+.terms-content h2 {
+    color: var(--primary);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.terms-content ul, .terms-content ol {
+    margin-left: 2rem;
+    margin-bottom: 1rem;
+}
+
+.terms-content li {
+    margin-bottom: 0.5rem;
+}
+
+.terms-content address {
+    font-style: normal;
+    background: var(--light);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    margin-top: 1rem;
+}
+
+/* Registration Page */
+.registration-container {
+    max-width: 500px;
+    margin: 0 auto;
+    background: white;
+    padding: 3rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.registration-form {
+    margin: 2rem 0;
+}
+
+.form-actions {
+    margin-top: 2rem;
+}
+
+.login-prompt {
+    text-align: center;
+    margin-top: 2rem;
+    padding-top: 2rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+/* Payment Page */
+.payment-container {
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.payment-summary {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+.order-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.total-amount {
+    display: flex;
+    justify-content: space-between;
+    padding-top: 1rem;
+    margin-top: 1rem;
+    border-top: 2px solid var(--primary);
+    font-size: 1.2rem;
+}
+
+.payment-methods {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.payment-method-tabs {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.payment-tab {
+    background: none;
+    border: none;
+    padding: 1rem 2rem;
+    cursor: pointer;
+    border-bottom: 3px solid transparent;
+    transition: all 0.3s ease;
+}
+
+.payment-tab.active {
+    border-bottom-color: var(--primary);
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.payment-form {
+    display: none;
+}
+
+.payment-form.active {
+    display: block;
+}
+
+.payment-demo-notice {
+    background: #fff3cd;
+    border: 1px solid #ffeaa7;
+    border-radius: var(--border-radius);
+    padding: 1rem;
+    margin: 1rem 0;
+}
+
+.payment-demo-notice code {
+    background: #f8f9fa;
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+    font-family: monospace;
+}
+
+.security-notice {
+    text-align: center;
+    margin-top: 2rem;
+    color: var(--gray);
+}
+
+/* Modal Styles */
+.modal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+}
+
+.modal.hidden {
+    display: none;
+}
+
+.modal-content {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    max-width: 600px;
+    width: 90%;
+    max-height: 80vh;
+    overflow-y: auto;
+    position: relative;
+}
+
+.modal-content.large {
+    max-width: 800px;
+}
+
+.modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Skip link */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: var(--primary);
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    z-index: 10000;
+    transition: top 0.3s;
+}
+
+.skip-link:focus {
+    top: 6px;
+}
+
+
+/* CRM & Accounting Styles */
+.financial-overview {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+    margin-bottom: 2rem;
+}
+
+.financial-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.financial-card {
+    background: var(--light);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    border-left: 4px solid var(--primary);
+}
+
+.financial-card .amount {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary);
+    margin: 0.5rem 0;
+}
+
+.financial-card .trend {
+    font-size: 0.9rem;
+    font-weight: 600;
+}
+
+.financial-card .trend.positive {
+    color: var(--success);
+}
+
+.financial-card .trend.negative {
+    color: var(--warning);
+}
+
+.accounting-tabs, .crm-tabs {
+    display: flex;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 1.5rem;
+    flex-wrap: wrap;
+}
+
+.accounting-tab, .crm-tab {
+    padding: 1rem 1.5rem;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.accounting-tab.active, .crm-tab.active {
+    border-bottom-color: var(--primary);
+    color: var(--primary);
+    font-weight: 600;
+}
+
+.accounting-tab-content, .crm-tab-content {
+    display: none;
+}
+
+.accounting-tab-content.active, .crm-tab-content.active {
+    display: block;
+}
+
+.tax-breakdown {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+}
+
+.tax-card {
+    background: var(--light);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+}
+
+.tax-details {
+    margin-top: 1rem;
+}
+
+.tax-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.tax-item:last-child {
+    border-bottom: none;
+    font-weight: bold;
+}
+
+.insurance-revenue, .insurance-analytics {
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+}
+
+.insurance-stats, .analytics-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+}
+
+.insurance-stat, .analytics-card {
+    background: var(--light);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+}
+
+.analytics-card .percentage, .analytics-card .insurance-type {
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary);
+    margin: 0.5rem 0;
+}
+
+.analytics-card .description {
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+/* CRM Styles */
+.crm-dashboard {
+    background: white;
+    padding: 2rem;
+    border-radius: var(--border-radius);
+    box-shadow: var(--shadow);
+}
+
+.crm-overview {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.crm-card {
+    background: var(--light);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+}
+
+.performance-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 1rem;
+}
+
+.performance-card {
+    background: white;
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    border: 1px solid #e0e0e0;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.performance-card:hover {
+    box-shadow: var(--shadow);
+    transform: translateY(-2px);
+}
+
+.worker-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.worker-header h4 {
+    margin: 0;
+}
+
+.worker-header .rating {
+    color: #ffc107;
+    font-weight: bold;
+}
+
+.worker-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+.worker-stats .stat {
+    text-align: center;
+}
+
+.worker-stats .label {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--gray);
+}
+
+.worker-stats .value {
+    display: block;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.performance-score {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.score-bar {
+    flex: 1;
+    background: #e0e0e0;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.score-fill {
+    height: 100%;
+    background: var(--primary);
+    transition: width 0.3s ease;
+}
+
+.score-text {
+    font-weight: bold;
+    color: var(--primary);
+    min-width: 40px;
+}
+
+.satisfaction-metrics {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+}
+
+.metric {
+    text-align: center;
+    padding: 1rem;
+    background: white;
+    border-radius: var(--border-radius);
+}
+
+.metric-value {
+    display: block;
+    font-size: 2rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.metric-label {
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+.ratings-grid {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    gap: 2rem;
+}
+
+.ratings-list {
+    max-height: 400px;
+    overflow-y: auto;
+}
+
+.review-card {
+    background: var(--light);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+}
+
+.review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.review-text {
+    font-style: italic;
+    margin-bottom: 0.5rem;
+}
+
+.review-meta {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.8rem;
+    color: var(--gray);
+}
+
+.rating-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.rating-bar {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.bar-container {
+    flex: 1;
+    background: #e0e0e0;
+    height: 8px;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.bar {
+    height: 100%;
+    background: var(--primary);
+    transition: width 0.3s ease;
+}
+
+.rating-display {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.rating-count {
+    color: var(--gray);
+    font-size: 0.8rem;
+}
+
+.performance-indicator {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.indicator-bar {
+    flex: 1;
+    background: #e0e0e0;
+    height: 6px;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.indicator-fill {
+    height: 100%;
+    background: var(--primary);
+}
+
+.client-insights, .insurance-analytics {
+    background: white;
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+}
+
+.insights-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 2rem;
+    margin-bottom: 2rem;
+}
+
+.insight-card {
+    background: var(--light);
+    padding: 1.5rem;
+    border-radius: var(--border-radius);
+}
+
+.demographic-item, .service-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.service-item {
+    align-items: center;
+}
+
+.popularity-bar {
+    flex: 1;
+    background: #e0e0e0;
+    height: 6px;
+    border-radius: 3px;
+    overflow: hidden;
+    margin: 0 1rem;
+}
+
+.popularity-fill {
+    height: 100%;
+    background: var(--primary);
+}
+
+/* Worker Performance Modal */
+.worker-details {
+    max-height: 70vh;
+    overflow-y: auto;
+}
+
+.performance-metrics, .earnings-breakdown, .recent-ratings {
+    margin-top: 2rem;
+    padding-top: 1rem;
+    border-top: 1px solid #e0e0e0;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.metric-card {
+    background: var(--light);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    text-align: center;
+}
+
+.metric-card h4 {
+    margin: 0 0 0.5rem 0;
+    color: var(--gray);
+    font-size: 0.9rem;
+}
+
+.metric-card .metric-value {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: var(--primary);
+}
+
+.earnings-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-top: 1rem;
+}
+
+.earning-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 0.5rem 0;
+}
+
+.earning-item.total {
+    border-top: 2px solid var(--primary);
+    font-weight: bold;
+    font-size: 1.1rem;
+}
+
+.rating-item {
+    background: var(--light);
+    padding: 1rem;
+    border-radius: var(--border-radius);
+    margin-bottom: 1rem;
+}
+
+.rating-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5rem;
+}
+
+.rating-date {
+    font-size: 0.8rem;
+    color: var(--gray);
+    text-align: right;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .financial-cards, .insurance-stats, .analytics-cards {
+        grid-template-columns: 1fr;
+    }
+    
+    .crm-overview, .ratings-grid, .insights-grid, .tax-breakdown {
+        grid-template-columns: 1fr;
+    }
+    
+    .performance-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .metrics-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+    
+    .accounting-tabs, .crm-tabs {
+        flex-direction: column;
+    }
+    
+    .accounting-tab, .crm-tab {
+        text-align: center;
+    }
+}

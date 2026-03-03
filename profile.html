@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Profile - WALANTU Trade Services</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/accessibility.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header role="banner">
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">
+                    <img src="images/logo-placeholder.png" alt="WALANTU Trade Services Logo" width="50" height="50">
+                    <span class="logo-text">WALANTU</span>
+                </div>
+                <nav role="navigation" aria-label="Main navigation">
+                    <button class="mobile-menu-toggle" aria-expanded="false" aria-controls="main-menu">
+                        <span class="hamburger"></span>
+                        <span class="sr-only">Menu</span>
+                    </button>
+                    <ul id="main-menu">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="profile.html" class="cta-button" aria-current="page">My Profile</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" role="main">
+        <div class="container">
+            <div class="profile-header">
+                <h1>My Profile</h1>
+                <p>Welcome back! Here's your service history and account information.</p>
+            </div>
+
+            <div class="profile-layout">
+                <!-- Sidebar with user info -->
+                <aside class="profile-sidebar" aria-labelledby="user-info-heading">
+                    <div class="user-card">
+                        <h2 id="user-info-heading">Account Information</h2>
+                        <div class="user-details">
+                            <div class="user-avatar">
+                                <span id="user-initials">JD</span>
+                            </div>
+                            <div class="user-info">
+                                <h3 id="user-full-name">Loading...</h3>
+                                <p id="user-email">Loading...</p>
+                                <p id="user-phone">Loading...</p>
+                            </div>
+                        </div>
+                        <div class="user-stats">
+                            <div class="stat">
+                                <span class="stat-number" id="total-jobs">0</span>
+                                <span class="stat-label">Total Jobs</span>
+                            </div>
+                            <div class="stat">
+                                <span class="stat-number" id="completed-jobs">0</span>
+                                <span class="stat-label">Completed</span>
+                            </div>
+                        </div>
+                    </div>
+                </aside>
+
+                <!-- Main content with jobs -->
+                <div class="profile-content">
+                    <section class="jobs-section" aria-labelledby="jobs-heading">
+                        <div class="section-header">
+                            <h2 id="jobs-heading">My Jobs</h2>
+                            <a href="booking.html" class="cta-button">Book New Service</a>
+                        </div>
+
+                        <div class="jobs-filter">
+                            <button class="filter-btn active" data-filter="all">All Jobs</button>
+                            <button class="filter-btn" data-filter="active">Active</button>
+                            <button class="filter-btn" data-filter="completed">Completed</button>
+                        </div>
+
+                        <div class="jobs-list" id="jobs-list">
+                            <!-- Jobs will be loaded by JavaScript -->
+                            <div class="loading-message">Loading your jobs...</div>
+                        </div>
+                    </section>
+
+                    <!-- Job Details Modal -->
+                    <div id="job-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+                        <div class="modal-content">
+                            <button class="modal-close" aria-label="Close modal">&times;</button>
+                            <h2 id="modal-title">Job Details</h2>
+                            <div id="modal-content">
+                                <!-- Job details will be loaded here -->
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>WALANTU Trade Services</h3>
+                    <p>Your trusted partner for quality trade services in Accra</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p>Email: info@walantu.com</p>
+                    <p>Phone: +233 24 123 4567</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 WALANTU Trade Services. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/profile.js"></script>
+</body>
+</html>

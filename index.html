@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WALANTU — Accra's trusted marketplace for verified tradespeople. Find electricians, plumbers, carpenters, AC technicians and more. Backed by a 3-month work guarantee.">
+    <title>WALANTU | Find Trusted Trade Services in Accra, Ghana</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header" role="banner">
+        <div class="container header-container">
+            <a href="index.html" class="logo" aria-label="WALANTU Home">
+                <img src="images/logoFull.png" alt="WALANTU" width="44" height="44" onerror="this.style.display='none'">
+                <span class="logo-text">WALANTU</span>
+            </a>
+
+            <div class="header-search" role="search" aria-label="Quick service search">
+                <span style="font-size:16px;color:var(--text-muted);">🔍</span>
+                <input type="text" placeholder="What service do you need?" aria-label="Search for a service">
+                <button class="header-search-btn" aria-label="Search">→</button>
+            </div>
+
+            <nav class="nav" role="navigation" aria-label="Main navigation" id="main-nav">
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="how-it-works.html" class="nav-link">How It Works</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+
+            <div class="header-actions">
+                <a href="registration.html" class="btn btn-ghost btn-sm">Sign In</a>
+                <a href="registration.html" class="btn btn-primary btn-sm">Join Free</a>
+            </div>
+
+            <button class="mobile-menu-toggle" aria-expanded="false" aria-controls="main-nav" aria-label="Open menu">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content" role="main">
+
+        <!-- ===== HERO ===== -->
+        <section class="hero" aria-labelledby="hero-heading">
+            <div class="hero-bg" aria-hidden="true"></div>
+            <div class="hero-overlay" aria-hidden="true"></div>
+            <div class="container">
+                <div class="hero-content">
+                    <div class="hero-badge">
+                        <span class="icon">⭐</span>
+                        Accra's #1 Trusted Trade Marketplace
+                    </div>
+                    <h1 id="hero-heading" class="hero-title">
+                        Find Trusted Local Pros<br><span>in Accra</span>
+                    </h1>
+                    <p class="hero-subtitle">
+                        Connect with verified, background-checked tradespeople for your home and business. Every job backed by our 3-month guarantee.
+                    </p>
+
+                    <div class="hero-search" role="search" aria-label="Find a service">
+                        <div class="hero-search-field">
+                            <label for="hero-service">Service needed</label>
+                            <select id="hero-service" name="service">
+                                <option value="">Choose a service…</option>
+                                <option value="electrician">Electrician</option>
+                                <option value="plumber">Plumber</option>
+                                <option value="carpenter">Carpenter</option>
+                                <option value="ac-technician">AC Technician</option>
+                                <option value="gardener">Gardener</option>
+                                <option value="car-mechanic">Car Mechanic</option>
+                                <option value="labourer">General Labour</option>
+                                <option value="painter">Painter</option>
+                                <option value="tiler">Tiler</option>
+                            </select>
+                        </div>
+                        <div class="hero-search-divider" aria-hidden="true"></div>
+                        <div class="hero-search-field">
+                            <label for="hero-location">Your area in Accra</label>
+                            <input type="text" id="hero-location" name="location" placeholder="e.g. East Legon, Labone…" aria-label="Location in Accra">
+                        </div>
+                        <a href="booking.html" class="btn btn-primary btn-lg" onclick="handleHeroSearch(event)">
+                            Find Pros →
+                        </a>
+                    </div>
+
+                    <div class="hero-trust" aria-label="Trust indicators">
+                        <div class="hero-trust-item">
+                            <span class="icon">✅</span>
+                            Background Checked
+                        </div>
+                        <div class="hero-trust-item">
+                            <span class="icon">🛡️</span>
+                            Insured Pros
+                        </div>
+                        <div class="hero-trust-item">
+                            <span class="icon">⭐</span>
+                            4.8 Avg. Rating
+                        </div>
+                        <div class="hero-trust-item">
+                            <span class="icon">🔒</span>
+                            3-Month Guarantee
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== STATS STRIP ===== -->
+        <div class="stats-strip" aria-label="Walantu statistics">
+            <div class="container">
+                <div class="stats-grid">
+                    <div class="stat-item" role="img" aria-label="500 plus verified pros">
+                        <div class="stat-item-number">500+</div>
+                        <div class="stat-item-label">Verified Pros</div>
+                    </div>
+                    <div class="stat-item" role="img" aria-label="4800 plus jobs completed">
+                        <div class="stat-item-number">4,800+</div>
+                        <div class="stat-item-label">Jobs Completed</div>
+                    </div>
+                    <div class="stat-item" role="img" aria-label="4.8 average star rating">
+                        <div class="stat-item-number">4.8 ★</div>
+                        <div class="stat-item-label">Avg. Rating</div>
+                    </div>
+                    <div class="stat-item" role="img" aria-label="98 percent satisfaction rate">
+                        <div class="stat-item-number">98%</div>
+                        <div class="stat-item-label">Satisfaction Rate</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ===== SERVICE CATEGORIES ===== -->
+        <section class="section" aria-labelledby="categories-heading">
+            <div class="container">
+                <div class="section-header centered">
+                    <span class="section-label">Popular Services</span>
+                    <h2 id="categories-heading" class="section-title">What do you need done?</h2>
+                    <p class="section-subtitle">
+                        From quick fixes to full renovations — find skilled professionals for every trade in Greater Accra.
+                    </p>
+                </div>
+
+                <div class="categories-grid" role="list">
+
+                    <a href="booking.html?service=Electrician" class="category-card" role="listitem" aria-label="Book an Electrician">
+                        <div class="category-icon">⚡</div>
+                        <h3 class="category-title">Electrician</h3>
+                        <p class="category-description">Wiring, installations & safety checks</p>
+                    </a>
+
+                    <a href="booking.html?service=Plumber" class="category-card" role="listitem" aria-label="Book a Plumber">
+                        <div class="category-icon">🚰</div>
+                        <h3 class="category-title">Plumber</h3>
+                        <p class="category-description">Pipes, fixtures & drainage</p>
+                    </a>
+
+                    <a href="booking.html?service=Carpenter" class="category-card" role="listitem" aria-label="Book a Carpenter">
+                        <div class="category-icon">🔨</div>
+                        <h3 class="category-title">Carpenter</h3>
+                        <p class="category-description">Furniture, fitting & woodwork</p>
+                    </a>
+
+                    <a href="booking.html?service=AC Technician" class="category-card" role="listitem" aria-label="Book an AC Technician">
+                        <div class="category-icon">❄️</div>
+                        <h3 class="category-title">AC Technician</h3>
+                        <p class="category-description">Installation, servicing & repair</p>
+                    </a>
+
+                    <a href="booking.html?service=Gardener" class="category-card" role="listitem" aria-label="Book a Gardener">
+                        <div class="category-icon">🌿</div>
+                        <h3 class="category-title">Gardener</h3>
+                        <p class="category-description">Landscaping & outdoor care</p>
+                    </a>
+
+                    <a href="booking.html?service=Car Mechanic" class="category-card" role="listitem" aria-label="Book a Car Mechanic">
+                        <div class="category-icon">🔧</div>
+                        <h3 class="category-title">Car Mechanic</h3>
+                        <p class="category-description">Diagnostics, repairs & servicing</p>
+                    </a>
+
+                    <a href="booking.html?service=Painter" class="category-card" role="listitem" aria-label="Book a Painter">
+                        <div class="category-icon">🎨</div>
+                        <h3 class="category-title">Painter</h3>
+                        <p class="category-description">Interior, exterior & decorating</p>
+                    </a>
+
+                    <a href="booking.html?service=Tiler" class="category-card" role="listitem" aria-label="Book a Tiler">
+                        <div class="category-icon">🏠</div>
+                        <h3 class="category-title">Tiler</h3>
+                        <p class="category-description">Floors, walls & bathroom tiling</p>
+                    </a>
+
+                    <a href="booking.html?service=Labourer" class="category-card" role="listitem" aria-label="Book a General Labourer">
+                        <div class="category-icon">👷</div>
+                        <h3 class="category-title">General Labour</h3>
+                        <p class="category-description">Moving, cleaning & general tasks</p>
+                    </a>
+
+                    <a href="services.html" class="category-card" role="listitem" style="border-style:dashed; background:var(--bg-light);">
+                        <div class="category-icon" style="background:var(--border); font-size:24px;">+</div>
+                        <h3 class="category-title" style="color:var(--text-muted)">View All</h3>
+                        <p class="category-description">See all 20+ services</p>
+                    </a>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== HOW IT WORKS ===== -->
+        <section class="section section-alt" aria-labelledby="how-it-works-heading">
+            <div class="container">
+                <div class="section-header centered">
+                    <span class="section-label">Simple Process</span>
+                    <h2 id="how-it-works-heading" class="section-title">How WALANTU Works</h2>
+                    <p class="section-subtitle">Book a professional in minutes — no hassle, no guesswork</p>
+                </div>
+
+                <div class="process-steps" role="list">
+                    <div class="process-step" role="listitem">
+                        <div class="step-number-badge" aria-hidden="true">1</div>
+                        <div class="step-icon">🔍</div>
+                        <h3 class="step-title">Tell Us What You Need</h3>
+                        <p class="step-description">Describe your job and choose your preferred time. We'll match you with the right pro for your Accra neighbourhood.</p>
+                    </div>
+
+                    <div class="process-step" role="listitem">
+                        <div class="step-number-badge" aria-hidden="true">2</div>
+                        <div class="step-icon">✅</div>
+                        <h3 class="step-title">Get Matched Instantly</h3>
+                        <p class="step-description">We send you verified, background-checked professionals with reviews and ratings from Accra homeowners.</p>
+                    </div>
+
+                    <div class="process-step" role="listitem">
+                        <div class="step-number-badge" aria-hidden="true">3</div>
+                        <div class="step-icon">🔨</div>
+                        <h3 class="step-title">Job Gets Done Right</h3>
+                        <p class="step-description">Track your job in real time, communicate with your pro, and approve the work before releasing payment.</p>
+                    </div>
+
+                    <div class="process-step" role="listitem">
+                        <div class="step-number-badge" aria-hidden="true">4</div>
+                        <div class="step-icon">⭐</div>
+                        <h3 class="step-title">Rate & Stay Protected</h3>
+                        <p class="step-description">Leave a review to help others, and enjoy 3 months of workmanship guarantee on every completed job.</p>
+                    </div>
+                </div>
+
+                <div class="text-center mt-xl">
+                    <a href="how-it-works.html" class="btn btn-outline btn-lg">Learn More →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== WHY WALANTU ===== -->
+        <section class="section" aria-labelledby="why-walantu-heading">
+            <div class="container">
+                <div class="section-header centered">
+                    <span class="section-label">Why Choose Us</span>
+                    <h2 id="why-walantu-heading" class="section-title">The WALANTU Promise</h2>
+                    <p class="section-subtitle">Built for Accra. Trusted by homeowners and businesses across Greater Accra.</p>
+                </div>
+
+                <div class="trust-grid" role="list">
+                    <div class="trust-card" role="listitem">
+                        <div class="trust-icon">🛡️</div>
+                        <h3 class="trust-title">Background Verified</h3>
+                        <p class="trust-description">Every tradesperson on WALANTU is background-checked, licensed (where required), and references confirmed before they can take a job.</p>
+                    </div>
+
+                    <div class="trust-card" role="listitem">
+                        <div class="trust-icon">🔒</div>
+                        <h3 class="trust-title">3-Month Guarantee</h3>
+                        <p class="trust-description">Not happy with the work? Our 3-month workmanship guarantee means we'll arrange for it to be fixed at no extra cost to you.</p>
+                    </div>
+
+                    <div class="trust-card" role="listitem">
+                        <div class="trust-icon">💳</div>
+                        <h3 class="trust-title">Secure Payments</h3>
+                        <p class="trust-description">Pay safely via Stripe (card) or Ghana Mobile Money (MTN, Vodafone, AirtelTigo). Funds held securely until you approve the work.</p>
+                    </div>
+
+                    <div class="trust-card" role="listitem">
+                        <div class="trust-icon">📍</div>
+                        <h3 class="trust-title">Ghana Post GPS</h3>
+                        <p class="trust-description">We use Ghana's digital addressing system so your pro finds you accurately — even in areas without traditional street names.</p>
+                    </div>
+
+                    <div class="trust-card" role="listitem">
+                        <div class="trust-icon">📱</div>
+                        <h3 class="trust-title">Real-Time Tracking</h3>
+                        <p class="trust-description">Follow your job from booking to completion. Get updates, send messages, and track your pro's arrival — all in your dashboard.</p>
+                    </div>
+
+                    <div class="trust-card" role="listitem">
+                        <div class="trust-icon">🏆</div>
+                        <h3 class="trust-title">Insurance Coverage</h3>
+                        <p class="trust-description">Optional insurance covers accidental damage during the job. Get peace of mind for larger projects with full protection.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== TESTIMONIALS ===== -->
+        <section class="section section-warm" aria-labelledby="testimonials-heading">
+            <div class="container">
+                <div class="section-header centered">
+                    <span class="section-label">Customer Stories</span>
+                    <h2 id="testimonials-heading" class="section-title">What Accra Says About Us</h2>
+                </div>
+
+                <div class="testimonials-grid" role="list">
+
+                    <article class="testimonial-card" role="listitem">
+                        <div class="testimonial-stars" aria-label="5 star rating">
+                            <span class="testimonial-star">★</span><span class="testimonial-star">★</span>
+                            <span class="testimonial-star">★</span><span class="testimonial-star">★</span>
+                            <span class="testimonial-star">★</span>
+                        </div>
+                        <blockquote class="testimonial-content">
+                            The plumber arrived on time, was very professional, and fixed our burst pipe in under two hours. The 3-month guarantee gives us real peace of mind. Will definitely use WALANTU again.
+                        </blockquote>
+                        <div class="testimonial-author">
+                            <div class="author-avatar" aria-hidden="true">KM</div>
+                            <div>
+                                <div class="author-name">Kofi Mensah</div>
+                                <div class="author-location">📍 East Legon, Accra</div>
+                                <div class="author-service">Plumbing — Nov 2024</div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="testimonial-card" role="listitem">
+                        <div class="testimonial-stars" aria-label="5 star rating">
+                            <span class="testimonial-star">★</span><span class="testimonial-star">★</span>
+                            <span class="testimonial-star">★</span><span class="testimonial-star">★</span>
+                            <span class="testimonial-star">★</span>
+                        </div>
+                        <blockquote class="testimonial-content">
+                            Excellent carpentry work — my custom wardrobes look stunning! The carpenter was respectful, clean, and finished a day early. Paying via Mobile Money made everything so easy.
+                        </blockquote>
+                        <div class="testimonial-author">
+                            <div class="author-avatar" aria-hidden="true">AA</div>
+                            <div>
+                                <div class="author-name">Abena Asante</div>
+                                <div class="author-location">📍 Dansoman, Accra</div>
+                                <div class="author-service">Carpentry — Oct 2024</div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="testimonial-card" role="listitem">
+                        <div class="testimonial-stars" aria-label="5 star rating">
+                            <span class="testimonial-star">★</span><span class="testimonial-star">★</span>
+                            <span class="testimonial-star">★</span><span class="testimonial-star">★</span>
+                            <span class="testimonial-star">★</span>
+                        </div>
+                        <blockquote class="testimonial-content">
+                            Fast response, great electrical work. The platform made it easy to track job progress and communicate directly. I love that I can see all history in my dashboard.
+                        </blockquote>
+                        <div class="testimonial-author">
+                            <div class="author-avatar" aria-hidden="true">KA</div>
+                            <div>
+                                <div class="author-name">Kwame Appiah</div>
+                                <div class="author-location">📍 Labone, Accra</div>
+                                <div class="author-service">Electrical — Dec 2024</div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="testimonial-card" role="listitem">
+                        <div class="testimonial-stars" aria-label="4 star rating">
+                            <span class="testimonial-star">★</span><span class="testimonial-star">★</span>
+                            <span class="testimonial-star">★</span><span class="testimonial-star">★</span>
+                            <span class="testimonial-star" style="color:var(--border)">★</span>
+                        </div>
+                        <blockquote class="testimonial-content">
+                            Got my AC serviced and a new split unit installed. The technician knew exactly what he was doing. The Ghana Post GPS feature meant he found our office without any confusion!
+                        </blockquote>
+                        <div class="testimonial-author">
+                            <div class="author-avatar" aria-hidden="true">AS</div>
+                            <div>
+                                <div class="author-name">Ama Sarpong</div>
+                                <div class="author-location">📍 Airport Hills, Accra</div>
+                                <div class="author-service">AC Installation — Jan 2025</div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="testimonial-card" role="listitem">
+                        <div class="testimonial-stars" aria-label="5 star rating">
+                            <span class="testimonial-star">★</span><span class="testimonial-star">★</span>
+                            <span class="testimonial-star">★</span><span class="testimonial-star">★</span>
+                            <span class="testimonial-star">★</span>
+                        </div>
+                        <blockquote class="testimonial-content">
+                            As a property manager, WALANTU has saved me so much time. I manage five properties and use it for all maintenance. The insurance option is a lifesaver for bigger jobs.
+                        </blockquote>
+                        <div class="testimonial-author">
+                            <div class="author-avatar" aria-hidden="true">JO</div>
+                            <div>
+                                <div class="author-name">James Ofori</div>
+                                <div class="author-location">📍 Adenta, Accra</div>
+                                <div class="author-service">Multiple Services</div>
+                            </div>
+                        </div>
+                    </article>
+
+                    <article class="testimonial-card" role="listitem">
+                        <div class="testimonial-stars" aria-label="5 star rating">
+                            <span class="testimonial-star">★</span><span class="testimonial-star">★</span>
+                            <span class="testimonial-star">★</span><span class="testimonial-star">★</span>
+                            <span class="testimonial-star">★</span>
+                        </div>
+                        <blockquote class="testimonial-content">
+                            Booked a gardener who completely transformed our compound. He came with all his own equipment. Communication through the app was excellent throughout.
+                        </blockquote>
+                        <div class="testimonial-author">
+                            <div class="author-avatar" aria-hidden="true">EB</div>
+                            <div>
+                                <div class="author-name">Efua Boateng</div>
+                                <div class="author-location">📍 Tema, Greater Accra</div>
+                                <div class="author-service">Gardening — Feb 2025</div>
+                            </div>
+                        </div>
+                    </article>
+
+                </div>
+
+                <div class="text-center mt-xl">
+                    <a href="registration.html" class="btn btn-primary btn-lg">Join Thousands of Happy Customers →</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== 3-MONTH GUARANTEE ===== -->
+        <section class="section" aria-labelledby="guarantee-heading">
+            <div class="container">
+                <div class="guarantee-banner">
+                    <div class="guarantee-icon" aria-hidden="true">🛡️</div>
+                    <div class="guarantee-body">
+                        <h2 id="guarantee-heading" class="guarantee-title">3-Month Workmanship Guarantee</h2>
+                        <p class="guarantee-text">Every job booked through WALANTU comes with our industry-leading guarantee. If something goes wrong within 90 days of completion, we'll fix it — at no cost to you.</p>
+                        <div class="guarantee-features" role="list">
+                            <div class="guarantee-feature" role="listitem">Covers all labour and workmanship issues</div>
+                            <div class="guarantee-feature" role="listitem">Tracked digitally in your dashboard</div>
+                            <div class="guarantee-feature" role="listitem">Extendable with optional insurance</div>
+                            <div class="guarantee-feature" role="listitem">Applies to all trade categories</div>
+                        </div>
+                    </div>
+                    <div style="flex-shrink:0">
+                        <a href="registration.html" class="btn btn-outline btn-lg" style="border-color:rgba(255,255,255,0.5); color:#fff; background:rgba(255,255,255,0.1);">
+                            Get Protected →
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ===== CTA STRIP ===== -->
+        <section class="section section-dark" aria-labelledby="cta-heading">
+            <div class="container text-center">
+                <h2 id="cta-heading" class="section-title" style="color:#fff; margin-bottom:var(--space-md)">
+                    Ready to Get Started?
+                </h2>
+                <p class="section-subtitle" style="color:rgba(255,255,255,0.7); margin:0 auto var(--space-xl)">
+                    Join over 4,800 satisfied customers who've found their go-to tradespeople through WALANTU.
+                </p>
+                <div class="d-flex gap-md" style="justify-content:center; flex-wrap:wrap">
+                    <a href="booking.html" class="btn btn-primary btn-lg">Book a Service Now</a>
+                    <a href="registration.html" class="btn btn-outline btn-lg" style="border-color:rgba(255,255,255,0.4); color:#fff">Create Free Account</a>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- ===== FOOTER ===== -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo" style="margin-bottom:var(--space-md)">
+                        <img src="images/logoFull.png" alt="WALANTU" width="40" height="40" onerror="this.style.display='none'">
+                        <span class="logo-text">WALANTU</span>
+                    </a>
+                    <p class="footer-brand-desc">
+                        Accra's trusted marketplace for verified trade services. Professional. Guaranteed. Built for Ghana.
+                    </p>
+                    <div class="footer-social" aria-label="Social media links">
+                        <a href="#" aria-label="Facebook">📘</a>
+                        <a href="#" aria-label="Instagram">📸</a>
+                        <a href="#" aria-label="Twitter/X">🐦</a>
+                        <a href="#" aria-label="WhatsApp">💬</a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="footer-section-title">Services</h3>
+                    <ul class="footer-links">
+                        <li><a href="booking.html?service=Electrician">Electrician</a></li>
+                        <li><a href="booking.html?service=Plumber">Plumber</a></li>
+                        <li><a href="booking.html?service=Carpenter">Carpenter</a></li>
+                        <li><a href="booking.html?service=AC+Technician">AC Technician</a></li>
+                        <li><a href="booking.html?service=Gardener">Gardener</a></li>
+                        <li><a href="booking.html?service=Car+Mechanic">Car Mechanic</a></li>
+                        <li><a href="services.html">All Services →</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-section-title">Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="terms.html">Terms &amp; Conditions</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Careers</a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="footer-section-title">Contact</h3>
+                    <div class="footer-contact-item">
+                        <span>📧</span>
+                        <span>info@walantu.com</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <span>📞</span>
+                        <span>+233 24 123 4567</span>
+                    </div>
+                    <div class="footer-contact-item">
+                        <span>📍</span>
+                        <span>Accra, Greater Accra Region, Ghana</span>
+                    </div>
+                    <div class="footer-contact-item" style="margin-top:var(--space-md)">
+                        <span>🕐</span>
+                        <span>Mon–Fri: 7am – 8pm<br>Sat–Sun: 8am – 6pm</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                <p class="footer-bottom-text">&copy; 2025 WALANTU Trade Services Ltd. All rights reserved. | Accra, Ghana</p>
+                <div class="footer-payment-icons" aria-label="Accepted payment methods">
+                    <span class="payment-icon-badge">Stripe</span>
+                    <span class="payment-icon-badge">MTN MoMo</span>
+                    <span class="payment-icon-badge">Vodafone</span>
+                    <span class="payment-icon-badge">AirtelTigo</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script>
+        // Mobile menu toggle
+        const toggle = document.querySelector('.mobile-menu-toggle');
+        const nav = document.querySelector('.nav');
+        if (toggle && nav) {
+            toggle.addEventListener('click', () => {
+                const expanded = toggle.getAttribute('aria-expanded') === 'true';
+                toggle.setAttribute('aria-expanded', !expanded);
+                nav.classList.toggle('show');
+                document.body.classList.toggle('mobile-nav-open');
+            });
+        }
+
+        // Hero search handler
+        function handleHeroSearch(e) {
+            const service = document.getElementById('hero-service').value;
+            const location = document.getElementById('hero-location').value;
+            if (service) {
+                const url = new URL('booking.html', window.location.href);
+                url.searchParams.set('service', service);
+                if (location) url.searchParams.set('location', location);
+                e.currentTarget.href = url.toString();
+            }
+        }
+
+        // Animate stats on scroll
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, { threshold: 0.15 });
+
+        document.querySelectorAll('.category-card, .trust-card, .testimonial-card, .process-step').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(20px)';
+            el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+            observer.observe(el);
+        });
+    </script>
+</body>
+</html>

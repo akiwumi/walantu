@@ -1,0 +1,1505 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="WALANTU Customer Dashboard — manage your service history, projects, payments, and account details.">
+    <title>My Dashboard | WALANTU Trade Services</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header" role="banner">
+        <div class="container header-container">
+            <a href="index.html" class="logo" aria-label="WALANTU Home">
+                <img src="images/logoFull.png" alt="WALANTU" width="44" height="44" onerror="this.style.display='none'">
+                <span class="logo-text">WALANTU</span>
+            </a>
+
+            <nav class="nav" role="navigation" aria-label="Main navigation">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="booking.html" class="nav-link">Book a Service</a>
+            </nav>
+
+            <div class="header-actions">
+                <button class="btn btn-ghost btn-sm" style="position:relative" aria-label="Notifications — 3 unread">
+                    🔔
+                    <span style="position:absolute;top:-4px;right:-4px;background:var(--primary);color:#fff;border-radius:50%;width:16px;height:16px;font-size:10px;display:flex;align-items:center;justify-content:center;font-weight:700">3</span>
+                </button>
+                <div style="width:36px;height:36px;background:linear-gradient(135deg,var(--primary),var(--accent));border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:14px;cursor:pointer" role="button" aria-label="User menu">KM</div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== DASHBOARD LAYOUT ===== -->
+    <div class="dashboard-layout" id="main-content">
+
+        <!-- SIDEBAR -->
+        <aside class="dashboard-sidebar" role="navigation" aria-label="Dashboard navigation">
+            <div class="sidebar-user">
+                <div class="sidebar-avatar" aria-hidden="true">KM</div>
+                <div class="sidebar-user-name">Kofi Mensah</div>
+                <div class="sidebar-user-email">kofi.mensah@email.com</div>
+                <div style="margin-top:var(--space-sm)">
+                    <span class="badge badge-success">✓ Verified Account</span>
+                </div>
+            </div>
+
+            <div class="sidebar-nav">
+                <div class="sidebar-nav-section">
+                    <div class="sidebar-nav-label">Overview</div>
+                    <button class="sidebar-nav-item active" data-tab="overview" onclick="showTab('overview', this)">
+                        <span class="nav-icon">🏠</span>
+                        Dashboard
+                    </button>
+                    <button class="sidebar-nav-item" data-tab="active-projects" onclick="showTab('active-projects', this)">
+                        <span class="nav-icon">🔨</span>
+                        Active Projects
+                        <span class="sidebar-nav-badge">2</span>
+                    </button>
+                    <button class="sidebar-nav-item" data-tab="history" onclick="showTab('history', this)">
+                        <span class="nav-icon">📋</span>
+                        Service History
+                    </button>
+                </div>
+
+                <div class="sidebar-nav-section">
+                    <div class="sidebar-nav-label">Account</div>
+                    <button class="sidebar-nav-item" data-tab="payments" onclick="showTab('payments', this)">
+                        <span class="nav-icon">💳</span>
+                        Payments
+                        <span class="sidebar-nav-badge" style="background:var(--success)">1</span>
+                    </button>
+                    <button class="sidebar-nav-item" data-tab="address" onclick="showTab('address', this)">
+                        <span class="nav-icon">📍</span>
+                        My Addresses
+                    </button>
+                    <button class="sidebar-nav-item" data-tab="insurance" onclick="showTab('insurance', this)">
+                        <span class="nav-icon">🛡️</span>
+                        Insurance
+                    </button>
+                    <button class="sidebar-nav-item" data-tab="guarantee" onclick="showTab('guarantee', this)">
+                        <span class="nav-icon">🔒</span>
+                        Guarantee Status
+                    </button>
+                </div>
+
+                <div class="sidebar-nav-section">
+                    <div class="sidebar-nav-label">Communication</div>
+                    <button class="sidebar-nav-item" data-tab="messages" onclick="showTab('messages', this)">
+                        <span class="nav-icon">💬</span>
+                        Messages
+                        <span class="sidebar-nav-badge">3</span>
+                    </button>
+                    <button class="sidebar-nav-item" data-tab="reviews" onclick="showTab('reviews', this)">
+                        <span class="nav-icon">⭐</span>
+                        Reviews &amp; Ratings
+                    </button>
+                    <button class="sidebar-nav-item" data-tab="notifications" onclick="showTab('notifications', this)">
+                        <span class="nav-icon">🔔</span>
+                        Notifications
+                        <span class="sidebar-nav-badge">3</span>
+                    </button>
+                </div>
+
+                <div class="sidebar-nav-section" style="margin-top:auto; padding-top:var(--space-xl); border-top:1px solid rgba(255,255,255,0.08)">
+                    <button class="sidebar-nav-item" data-tab="settings" onclick="showTab('settings', this)">
+                        <span class="nav-icon">⚙️</span>
+                        Account Settings
+                    </button>
+                    <a href="index.html" class="sidebar-nav-item" style="color:rgba(255,100,100,0.7)">
+                        <span class="nav-icon">🚪</span>
+                        Sign Out
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main class="dashboard-main">
+
+            <!-- ===================== OVERVIEW TAB ===================== -->
+            <div class="dashboard-tab active" id="tab-overview">
+                <div class="dashboard-topbar">
+                    <div>
+                        <div class="dashboard-topbar-title">Good morning, Kofi 👋</div>
+                        <div style="font-size:var(--font-size-sm); color:var(--text-muted)">Monday, 3 March 2025 • Accra, Ghana</div>
+                    </div>
+                    <div class="dashboard-topbar-actions">
+                        <a href="booking.html" class="btn btn-primary">+ Book a Service</a>
+                    </div>
+                </div>
+
+                <div class="dashboard-content">
+
+                    <!-- Alert: Pending review -->
+                    <div class="alert alert-info">
+                        <span class="alert-icon">⭐</span>
+                        <div class="alert-text">
+                            <strong>You have a pending review!</strong>
+                            Your plumbing job with Kwesi Acheampong was completed 3 days ago. <a href="#" onclick="showTab('reviews', document.querySelector('[data-tab=reviews]')); return false;" style="color:var(--primary); font-weight:600">Leave a review →</a>
+                        </div>
+                    </div>
+
+                    <!-- Stats Cards -->
+                    <div class="stats-cards" role="list">
+                        <div class="stat-card" role="listitem">
+                            <div class="stat-card-icon orange">🔨</div>
+                            <div>
+                                <div class="stat-card-value">12</div>
+                                <div class="stat-card-label">Total Jobs</div>
+                                <div class="stat-card-trend trend-up">↑ 3 this quarter</div>
+                            </div>
+                        </div>
+                        <div class="stat-card" role="listitem">
+                            <div class="stat-card-icon green">✅</div>
+                            <div>
+                                <div class="stat-card-value">10</div>
+                                <div class="stat-card-label">Completed</div>
+                                <div class="stat-card-trend trend-up">83% completion rate</div>
+                            </div>
+                        </div>
+                        <div class="stat-card" role="listitem">
+                            <div class="stat-card-icon blue">💳</div>
+                            <div>
+                                <div class="stat-card-value">GH₵ 4,280</div>
+                                <div class="stat-card-label">Total Spent</div>
+                                <div class="stat-card-trend trend-up">↑ GH₵ 650 this month</div>
+                            </div>
+                        </div>
+                        <div class="stat-card" role="listitem">
+                            <div class="stat-card-icon yellow">⭐</div>
+                            <div>
+                                <div class="stat-card-value">4.7</div>
+                                <div class="stat-card-label">Avg. Rating Given</div>
+                                <div class="stat-card-trend">8 reviews submitted</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div style="display:grid; grid-template-columns:1fr 360px; gap:var(--space-xl)">
+
+                        <!-- Active Projects -->
+                        <div>
+                            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--space-lg)">
+                                <h2 style="font-size:var(--font-size-xl); font-weight:700">Active Projects</h2>
+                                <button class="btn btn-ghost btn-sm" onclick="showTab('active-projects', document.querySelector('[data-tab=active-projects]'))">View all →</button>
+                            </div>
+
+                            <div class="project-card">
+                                <div class="project-card-header">
+                                    <div>
+                                        <div class="project-service-badge">⚡ Electrical</div>
+                                        <h3 class="project-title">Rewiring & New Sockets — Main Bedroom</h3>
+                                        <div class="project-meta">
+                                            <div class="project-meta-item"><span class="icon">👤</span> Ato Kwamena</div>
+                                            <div class="project-meta-item"><span class="icon">📅</span> Started 27 Feb</div>
+                                            <div class="project-meta-item"><span class="icon">⏱️</span> Est. 2 days</div>
+                                        </div>
+                                    </div>
+                                    <span class="badge badge-warning">In Progress</span>
+                                </div>
+                                <div class="project-card-body">
+                                    <div class="progress-bar-container">
+                                        <div class="progress-bar-label">
+                                            <span>Job Progress</span>
+                                            <strong>60% Complete</strong>
+                                        </div>
+                                        <div class="progress-bar"><div class="progress-bar-fill" style="width:60%"></div></div>
+                                    </div>
+                                </div>
+                                <div class="project-card-footer">
+                                    <span style="font-size:var(--font-size-sm); color:var(--text-muted)">Amount: <strong style="color:var(--text)">GH₵ 480</strong></span>
+                                    <button class="btn btn-outline btn-sm" onclick="showTab('active-projects', document.querySelector('[data-tab=active-projects]'))">View Details</button>
+                                </div>
+                            </div>
+
+                            <div class="project-card">
+                                <div class="project-card-header">
+                                    <div>
+                                        <div class="project-service-badge">❄️ AC Technician</div>
+                                        <h3 class="project-title">AC Service & Gas Top-up — Living Room Unit</h3>
+                                        <div class="project-meta">
+                                            <div class="project-meta-item"><span class="icon">👤</span> Samuel Boateng</div>
+                                            <div class="project-meta-item"><span class="icon">📅</span> Scheduled 5 Mar</div>
+                                        </div>
+                                    </div>
+                                    <span class="badge badge-info">Scheduled</span>
+                                </div>
+                                <div class="project-card-body">
+                                    <div class="progress-bar-container">
+                                        <div class="progress-bar-label">
+                                            <span>Job Progress</span>
+                                            <strong>Awaiting Start</strong>
+                                        </div>
+                                        <div class="progress-bar"><div class="progress-bar-fill" style="width:0%"></div></div>
+                                    </div>
+                                </div>
+                                <div class="project-card-footer">
+                                    <span style="font-size:var(--font-size-sm); color:var(--text-muted)">Estimated: <strong style="color:var(--text)">GH₵ 250</strong></span>
+                                    <button class="btn btn-outline btn-sm">View Details</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Right column: Guarantee + Insurance summary -->
+                        <div style="display:flex; flex-direction:column; gap:var(--space-lg)">
+
+                            <!-- Guarantee Summary -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">🔒 Active Guarantees</h3>
+                                    <button class="btn btn-ghost btn-sm" onclick="showTab('guarantee', document.querySelector('[data-tab=guarantee]'))">View all</button>
+                                </div>
+                                <div class="card-body" style="padding:var(--space-md) var(--space-lg)">
+                                    <div style="display:flex; flex-direction:column; gap:var(--space-md)">
+                                        <div style="display:flex; align-items:center; justify-content:space-between; padding:var(--space-sm) 0; border-bottom:1px solid var(--border-light)">
+                                            <div>
+                                                <div style="font-size:var(--font-size-sm); font-weight:600">Plumbing — Burst Pipe Repair</div>
+                                                <div style="font-size:var(--font-size-xs); color:var(--text-muted)">Completed 28 Feb 2025</div>
+                                            </div>
+                                            <div style="text-align:right">
+                                                <div style="font-size:var(--font-size-lg); font-weight:800; color:var(--success)">67</div>
+                                                <div style="font-size:10px; color:var(--text-muted)">days left</div>
+                                            </div>
+                                        </div>
+                                        <div style="display:flex; align-items:center; justify-content:space-between; padding:var(--space-sm) 0; border-bottom:1px solid var(--border-light)">
+                                            <div>
+                                                <div style="font-size:var(--font-size-sm); font-weight:600">Carpentry — Wardrobe Build</div>
+                                                <div style="font-size:var(--font-size-xs); color:var(--text-muted)">Completed 15 Jan 2025</div>
+                                            </div>
+                                            <div style="text-align:right">
+                                                <div style="font-size:var(--font-size-lg); font-weight:800; color:var(--warning)">17</div>
+                                                <div style="font-size:10px; color:var(--text-muted)">days left</div>
+                                            </div>
+                                        </div>
+                                        <div style="display:flex; align-items:center; justify-content:space-between; padding:var(--space-sm) 0">
+                                            <div>
+                                                <div style="font-size:var(--font-size-sm); font-weight:600">Electrical — Garden Lights</div>
+                                                <div style="font-size:var(--font-size-xs); color:var(--text-muted)">Completed 1 Dec 2024</div>
+                                            </div>
+                                            <div style="text-align:right">
+                                                <div style="font-size:var(--font-size-lg); font-weight:800; color:var(--error)">Expired</div>
+                                                <div style="font-size:10px; color:var(--text-muted)">28 Feb 2025</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Insurance summary -->
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">🛡️ Insurance</h3>
+                                    <button class="btn btn-ghost btn-sm" onclick="showTab('insurance', document.querySelector('[data-tab=insurance]'))">Manage</button>
+                                </div>
+                                <div class="card-body">
+                                    <div class="badge badge-success" style="margin-bottom:var(--space-md)">● Active Policy</div>
+                                    <div style="font-size:var(--font-size-sm); font-weight:600; margin-bottom:var(--space-xs)">WALANTU HomeShield Basic</div>
+                                    <div style="font-size:var(--font-size-xs); color:var(--text-muted); margin-bottom:var(--space-md)">Policy #WLS-2025-04821<br>Renews 1 Jun 2025</div>
+                                    <div style="font-size:var(--font-size-sm); color:var(--text-light)">Coverage: Up to <strong>GH₵ 5,000</strong> per incident</div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ===================== ACTIVE PROJECTS TAB ===================== -->
+            <div class="dashboard-tab" id="tab-active-projects">
+                <div class="dashboard-topbar">
+                    <div class="dashboard-topbar-title">Active Projects</div>
+                    <div class="dashboard-topbar-actions">
+                        <a href="booking.html" class="btn btn-primary">+ New Booking</a>
+                    </div>
+                </div>
+                <div class="dashboard-content">
+
+                    <!-- Project 1: In Progress -->
+                    <div class="project-card">
+                        <div class="project-card-header">
+                            <div>
+                                <div class="project-service-badge">⚡ Electrical</div>
+                                <h2 class="project-title">Rewiring & New Sockets — Main Bedroom</h2>
+                                <div class="project-meta">
+                                    <div class="project-meta-item"><span class="icon">🆔</span> Job #WAL-2025-0034</div>
+                                    <div class="project-meta-item"><span class="icon">👤</span> Ato Kwamena (Pro)</div>
+                                    <div class="project-meta-item"><span class="icon">📅</span> Started 27 Feb 2025</div>
+                                    <div class="project-meta-item"><span class="icon">📍</span> East Legon — GA-144-8765</div>
+                                </div>
+                            </div>
+                            <span class="badge badge-warning" style="font-size:var(--font-size-sm); padding:8px 16px">🔨 In Progress</span>
+                        </div>
+
+                        <div class="project-card-body">
+                            <div style="display:grid; grid-template-columns:1fr 260px; gap:var(--space-xl)">
+                                <div>
+                                    <div class="progress-bar-container" style="margin-bottom:var(--space-xl)">
+                                        <div class="progress-bar-label">
+                                            <span>Overall Progress</span>
+                                            <strong>60% Complete</strong>
+                                        </div>
+                                        <div class="progress-bar" style="height:12px">
+                                            <div class="progress-bar-fill" style="width:60%"></div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Timeline -->
+                                    <h3 style="font-size:var(--font-size-base); font-weight:700; margin-bottom:var(--space-md)">Job Timeline</h3>
+                                    <div class="project-timeline">
+                                        <div class="timeline-item done">
+                                            <div class="timeline-dot done"></div>
+                                            <div class="timeline-content">
+                                                <div class="timeline-title">✅ Booking Confirmed</div>
+                                                <div class="timeline-date">25 Feb 2025, 10:32am</div>
+                                            </div>
+                                        </div>
+                                        <div class="timeline-item done">
+                                            <div class="timeline-dot done"></div>
+                                            <div class="timeline-content">
+                                                <div class="timeline-title">✅ Initial Assessment Completed</div>
+                                                <div class="timeline-date">27 Feb 2025, 9:00am — Quote: GH₵ 480</div>
+                                            </div>
+                                        </div>
+                                        <div class="timeline-item done">
+                                            <div class="timeline-dot done"></div>
+                                            <div class="timeline-content">
+                                                <div class="timeline-title">✅ Quote Approved & Work Begun</div>
+                                                <div class="timeline-date">27 Feb 2025, 11:15am</div>
+                                            </div>
+                                        </div>
+                                        <div class="timeline-item active">
+                                            <div class="timeline-dot active"></div>
+                                            <div class="timeline-content">
+                                                <div class="timeline-title">🔨 Work In Progress — Day 2</div>
+                                                <div class="timeline-date">Estimated completion: 4 Mar 2025</div>
+                                            </div>
+                                        </div>
+                                        <div class="timeline-item">
+                                            <div class="timeline-dot"></div>
+                                            <div class="timeline-content">
+                                                <div class="timeline-title">Inspection & Sign-off</div>
+                                                <div class="timeline-date">Pending</div>
+                                            </div>
+                                        </div>
+                                        <div class="timeline-item">
+                                            <div class="timeline-dot"></div>
+                                            <div class="timeline-content">
+                                                <div class="timeline-title">Payment Release</div>
+                                                <div class="timeline-date">Pending</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <!-- Right: Cost + Pro info -->
+                                <div>
+                                    <div class="card" style="margin-bottom:var(--space-lg)">
+                                        <div class="card-body">
+                                            <h4 style="font-size:var(--font-size-sm); font-weight:700; margin-bottom:var(--space-md); color:var(--text-muted); text-transform:uppercase; letter-spacing:0.8px">Cost Breakdown</h4>
+                                            <div style="display:flex; justify-content:space-between; font-size:var(--font-size-sm); margin-bottom:var(--space-sm)"><span>Labour</span><span>GH₵ 320</span></div>
+                                            <div style="display:flex; justify-content:space-between; font-size:var(--font-size-sm); margin-bottom:var(--space-sm)"><span>Materials (sockets × 6)</span><span>GH₵ 120</span></div>
+                                            <div style="display:flex; justify-content:space-between; font-size:var(--font-size-sm); margin-bottom:var(--space-sm)"><span>Call-out fee</span><span>GH₵ 40</span></div>
+                                            <hr class="divider" style="margin:var(--space-sm) 0">
+                                            <div style="display:flex; justify-content:space-between; font-size:var(--font-size-base); font-weight:800"><span>Total</span><span style="color:var(--primary)">GH₵ 480</span></div>
+                                            <div style="margin-top:var(--space-sm); font-size:var(--font-size-xs); color:var(--success)">🔒 Held securely — released on completion</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="card">
+                                        <div class="card-body">
+                                            <h4 style="font-size:var(--font-size-sm); font-weight:700; margin-bottom:var(--space-md); color:var(--text-muted); text-transform:uppercase; letter-spacing:0.8px">Your Pro</h4>
+                                            <div style="display:flex; align-items:center; gap:var(--space-md); margin-bottom:var(--space-md)">
+                                                <div class="author-avatar" style="width:52px;height:52px;font-size:var(--font-size-lg)">AK</div>
+                                                <div>
+                                                    <div style="font-weight:700">Ato Kwamena</div>
+                                                    <div style="font-size:var(--font-size-xs); color:var(--text-muted)">Master Electrician · 5 yrs</div>
+                                                    <div style="color:#F59E0B; font-size:var(--font-size-sm)">★★★★★ <span style="color:var(--text-muted)">(47 jobs)</span></div>
+                                                </div>
+                                            </div>
+                                            <div style="display:flex; gap:var(--space-sm)">
+                                                <button class="btn btn-outline btn-sm btn-full" onclick="showTab('messages', document.querySelector('[data-tab=messages]'))">💬 Message</button>
+                                                <a href="tel:+233241234567" class="btn btn-ghost btn-sm btn-full">📞 Call</a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="project-card-footer">
+                            <div style="display:flex; gap:var(--space-sm)">
+                                <span class="badge badge-info">🔒 3-Month Guarantee Applies</span>
+                                <span class="badge badge-success">🛡️ Insurance Active</span>
+                            </div>
+                            <div style="display:flex; gap:var(--space-sm)">
+                                <button class="btn btn-outline btn-sm">📋 View Report</button>
+                                <button class="btn btn-primary btn-sm" disabled style="opacity:0.5; cursor:not-allowed">✅ Approve &amp; Release Payment</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Project 2: Scheduled -->
+                    <div class="project-card">
+                        <div class="project-card-header">
+                            <div>
+                                <div class="project-service-badge">❄️ AC Technician</div>
+                                <h2 class="project-title">AC Service & Refrigerant Top-up — Living Room Split Unit</h2>
+                                <div class="project-meta">
+                                    <div class="project-meta-item"><span class="icon">🆔</span> Job #WAL-2025-0041</div>
+                                    <div class="project-meta-item"><span class="icon">👤</span> Samuel Boateng (Pro)</div>
+                                    <div class="project-meta-item"><span class="icon">📅</span> Scheduled: 5 Mar 2025, 10am</div>
+                                    <div class="project-meta-item"><span class="icon">📍</span> East Legon — GA-144-8765</div>
+                                </div>
+                            </div>
+                            <span class="badge badge-info" style="font-size:var(--font-size-sm); padding:8px 16px">📅 Scheduled</span>
+                        </div>
+                        <div class="project-card-body">
+                            <div class="alert alert-info" style="margin-bottom:0">
+                                <span class="alert-icon">⏰</span>
+                                <div class="alert-text"><strong>Samuel will arrive in 2 days.</strong> You'll receive an SMS confirmation 1 hour before arrival. Digital address: GA-144-8765 has been shared with your pro.</div>
+                            </div>
+                        </div>
+                        <div class="project-card-footer">
+                            <span style="font-size:var(--font-size-sm); color:var(--text-muted)">Estimated cost: <strong>GH₵ 250</strong></span>
+                            <div style="display:flex; gap:var(--space-sm)">
+                                <button class="btn btn-ghost btn-sm" style="color:var(--error)">Cancel Booking</button>
+                                <button class="btn btn-outline btn-sm">Reschedule</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ===================== HISTORY TAB ===================== -->
+            <div class="dashboard-tab" id="tab-history">
+                <div class="dashboard-topbar">
+                    <div class="dashboard-topbar-title">Service History</div>
+                    <div class="dashboard-topbar-actions">
+                        <button class="btn btn-ghost btn-sm">⬇️ Export CSV</button>
+                        <a href="booking.html" class="btn btn-primary">+ Book Again</a>
+                    </div>
+                </div>
+                <div class="dashboard-content">
+
+                    <!-- Filter bar -->
+                    <div style="display:flex; gap:var(--space-sm); margin-bottom:var(--space-xl); flex-wrap:wrap">
+                        <button class="btn btn-primary btn-sm">All (10)</button>
+                        <button class="btn btn-ghost btn-sm">Completed (10)</button>
+                        <button class="btn btn-ghost btn-sm">Electrical (3)</button>
+                        <button class="btn btn-ghost btn-sm">Plumbing (2)</button>
+                        <button class="btn btn-ghost btn-sm">Carpentry (3)</button>
+                        <button class="btn btn-ghost btn-sm">Other (2)</button>
+                    </div>
+
+                    <div class="card">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Job ID</th>
+                                    <th>Service</th>
+                                    <th>Description</th>
+                                    <th>Professional</th>
+                                    <th>Date</th>
+                                    <th>Amount</th>
+                                    <th>Rating</th>
+                                    <th>Guarantee</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="font-family:monospace; font-size:var(--font-size-xs); color:var(--text-muted)">#WAL-2025-0028</td>
+                                    <td><span class="badge badge-primary">🚰 Plumbing</span></td>
+                                    <td style="max-width:180px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">Burst pipe repair — main bathroom</td>
+                                    <td>Kwesi Acheampong</td>
+                                    <td>28 Feb 2025</td>
+                                    <td style="font-weight:700">GH₵ 650</td>
+                                    <td style="color:#F59E0B">★★★★★</td>
+                                    <td><span class="badge badge-success">67 days</span></td>
+                                    <td><button class="btn btn-ghost btn-sm">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-family:monospace; font-size:var(--font-size-xs); color:var(--text-muted)">#WAL-2025-0019</td>
+                                    <td><span class="badge badge-primary">🔨 Carpentry</span></td>
+                                    <td style="max-width:180px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">Custom wardrobe build — master bedroom</td>
+                                    <td>Yaw Darko</td>
+                                    <td>15 Jan 2025</td>
+                                    <td style="font-weight:700">GH₵ 1,200</td>
+                                    <td style="color:#F59E0B">★★★★★</td>
+                                    <td><span class="badge badge-warning">17 days</span></td>
+                                    <td><button class="btn btn-ghost btn-sm">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-family:monospace; font-size:var(--font-size-xs); color:var(--text-muted)">#WAL-2024-0189</td>
+                                    <td><span class="badge badge-primary">⚡ Electrical</span></td>
+                                    <td style="max-width:180px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">Garden & security lights installation</td>
+                                    <td>Ato Kwamena</td>
+                                    <td>1 Dec 2024</td>
+                                    <td style="font-weight:700">GH₵ 380</td>
+                                    <td style="color:#F59E0B">★★★★☆</td>
+                                    <td><span class="badge badge-muted">Expired</span></td>
+                                    <td><button class="btn btn-ghost btn-sm">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-family:monospace; font-size:var(--font-size-xs); color:var(--text-muted)">#WAL-2024-0156</td>
+                                    <td><span class="badge badge-primary">❄️ AC Tech</span></td>
+                                    <td style="max-width:180px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">AC installation — 2 split units</td>
+                                    <td>Samuel Boateng</td>
+                                    <td>10 Oct 2024</td>
+                                    <td style="font-weight:700">GH₵ 850</td>
+                                    <td style="color:#F59E0B">★★★★★</td>
+                                    <td><span class="badge badge-muted">Expired</span></td>
+                                    <td><button class="btn btn-ghost btn-sm">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-family:monospace; font-size:var(--font-size-xs); color:var(--text-muted)">#WAL-2024-0112</td>
+                                    <td><span class="badge badge-primary">🌿 Gardening</span></td>
+                                    <td style="max-width:180px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">Compound clearing & landscaping</td>
+                                    <td>Emmanuel Ofori</td>
+                                    <td>20 Aug 2024</td>
+                                    <td style="font-weight:700">GH₵ 300</td>
+                                    <td style="color:#F59E0B">★★★★☆</td>
+                                    <td><span class="badge badge-muted">Expired</span></td>
+                                    <td><button class="btn btn-ghost btn-sm">View</button></td>
+                                </tr>
+                                <tr>
+                                    <td style="font-family:monospace; font-size:var(--font-size-xs); color:var(--text-muted)">#WAL-2024-0098</td>
+                                    <td><span class="badge badge-primary">🔨 Carpentry</span></td>
+                                    <td style="max-width:180px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis">Door frame repair & new lock</td>
+                                    <td>Yaw Darko</td>
+                                    <td>15 Jul 2024</td>
+                                    <td style="font-weight:700">GH₵ 180</td>
+                                    <td style="color:#F59E0B">★★★★★</td>
+                                    <td><span class="badge badge-muted">Expired</span></td>
+                                    <td><button class="btn btn-ghost btn-sm">View</button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ===================== PAYMENTS TAB ===================== -->
+            <div class="dashboard-tab" id="tab-payments">
+                <div class="dashboard-topbar">
+                    <div class="dashboard-topbar-title">Payments</div>
+                </div>
+                <div class="dashboard-content">
+
+                    <!-- Payment summary -->
+                    <div class="stats-cards" role="list" style="grid-template-columns:repeat(3,1fr)">
+                        <div class="stat-card" role="listitem">
+                            <div class="stat-card-icon green">💰</div>
+                            <div>
+                                <div class="stat-card-value">GH₵ 4,280</div>
+                                <div class="stat-card-label">Total Spent</div>
+                            </div>
+                        </div>
+                        <div class="stat-card" role="listitem">
+                            <div class="stat-card-icon blue">🔒</div>
+                            <div>
+                                <div class="stat-card-value">GH₵ 480</div>
+                                <div class="stat-card-label">Funds in Escrow</div>
+                                <div class="stat-card-trend">Awaiting job completion</div>
+                            </div>
+                        </div>
+                        <div class="stat-card" role="listitem">
+                            <div class="stat-card-icon orange">📋</div>
+                            <div>
+                                <div class="stat-card-value">10</div>
+                                <div class="stat-card-label">Transactions</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Saved payment methods -->
+                    <div class="card mb-xl">
+                        <div class="card-header">
+                            <h3 class="card-title">💳 Saved Payment Methods</h3>
+                            <button class="btn btn-outline btn-sm" onclick="document.getElementById('add-payment-modal').style.display='flex'">+ Add Method</button>
+                        </div>
+                        <div class="card-body">
+                            <div class="payment-methods-grid" style="grid-template-columns:repeat(3,1fr)">
+
+                                <div class="payment-method-card selected">
+                                    <div class="payment-method-icon">💳</div>
+                                    <div class="payment-method-name">Visa •••• 4242</div>
+                                    <div class="payment-method-desc">Expires 09/26 · Powered by Stripe</div>
+                                    <div style="margin-top:var(--space-sm)"><span class="badge badge-success">Default</span></div>
+                                </div>
+
+                                <div class="payment-method-card">
+                                    <div class="payment-method-icon">📱</div>
+                                    <div class="payment-method-name">MTN Mobile Money</div>
+                                    <div class="payment-method-desc">+233 24 123 4567</div>
+                                    <div style="margin-top:var(--space-sm)"><span class="badge badge-muted">Saved</span></div>
+                                </div>
+
+                                <div class="payment-method-card" style="border-style:dashed; background:var(--bg-light); cursor:pointer; display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center; min-height:130px" onclick="document.getElementById('add-payment-modal').style.display='flex'">
+                                    <div style="font-size:36px; color:var(--text-muted); margin-bottom:var(--space-sm)">+</div>
+                                    <div style="font-size:var(--font-size-sm); font-weight:600; color:var(--text-muted)">Add Payment Method</div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Payment History -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">📋 Payment History</h3>
+                            <button class="btn btn-ghost btn-sm">⬇️ Export</button>
+                        </div>
+                        <div class="card-body" style="padding:0">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Job</th>
+                                        <th>Method</th>
+                                        <th>Amount</th>
+                                        <th>Status</th>
+                                        <th>Receipt</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>28 Feb 2025</td>
+                                        <td>Plumbing — Burst Pipe<br><span style="font-size:var(--font-size-xs); color:var(--text-muted)">#WAL-2025-0028</span></td>
+                                        <td>💳 Visa •••• 4242</td>
+                                        <td style="font-weight:700; color:var(--error)">− GH₵ 650</td>
+                                        <td><span class="badge badge-success">Completed</span></td>
+                                        <td><button class="btn btn-ghost btn-sm">🧾 View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>27 Feb 2025</td>
+                                        <td>Electrical — Rewiring<br><span style="font-size:var(--font-size-xs); color:var(--text-muted)">#WAL-2025-0034</span></td>
+                                        <td>💳 Visa •••• 4242</td>
+                                        <td style="font-weight:700; color:var(--warning)">🔒 GH₵ 480 (Escrow)</td>
+                                        <td><span class="badge badge-warning">In Escrow</span></td>
+                                        <td><span style="font-size:var(--font-size-xs); color:var(--text-muted)">Pending</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>15 Jan 2025</td>
+                                        <td>Carpentry — Wardrobe<br><span style="font-size:var(--font-size-xs); color:var(--text-muted)">#WAL-2025-0019</span></td>
+                                        <td>📱 MTN MoMo</td>
+                                        <td style="font-weight:700; color:var(--error)">− GH₵ 1,200</td>
+                                        <td><span class="badge badge-success">Completed</span></td>
+                                        <td><button class="btn btn-ghost btn-sm">🧾 View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>1 Dec 2024</td>
+                                        <td>Electrical — Garden Lights<br><span style="font-size:var(--font-size-xs); color:var(--text-muted)">#WAL-2024-0189</span></td>
+                                        <td>💳 Visa •••• 4242</td>
+                                        <td style="font-weight:700; color:var(--error)">− GH₵ 380</td>
+                                        <td><span class="badge badge-success">Completed</span></td>
+                                        <td><button class="btn btn-ghost btn-sm">🧾 View</button></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== ADDRESS TAB ===================== -->
+            <div class="dashboard-tab" id="tab-address">
+                <div class="dashboard-topbar">
+                    <div class="dashboard-topbar-title">My Addresses</div>
+                    <div class="dashboard-topbar-actions">
+                        <button class="btn btn-primary">+ Add Address</button>
+                    </div>
+                </div>
+                <div class="dashboard-content">
+
+                    <div class="alert alert-info">
+                        <span class="alert-icon">📍</span>
+                        <div class="alert-text">
+                            <strong>Ghana Post Digital Address System</strong> — Your digital address (e.g. GA-144-8765) ensures our professionals find you accurately, even in areas without traditional street names. <a href="https://ghanapostgps.com" target="_blank" rel="noopener" style="color:var(--primary); font-weight:600">Learn more about GhanaPostGPS →</a>
+                        </div>
+                    </div>
+
+                    <!-- Primary Address -->
+                    <div class="address-card primary-address" style="position:relative">
+                        <span class="address-primary-badge">★ Primary Address</span>
+                        <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--space-xl); margin-top:var(--space-md)">
+                            <div>
+                                <div class="address-type">Residential</div>
+                                <div class="address-digital-code">GA-144-8765</div>
+                                <div class="address-full">House No. 12, Osei Avenue<br>East Legon, Accra<br>Greater Accra Region, Ghana</div>
+                                <div class="address-meta">
+                                    <span>📞 +233 24 123 4567</span> &nbsp;·&nbsp;
+                                    <span>Used in 8 jobs</span>
+                                </div>
+                                <div style="display:flex; gap:var(--space-sm); margin-top:var(--space-lg)">
+                                    <button class="btn btn-outline btn-sm">✏️ Edit</button>
+                                    <button class="btn btn-ghost btn-sm">🗺️ View on Map</button>
+                                </div>
+                            </div>
+                            <div>
+                                <div class="gps-map-placeholder">
+                                    🗺️ Map Preview — GA-144-8765
+                                </div>
+                                <div style="font-size:var(--font-size-xs); color:var(--text-muted); text-align:center; margin-top:var(--space-xs)">
+                                    Verified Location · GhanaPostGPS
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Secondary Address -->
+                    <div class="address-card">
+                        <div class="address-type">Office / Work</div>
+                        <div class="address-digital-code">GA-067-2134</div>
+                        <div class="address-full">Ground Floor, Accra Mall Business Suites<br>Spintex Road, Accra<br>Greater Accra Region, Ghana</div>
+                        <div class="address-meta">📞 +233 30 298 7654 &nbsp;·&nbsp; Used in 2 jobs</div>
+                        <div style="display:flex; gap:var(--space-sm); margin-top:var(--space-lg); align-items:center">
+                            <button class="btn btn-outline btn-sm">✏️ Edit</button>
+                            <button class="btn btn-ghost btn-sm">🗺️ View on Map</button>
+                            <button class="btn btn-ghost btn-sm" style="color:var(--text-muted)">Set as Primary</button>
+                        </div>
+                    </div>
+
+                    <!-- Add New Address Form -->
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">+ Add New Address</h3>
+                        </div>
+                        <div class="card-body">
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="new-digital-code">Ghana Post Digital Address *</label>
+                                    <input type="text" id="new-digital-code" class="form-control" placeholder="e.g. GA-144-XXXX" pattern="[A-Z]{2}-\d{3}-\d{4}" aria-describedby="gps-hint">
+                                    <span class="form-hint" id="gps-hint">Format: Region Code - District Code - Unique Code (e.g. GA-144-8765)</span>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="new-address-type">Address Type</label>
+                                    <select id="new-address-type" class="form-control form-select">
+                                        <option>Residential</option>
+                                        <option>Office / Work</option>
+                                        <option>Rental Property</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="new-street">Street / House Number</label>
+                                    <input type="text" id="new-street" class="form-control" placeholder="e.g. House 14, Kwabenya Rd">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="new-area">Area / Neighbourhood</label>
+                                    <input type="text" id="new-area" class="form-control" placeholder="e.g. Adenta, Tema, Dansoman">
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group">
+                                    <label class="form-label" for="new-city">City</label>
+                                    <select id="new-city" class="form-control form-select">
+                                        <option>Accra</option>
+                                        <option>Tema</option>
+                                        <option>Kasoa</option>
+                                        <option>Other</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="new-contact">Contact Number for This Address</label>
+                                    <input type="tel" id="new-contact" class="form-control" placeholder="+233 XX XXX XXXX">
+                                </div>
+                            </div>
+                            <button class="btn btn-primary">💾 Save Address</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ===================== INSURANCE TAB ===================== -->
+            <div class="dashboard-tab" id="tab-insurance">
+                <div class="dashboard-topbar">
+                    <div class="dashboard-topbar-title">Insurance Coverage</div>
+                </div>
+                <div class="dashboard-content">
+
+                    <!-- Active Insurance Card -->
+                    <div class="insurance-card">
+                        <div class="insurance-header">
+                            <div>
+                                <div class="insurance-logo">🛡️</div>
+                            </div>
+                            <span class="insurance-status-badge">● Active</span>
+                        </div>
+                        <div class="insurance-policy-number">Policy Number: WLS-2025-04821</div>
+                        <div class="insurance-title">WALANTU HomeShield Basic</div>
+                        <div class="insurance-details">
+                            <div>
+                                <div class="insurance-detail-label">Coverage Limit</div>
+                                <div class="insurance-detail-value">GH₵ 5,000</div>
+                            </div>
+                            <div>
+                                <div class="insurance-detail-label">Monthly Premium</div>
+                                <div class="insurance-detail-value">GH₵ 35/mo</div>
+                            </div>
+                            <div>
+                                <div class="insurance-detail-label">Renewal Date</div>
+                                <div class="insurance-detail-value">1 Jun 2025</div>
+                            </div>
+                        </div>
+                        <div style="display:flex; gap:var(--space-md)">
+                            <button class="btn btn-outline btn-sm" style="border-color:rgba(255,255,255,0.3); color:#fff; background:rgba(255,255,255,0.08)">📄 View Policy</button>
+                            <button class="btn btn-outline btn-sm" style="border-color:rgba(255,255,255,0.3); color:#fff; background:rgba(255,255,255,0.08)">📋 Make a Claim</button>
+                        </div>
+                    </div>
+
+                    <!-- What's Covered -->
+                    <div class="card mb-xl">
+                        <div class="card-header"><h3 class="card-title">What's Covered</h3></div>
+                        <div class="card-body">
+                            <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--space-lg)">
+                                <div>
+                                    <h4 style="color:var(--success); font-size:var(--font-size-sm); font-weight:700; margin-bottom:var(--space-md)">✅ Covered</h4>
+                                    <ul style="display:flex; flex-direction:column; gap:var(--space-sm)">
+                                        <li style="display:flex; gap:var(--space-sm); font-size:var(--font-size-sm)"><span style="color:var(--success)">✓</span> Accidental damage caused by the tradesperson during work</li>
+                                        <li style="display:flex; gap:var(--space-sm); font-size:var(--font-size-sm)"><span style="color:var(--success)">✓</span> Property damage up to GH₵ 5,000 per incident</li>
+                                        <li style="display:flex; gap:var(--space-sm); font-size:var(--font-size-sm)"><span style="color:var(--success)">✓</span> Third-party liability</li>
+                                        <li style="display:flex; gap:var(--space-sm); font-size:var(--font-size-sm)"><span style="color:var(--success)">✓</span> Water damage from pipe work</li>
+                                        <li style="display:flex; gap:var(--space-sm); font-size:var(--font-size-sm)"><span style="color:var(--success)">✓</span> Electrical fire (during installation)</li>
+                                    </ul>
+                                </div>
+                                <div>
+                                    <h4 style="color:var(--error); font-size:var(--font-size-sm); font-weight:700; margin-bottom:var(--space-md)">✗ Not Covered</h4>
+                                    <ul style="display:flex; flex-direction:column; gap:var(--space-sm)">
+                                        <li style="display:flex; gap:var(--space-sm); font-size:var(--font-size-sm)"><span style="color:var(--error)">✗</span> Pre-existing damage</li>
+                                        <li style="display:flex; gap:var(--space-sm); font-size:var(--font-size-sm)"><span style="color:var(--error)">✗</span> Wear and tear</li>
+                                        <li style="display:flex; gap:var(--space-sm); font-size:var(--font-size-sm)"><span style="color:var(--error)">✗</span> Theft</li>
+                                        <li style="display:flex; gap:var(--space-sm); font-size:var(--font-size-sm)"><span style="color:var(--error)">✗</span> Damage caused by customer</li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Upgrade Options -->
+                    <h3 style="font-size:var(--font-size-xl); font-weight:700; margin-bottom:var(--space-lg)">Upgrade Your Coverage</h3>
+                    <div style="display:grid; grid-template-columns:repeat(3,1fr); gap:var(--space-lg)">
+                        <div class="card" style="border:2px solid var(--border)">
+                            <div class="card-body" style="text-align:center">
+                                <div style="font-size:40px; margin-bottom:var(--space-sm)">🛡️</div>
+                                <div style="font-weight:800; font-size:var(--font-size-xl); margin-bottom:var(--space-xs)">HomeShield Basic</div>
+                                <div style="font-size:var(--font-size-3xl); font-weight:800; color:var(--primary)">GH₵ 35<span style="font-size:var(--font-size-base); color:var(--text-muted); font-weight:400">/mo</span></div>
+                                <div style="font-size:var(--font-size-xs); color:var(--text-muted); margin-bottom:var(--space-lg)">Up to GH₵ 5,000 coverage</div>
+                                <span class="badge badge-success">Current Plan</span>
+                            </div>
+                        </div>
+                        <div class="card" style="border:2px solid var(--primary)">
+                            <div class="card-body" style="text-align:center">
+                                <div style="font-size:40px; margin-bottom:var(--space-sm)">🏠</div>
+                                <div style="font-weight:800; font-size:var(--font-size-xl); margin-bottom:var(--space-xs)">HomeShield Plus</div>
+                                <div style="font-size:var(--font-size-3xl); font-weight:800; color:var(--primary)">GH₵ 75<span style="font-size:var(--font-size-base); color:var(--text-muted); font-weight:400">/mo</span></div>
+                                <div style="font-size:var(--font-size-xs); color:var(--text-muted); margin-bottom:var(--space-lg)">Up to GH₵ 15,000 coverage</div>
+                                <button class="btn btn-primary btn-sm btn-full">Upgrade Now</button>
+                            </div>
+                        </div>
+                        <div class="card" style="border:2px solid var(--border)">
+                            <div class="card-body" style="text-align:center">
+                                <div style="font-size:40px; margin-bottom:var(--space-sm)">🏗️</div>
+                                <div style="font-weight:800; font-size:var(--font-size-xl); margin-bottom:var(--space-xs)">HomeShield Pro</div>
+                                <div style="font-size:var(--font-size-3xl); font-weight:800; color:var(--primary)">GH₵ 150<span style="font-size:var(--font-size-base); color:var(--text-muted); font-weight:400">/mo</span></div>
+                                <div style="font-size:var(--font-size-xs); color:var(--text-muted); margin-bottom:var(--space-lg)">Up to GH₵ 50,000 coverage</div>
+                                <button class="btn btn-outline btn-sm btn-full">Learn More</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ===================== GUARANTEE TAB ===================== -->
+            <div class="dashboard-tab" id="tab-guarantee">
+                <div class="dashboard-topbar">
+                    <div class="dashboard-topbar-title">3-Month Guarantee Status</div>
+                </div>
+                <div class="dashboard-content">
+
+                    <div class="alert alert-success">
+                        <span class="alert-icon">🔒</span>
+                        <div class="alert-text">
+                            <strong>Your guarantee is active on 2 jobs.</strong> Any workmanship issues within 90 days of completion will be fixed at no cost. Contact support to raise a guarantee claim.
+                        </div>
+                    </div>
+
+                    <!-- Guarantee cards -->
+                    <div class="guarantee-progress-card">
+                        <div class="guarantee-service-info">
+                            <div>
+                                <div class="project-service-badge" style="margin-bottom:var(--space-sm)">🚰 Plumbing</div>
+                                <h3 style="font-size:var(--font-size-lg); font-weight:700">Burst Pipe Repair — Main Bathroom</h3>
+                                <div class="project-meta" style="margin-top:var(--space-xs)">
+                                    <div class="project-meta-item"><span class="icon">👤</span> Kwesi Acheampong</div>
+                                    <div class="project-meta-item"><span class="icon">📅</span> Completed 28 Feb 2025</div>
+                                    <div class="project-meta-item"><span class="icon">⭐</span> 5/5 Stars</div>
+                                    <div class="project-meta-item"><span class="icon">💳</span> GH₵ 650</div>
+                                </div>
+                            </div>
+                            <div class="guarantee-days-remaining">
+                                <div class="guarantee-days-number">67</div>
+                                <div class="guarantee-days-label">Days Remaining</div>
+                                <span class="badge badge-success" style="margin-top:var(--space-xs)">Active</span>
+                            </div>
+                        </div>
+
+                        <div class="guarantee-timeline">
+                            <div class="guarantee-timeline-label">28 Feb</div>
+                            <div class="guarantee-timeline-bar">
+                                <div class="guarantee-timeline-fill" style="width:25%"></div>
+                            </div>
+                            <div class="guarantee-timeline-label">Expires 28 May 2025</div>
+                        </div>
+
+                        <div style="margin-top:var(--space-lg); display:flex; gap:var(--space-sm)">
+                            <button class="btn btn-outline btn-sm">📋 View Job Report</button>
+                            <button class="btn btn-ghost btn-sm" style="color:var(--warning)">⚠️ Raise Guarantee Claim</button>
+                        </div>
+                    </div>
+
+                    <div class="guarantee-progress-card">
+                        <div class="guarantee-service-info">
+                            <div>
+                                <div class="project-service-badge" style="margin-bottom:var(--space-sm)">🔨 Carpentry</div>
+                                <h3 style="font-size:var(--font-size-lg); font-weight:700">Custom Wardrobe Build — Master Bedroom</h3>
+                                <div class="project-meta" style="margin-top:var(--space-xs)">
+                                    <div class="project-meta-item"><span class="icon">👤</span> Yaw Darko</div>
+                                    <div class="project-meta-item"><span class="icon">📅</span> Completed 15 Jan 2025</div>
+                                    <div class="project-meta-item"><span class="icon">⭐</span> 5/5 Stars</div>
+                                    <div class="project-meta-item"><span class="icon">💳</span> GH₵ 1,200</div>
+                                </div>
+                            </div>
+                            <div class="guarantee-days-remaining">
+                                <div class="guarantee-days-number" style="color:var(--warning)">17</div>
+                                <div class="guarantee-days-label">Days Remaining</div>
+                                <span class="badge badge-warning" style="margin-top:var(--space-xs)">Expiring Soon</span>
+                            </div>
+                        </div>
+
+                        <div class="guarantee-timeline">
+                            <div class="guarantee-timeline-label">15 Jan</div>
+                            <div class="guarantee-timeline-bar">
+                                <div class="guarantee-timeline-fill" style="width:82%"></div>
+                            </div>
+                            <div class="guarantee-timeline-label">Expires 15 Apr 2025</div>
+                        </div>
+
+                        <div style="margin-top:var(--space-lg); display:flex; gap:var(--space-sm)">
+                            <button class="btn btn-outline btn-sm">📋 View Job Report</button>
+                            <button class="btn btn-ghost btn-sm" style="color:var(--warning)">⚠️ Raise Guarantee Claim</button>
+                        </div>
+                    </div>
+
+                    <!-- Expired -->
+                    <h3 style="font-size:var(--font-size-lg); font-weight:700; margin-bottom:var(--space-lg); color:var(--text-muted)">Expired Guarantees</h3>
+                    <div class="card">
+                        <table class="data-table">
+                            <thead>
+                                <tr>
+                                    <th>Service</th>
+                                    <th>Description</th>
+                                    <th>Completed</th>
+                                    <th>Expired</th>
+                                    <th>Rating</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="badge badge-muted">⚡ Electrical</span></td>
+                                    <td>Garden & security lights</td>
+                                    <td>1 Dec 2024</td>
+                                    <td style="color:var(--text-muted)">28 Feb 2025</td>
+                                    <td style="color:#F59E0B">★★★★☆</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge badge-muted">❄️ AC Tech</span></td>
+                                    <td>AC installation — 2 units</td>
+                                    <td>10 Oct 2024</td>
+                                    <td style="color:var(--text-muted)">8 Jan 2025</td>
+                                    <td style="color:#F59E0B">★★★★★</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                </div>
+            </div>
+
+            <!-- ===================== MESSAGES TAB ===================== -->
+            <div class="dashboard-tab" id="tab-messages">
+                <div class="dashboard-topbar">
+                    <div class="dashboard-topbar-title">Messages</div>
+                </div>
+                <div class="dashboard-content">
+                    <div class="messages-layout">
+                        <!-- Thread list -->
+                        <div class="messages-sidebar">
+                            <div class="messages-sidebar-header">All Conversations (3)</div>
+
+                            <div class="message-thread active" role="button" tabindex="0">
+                                <div class="message-thread-avatar">AK</div>
+                                <div class="message-thread-info">
+                                    <div class="message-thread-name">Ato Kwamena</div>
+                                    <div class="message-thread-preview">I'll need to get some extra cable for the...</div>
+                                </div>
+                                <div class="message-thread-meta">
+                                    <div class="message-thread-time">2h ago</div>
+                                    <div class="message-unread-badge">2</div>
+                                </div>
+                            </div>
+
+                            <div class="message-thread" role="button" tabindex="0">
+                                <div class="message-thread-avatar">SB</div>
+                                <div class="message-thread-info">
+                                    <div class="message-thread-name">Samuel Boateng</div>
+                                    <div class="message-thread-preview">Confirmed for Wednesday 10am!</div>
+                                </div>
+                                <div class="message-thread-meta">
+                                    <div class="message-thread-time">1d ago</div>
+                                    <div class="message-unread-badge">1</div>
+                                </div>
+                            </div>
+
+                            <div class="message-thread" role="button" tabindex="0">
+                                <div class="message-thread-avatar">W</div>
+                                <div class="message-thread-info">
+                                    <div class="message-thread-name">WALANTU Support</div>
+                                    <div class="message-thread-preview">Thanks for your review! Your guarantee for...</div>
+                                </div>
+                                <div class="message-thread-meta">
+                                    <div class="message-thread-time">3d ago</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Message view -->
+                        <div class="messages-main">
+                            <div class="messages-main-header">
+                                <div class="message-thread-avatar" style="width:40px; height:40px">AK</div>
+                                <div>
+                                    <div style="font-weight:700">Ato Kwamena</div>
+                                    <div style="font-size:var(--font-size-xs); color:var(--success)">● Active job · Electrical #WAL-2025-0034</div>
+                                </div>
+                            </div>
+
+                            <div class="messages-body" role="log" aria-label="Message conversation with Ato Kwamena" aria-live="polite">
+                                <div style="text-align:center; font-size:var(--font-size-xs); color:var(--text-muted); padding:var(--space-sm)">27 Feb 2025</div>
+
+                                <div>
+                                    <div class="chat-bubble received">
+                                        Good morning Kofi! I've arrived at the property. Ready to begin the assessment.
+                                        <div class="chat-bubble-time">9:02am</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="chat-bubble sent">
+                                        Perfect, the gate is open. Please come to the main house entrance.
+                                        <div class="chat-bubble-time">9:05am</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="chat-bubble received">
+                                        I've completed the assessment. You'll need 6 new double sockets and approximately 20m of cable. Total quote: GH₵ 480. Shall I proceed?
+                                        <div class="chat-bubble-time">10:30am</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="chat-bubble sent">
+                                        Yes, please go ahead. Thanks for the clear quote.
+                                        <div class="chat-bubble-time">10:45am</div>
+                                    </div>
+                                </div>
+
+                                <div style="text-align:center; font-size:var(--font-size-xs); color:var(--text-muted); padding:var(--space-sm)">Today</div>
+
+                                <div>
+                                    <div class="chat-bubble received">
+                                        Good morning! I'll need to get some extra cable for the second run to the bathroom. I can pick it up from Melcom — no extra charge for materials, already in the quote.
+                                        <div class="chat-bubble-time">8:15am</div>
+                                    </div>
+                                </div>
+                                <div>
+                                    <div class="chat-bubble received">
+                                        Should be back within 30 minutes. The first section is fully done and tested ✅
+                                        <div class="chat-bubble-time">8:18am</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="messages-input-area">
+                                <input type="text" class="messages-input" placeholder="Type a message to Ato…" aria-label="Message input">
+                                <button class="btn btn-primary btn-sm" aria-label="Send message">Send ↗</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== REVIEWS TAB ===================== -->
+            <div class="dashboard-tab" id="tab-reviews">
+                <div class="dashboard-topbar">
+                    <div class="dashboard-topbar-title">Reviews &amp; Ratings</div>
+                </div>
+                <div class="dashboard-content">
+
+                    <!-- Pending Review -->
+                    <div class="alert alert-warning">
+                        <span class="alert-icon">⭐</span>
+                        <div class="alert-text"><strong>Pending review for: Plumbing — Burst Pipe Repair (Kwesi Acheampong)</strong> — Please rate your experience below.</div>
+                    </div>
+
+                    <div class="review-form-card mb-xl">
+                        <h3 style="font-size:var(--font-size-xl); font-weight:700; margin-bottom:var(--space-xs)">Rate Your Experience</h3>
+                        <p style="font-size:var(--font-size-sm); color:var(--text-muted); margin-bottom:var(--space-xl)">Job: Plumbing — Burst Pipe Repair · Kwesi Acheampong · 28 Feb 2025</p>
+
+                        <div class="review-aspects" role="group" aria-label="Rating categories">
+                            <div class="review-aspect">
+                                <span class="review-aspect-label">Overall Quality of Work</span>
+                                <div class="review-stars-mini" role="group" aria-label="Rate quality 1 to 5 stars">
+                                    <button class="review-star-btn active" aria-label="1 star" data-rating="1" onclick="setStars(this.closest('.review-stars-mini'), 1)">★</button>
+                                    <button class="review-star-btn active" aria-label="2 stars" data-rating="2" onclick="setStars(this.closest('.review-stars-mini'), 2)">★</button>
+                                    <button class="review-star-btn active" aria-label="3 stars" data-rating="3" onclick="setStars(this.closest('.review-stars-mini'), 3)">★</button>
+                                    <button class="review-star-btn active" aria-label="4 stars" data-rating="4" onclick="setStars(this.closest('.review-stars-mini'), 4)">★</button>
+                                    <button class="review-star-btn" aria-label="5 stars" data-rating="5" onclick="setStars(this.closest('.review-stars-mini'), 5)">★</button>
+                                </div>
+                            </div>
+                            <div class="review-aspect">
+                                <span class="review-aspect-label">Punctuality &amp; Professionalism</span>
+                                <div class="review-stars-mini" role="group" aria-label="Rate punctuality 1 to 5 stars">
+                                    <button class="review-star-btn active" onclick="setStars(this.closest('.review-stars-mini'), 1)">★</button>
+                                    <button class="review-star-btn active" onclick="setStars(this.closest('.review-stars-mini'), 2)">★</button>
+                                    <button class="review-star-btn active" onclick="setStars(this.closest('.review-stars-mini'), 3)">★</button>
+                                    <button class="review-star-btn active" onclick="setStars(this.closest('.review-stars-mini'), 4)">★</button>
+                                    <button class="review-star-btn active" onclick="setStars(this.closest('.review-stars-mini'), 5)">★</button>
+                                </div>
+                            </div>
+                            <div class="review-aspect">
+                                <span class="review-aspect-label">Value for Money</span>
+                                <div class="review-stars-mini" role="group" aria-label="Rate value 1 to 5 stars">
+                                    <button class="review-star-btn active" onclick="setStars(this.closest('.review-stars-mini'), 1)">★</button>
+                                    <button class="review-star-btn active" onclick="setStars(this.closest('.review-stars-mini'), 2)">★</button>
+                                    <button class="review-star-btn active" onclick="setStars(this.closest('.review-stars-mini'), 3)">★</button>
+                                    <button class="review-star-btn active" onclick="setStars(this.closest('.review-stars-mini'), 4)">★</button>
+                                    <button class="review-star-btn" onclick="setStars(this.closest('.review-stars-mini'), 5)">★</button>
+                                </div>
+                            </div>
+                            <div class="review-aspect">
+                                <span class="review-aspect-label">Cleanliness &amp; Tidiness</span>
+                                <div class="review-stars-mini" role="group" aria-label="Rate cleanliness 1 to 5 stars">
+                                    <button class="review-star-btn active" onclick="setStars(this.closest('.review-stars-mini'), 1)">★</button>
+                                    <button class="review-star-btn active" onclick="setStars(this.closest('.review-stars-mini'), 2)">★</button>
+                                    <button class="review-star-btn active" onclick="setStars(this.closest('.review-stars-mini'), 3)">★</button>
+                                    <button class="review-star-btn active" onclick="setStars(this.closest('.review-stars-mini'), 4)">★</button>
+                                    <button class="review-star-btn active" onclick="setStars(this.closest('.review-stars-mini'), 5)">★</button>
+                                </div>
+                            </div>
+                            <div class="review-aspect">
+                                <span class="review-aspect-label">Communication</span>
+                                <div class="review-stars-mini" role="group" aria-label="Rate communication 1 to 5 stars">
+                                    <button class="review-star-btn active" onclick="setStars(this.closest('.review-stars-mini'), 1)">★</button>
+                                    <button class="review-star-btn active" onclick="setStars(this.closest('.review-stars-mini'), 2)">★</button>
+                                    <button class="review-star-btn active" onclick="setStars(this.closest('.review-stars-mini'), 3)">★</button>
+                                    <button class="review-star-btn active" onclick="setStars(this.closest('.review-stars-mini'), 4)">★</button>
+                                    <button class="review-star-btn active" onclick="setStars(this.closest('.review-stars-mini'), 5)">★</button>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="review-comment">Your Comments</label>
+                            <textarea id="review-comment" class="form-control form-textarea" placeholder="Tell others what you thought of the work. Was the tradesperson professional? Did they clean up? Would you recommend them?" rows="4" aria-describedby="review-char-count"></textarea>
+                            <span class="form-hint" id="review-char-count">Minimum 20 characters · Helps other customers make informed decisions</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Would you hire this professional again?</label>
+                            <div style="display:flex; gap:var(--space-md)">
+                                <label style="display:flex; align-items:center; gap:var(--space-sm); cursor:pointer; font-size:var(--font-size-sm)">
+                                    <input type="radio" name="rehire" value="yes"> Yes, definitely
+                                </label>
+                                <label style="display:flex; align-items:center; gap:var(--space-sm); cursor:pointer; font-size:var(--font-size-sm)">
+                                    <input type="radio" name="rehire" value="maybe"> Maybe
+                                </label>
+                                <label style="display:flex; align-items:center; gap:var(--space-sm); cursor:pointer; font-size:var(--font-size-sm)">
+                                    <input type="radio" name="rehire" value="no"> No
+                                </label>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-primary">Submit Review ⭐</button>
+                    </div>
+
+                    <!-- Past Reviews -->
+                    <h3 style="font-size:var(--font-size-xl); font-weight:700; margin-bottom:var(--space-lg)">Your Past Reviews</h3>
+                    <div style="display:flex; flex-direction:column; gap:var(--space-lg)">
+
+                        <div class="testimonial-card">
+                            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--space-md)">
+                                <div>
+                                    <div style="font-weight:700">Yaw Darko</div>
+                                    <div style="font-size:var(--font-size-xs); color:var(--text-muted)">Carpenter · Custom Wardrobe · 15 Jan 2025</div>
+                                </div>
+                                <div style="color:#F59E0B; font-size:var(--font-size-lg)">★★★★★</div>
+                            </div>
+                            <p style="font-size:var(--font-size-sm); color:var(--text); line-height:1.6; font-style:italic">
+                                "Excellent carpentry work — my custom wardrobes look stunning! Yaw was respectful, clean, and finished a day early. The quality of work was superb."
+                            </p>
+                        </div>
+
+                        <div class="testimonial-card">
+                            <div style="display:flex; align-items:center; justify-content:space-between; margin-bottom:var(--space-md)">
+                                <div>
+                                    <div style="font-weight:700">Ato Kwamena</div>
+                                    <div style="font-size:var(--font-size-xs); color:var(--text-muted)">Electrician · Garden Lights · 1 Dec 2024</div>
+                                </div>
+                                <div style="color:#F59E0B; font-size:var(--font-size-lg)">★★★★<span style="color:var(--border)">★</span></div>
+                            </div>
+                            <p style="font-size:var(--font-size-sm); color:var(--text); line-height:1.6; font-style:italic">
+                                "Good work overall. The garden lights look great and all working perfectly. Took slightly longer than estimated but communicated well throughout."
+                            </p>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== NOTIFICATIONS TAB ===================== -->
+            <div class="dashboard-tab" id="tab-notifications">
+                <div class="dashboard-topbar">
+                    <div class="dashboard-topbar-title">Notifications</div>
+                    <div class="dashboard-topbar-actions">
+                        <button class="btn btn-ghost btn-sm">Mark all as read</button>
+                    </div>
+                </div>
+                <div class="dashboard-content" style="padding:0">
+                    <div class="card">
+                        <div class="notification-item unread">
+                            <div class="notification-icon orange">🔨</div>
+                            <div class="notification-content">
+                                <div class="notification-text"><strong>Ato Kwamena</strong> has sent you a message about job #WAL-2025-0034</div>
+                                <div class="notification-time">2 hours ago</div>
+                            </div>
+                        </div>
+                        <div class="notification-item unread">
+                            <div class="notification-icon blue">📅</div>
+                            <div class="notification-content">
+                                <div class="notification-text">Reminder: <strong>Samuel Boateng</strong> arrives tomorrow at 10:00am for AC servicing</div>
+                                <div class="notification-time">5 hours ago</div>
+                            </div>
+                        </div>
+                        <div class="notification-item unread">
+                            <div class="notification-icon green">⭐</div>
+                            <div class="notification-content">
+                                <div class="notification-text">You have a <strong>pending review</strong> for your plumbing job with Kwesi Acheampong. Leave a review to help others!</div>
+                                <div class="notification-time">1 day ago</div>
+                            </div>
+                        </div>
+                        <div class="notification-item">
+                            <div class="notification-icon green">✅</div>
+                            <div class="notification-content">
+                                <div class="notification-text">Payment of <strong>GH₵ 650</strong> was released to Kwesi Acheampong for plumbing job #WAL-2025-0028</div>
+                                <div class="notification-time">3 days ago</div>
+                            </div>
+                        </div>
+                        <div class="notification-item">
+                            <div class="notification-icon orange">🔒</div>
+                            <div class="notification-content">
+                                <div class="notification-text">Your <strong>3-month guarantee</strong> for the carpentry job (Yaw Darko) expires in 17 days on 15 Apr 2025</div>
+                                <div class="notification-time">4 days ago</div>
+                            </div>
+                        </div>
+                        <div class="notification-item">
+                            <div class="notification-icon blue">🛡️</div>
+                            <div class="notification-content">
+                                <div class="notification-text">Your <strong>HomeShield Basic</strong> insurance policy renews on 1 Jun 2025. No action needed.</div>
+                                <div class="notification-time">1 week ago</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ===================== SETTINGS TAB ===================== -->
+            <div class="dashboard-tab" id="tab-settings">
+                <div class="dashboard-topbar">
+                    <div class="dashboard-topbar-title">Account Settings</div>
+                    <div class="dashboard-topbar-actions">
+                        <button class="btn btn-primary">Save Changes</button>
+                    </div>
+                </div>
+                <div class="dashboard-content">
+                    <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--space-xl)">
+
+                        <div class="card">
+                            <div class="card-header"><h3 class="card-title">Personal Information</h3></div>
+                            <div class="card-body">
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label class="form-label" for="s-firstname">First Name</label>
+                                        <input type="text" id="s-firstname" class="form-control" value="Kofi">
+                                    </div>
+                                    <div class="form-group">
+                                        <label class="form-label" for="s-lastname">Last Name</label>
+                                        <input type="text" id="s-lastname" class="form-control" value="Mensah">
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="s-email">Email Address</label>
+                                    <input type="email" id="s-email" class="form-control" value="kofi.mensah@email.com">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="s-phone">Phone (Ghana)</label>
+                                    <input type="tel" id="s-phone" class="form-control" value="+233 24 123 4567">
+                                </div>
+                                <div class="form-group">
+                                    <label class="form-label" for="s-whatsapp">WhatsApp Number</label>
+                                    <input type="tel" id="s-whatsapp" class="form-control" value="+233 24 123 4567">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-header"><h3 class="card-title">Notification Preferences</h3></div>
+                            <div class="card-body" style="display:flex; flex-direction:column; gap:var(--space-md)">
+                                <label style="display:flex; align-items:center; justify-content:space-between; cursor:pointer">
+                                    <div>
+                                        <div style="font-size:var(--font-size-sm); font-weight:600">SMS notifications</div>
+                                        <div style="font-size:var(--font-size-xs); color:var(--text-muted)">Job updates, arrival alerts</div>
+                                    </div>
+                                    <input type="checkbox" checked style="width:18px; height:18px; accent-color:var(--primary)">
+                                </label>
+                                <label style="display:flex; align-items:center; justify-content:space-between; cursor:pointer">
+                                    <div>
+                                        <div style="font-size:var(--font-size-sm); font-weight:600">Email notifications</div>
+                                        <div style="font-size:var(--font-size-xs); color:var(--text-muted)">Receipts, reports, guarantees</div>
+                                    </div>
+                                    <input type="checkbox" checked style="width:18px; height:18px; accent-color:var(--primary)">
+                                </label>
+                                <label style="display:flex; align-items:center; justify-content:space-between; cursor:pointer">
+                                    <div>
+                                        <div style="font-size:var(--font-size-sm); font-weight:600">WhatsApp updates</div>
+                                        <div style="font-size:var(--font-size-xs); color:var(--text-muted)">Pro on the way, completion</div>
+                                    </div>
+                                    <input type="checkbox" checked style="width:18px; height:18px; accent-color:var(--primary)">
+                                </label>
+                                <label style="display:flex; align-items:center; justify-content:space-between; cursor:pointer">
+                                    <div>
+                                        <div style="font-size:var(--font-size-sm); font-weight:600">Guarantee reminders</div>
+                                        <div style="font-size:var(--font-size-xs); color:var(--text-muted)">Expiry warnings 30 days before</div>
+                                    </div>
+                                    <input type="checkbox" checked style="width:18px; height:18px; accent-color:var(--primary)">
+                                </label>
+                                <label style="display:flex; align-items:center; justify-content:space-between; cursor:pointer">
+                                    <div>
+                                        <div style="font-size:var(--font-size-sm); font-weight:600">Marketing emails</div>
+                                        <div style="font-size:var(--font-size-xs); color:var(--text-muted)">Promotions, seasonal offers</div>
+                                    </div>
+                                    <input type="checkbox" style="width:18px; height:18px; accent-color:var(--primary)">
+                                </label>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <div class="card mt-xl">
+                        <div class="card-header"><h3 class="card-title" style="color:var(--error)">Danger Zone</h3></div>
+                        <div class="card-body" style="display:flex; align-items:center; justify-content:space-between">
+                            <div>
+                                <div style="font-weight:600; margin-bottom:var(--space-xs)">Delete Account</div>
+                                <div style="font-size:var(--font-size-sm); color:var(--text-muted)">Permanently delete your WALANTU account and all associated data.</div>
+                            </div>
+                            <button class="btn btn-sm" style="background:var(--error-bg); color:var(--error); border:1px solid var(--error)">Delete Account</button>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-bottom">
+                <p class="footer-bottom-text">&copy; 2025 WALANTU Trade Services Ltd. All rights reserved.</p>
+                <div class="footer-payment-icons">
+                    <span class="payment-icon-badge">Stripe</span>
+                    <span class="payment-icon-badge">MTN MoMo</span>
+                    <span class="payment-icon-badge">Vodafone</span>
+                    <span class="payment-icon-badge">AirtelTigo</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ============================================================
+        // Tab Navigation
+        // ============================================================
+        function showTab(tabId, clickedItem) {
+            // Hide all tabs
+            document.querySelectorAll('.dashboard-tab').forEach(tab => tab.classList.remove('active'));
+            // Remove active from all nav items
+            document.querySelectorAll('.sidebar-nav-item').forEach(item => item.classList.remove('active'));
+            // Show target tab
+            const target = document.getElementById('tab-' + tabId);
+            if (target) target.classList.add('active');
+            // Activate nav item
+            if (clickedItem) clickedItem.classList.add('active');
+        }
+
+        // ============================================================
+        // Star Rating interactions
+        // ============================================================
+        function setStars(container, rating) {
+            const stars = container.querySelectorAll('.review-star-btn');
+            stars.forEach((star, index) => {
+                star.classList.toggle('active', index < rating);
+            });
+            container.dataset.rating = rating;
+        }
+
+        // ============================================================
+        // Review char count
+        // ============================================================
+        const reviewComment = document.getElementById('review-comment');
+        const charCount = document.getElementById('review-char-count');
+        if (reviewComment && charCount) {
+            reviewComment.addEventListener('input', () => {
+                const len = reviewComment.value.length;
+                charCount.textContent = len < 20
+                    ? `${20 - len} more characters needed`
+                    : `${len} characters · Looks good!`;
+                charCount.style.color = len >= 20 ? 'var(--success)' : 'var(--text-muted)';
+            });
+        }
+
+        // ============================================================
+        // Animate progress bars on load
+        // ============================================================
+        window.addEventListener('load', () => {
+            document.querySelectorAll('.progress-bar-fill').forEach(bar => {
+                const target = bar.style.width;
+                bar.style.width = '0%';
+                setTimeout(() => { bar.style.width = target; }, 200);
+            });
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,24 @@
+walantu-trade-services/
+├── index.html
+├── about.html
+├── how-it-works.html
+├── terms.html
+├── booking.html
+├── registration.html
+├── payment.html
+├── profile.html
+├── admin.html
+├── css/
+│   ├── style.css
+│   ├── mobile.css
+│   └── accessibility.css
+├── js/
+│   ├── main.js
+│   ├── booking.js
+│   ├── registration.js
+│   ├── payment.js
+│   ├── profile.js
+│   └── admin.js
+├── images/
+│   └── logo-placeholder.png
+└── README.md

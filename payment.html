@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Secure payment for WALANTU trade services. Pay via Stripe or Ghana Mobile Money (MTN, Vodafone, AirtelTigo).">
+    <title>Secure Payment | WALANTU Trade Services</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- In production: <script src="https://js.stripe.com/v3/"></script> -->
+    <style>
+        /* Payment-page-specific styles */
+        .payment-page {
+            min-height: 100vh;
+            background: var(--bg-light);
+            padding-top: var(--header-height);
+        }
+
+        .payment-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: var(--space-2xl) var(--space-xl);
+        }
+
+        .payment-layout {
+            display: grid;
+            grid-template-columns: 1fr 400px;
+            gap: var(--space-2xl);
+            align-items: start;
+        }
+
+        /* Payment method selector */
+        .method-tabs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--space-sm);
+            margin-bottom: var(--space-xl);
+        }
+
+        .method-tab {
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-lg);
+            cursor: pointer;
+            text-align: center;
+            transition: var(--transition);
+            background: #fff;
+            font-family: var(--font-primary);
+        }
+        .method-tab:hover { border-color: var(--primary); }
+        .method-tab.active {
+            border-color: var(--primary);
+            background: var(--primary-light);
+        }
+        .method-tab-icon { font-size: 32px; margin-bottom: var(--space-sm); }
+        .method-tab-label { font-weight: 700; font-size: var(--font-size-base); display: block; }
+        .method-tab-desc { font-size: var(--font-size-xs); color: var(--text-muted); margin-top: 2px; }
+
+        /* Payment form panels */
+        .payment-form-panel { display: none; }
+        .payment-form-panel.active { display: block; }
+
+        /* Stripe Element Containers */
+        .stripe-element-container {
+            border: 2px solid var(--border);
+            border-radius: var(--radius-sm);
+            padding: 14px 16px;
+            background: #fff;
+            transition: var(--transition);
+            font-size: var(--font-size-base);
+            color: var(--text);
+            margin-bottom: var(--space-md);
+            /* Stripe elements mount here */
+        }
+        .stripe-element-container.focused {
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(232,68,10,0.1);
+        }
+
+        /* MoMo network selector */
+        .momo-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: var(--space-md);
+            margin-bottom: var(--space-xl);
+        }
+
+        .momo-option {
+            border: 2px solid var(--border);
+            border-radius: var(--radius-lg);
+            padding: var(--space-md);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            background: #fff;
+        }
+        .momo-option:hover { border-color: var(--primary); }
+        .momo-option.selected { border-color: var(--primary); background: var(--primary-light); }
+        .momo-option input[type="radio"] { display: none; }
+        .momo-logo { font-size: 30px; margin-bottom: var(--space-xs); }
+        .momo-name { font-size: var(--font-size-xs); font-weight: 700; color: var(--text); }
+        .momo-color { font-size: 10px; color: var(--text-muted); }
+
+        /* Order Summary sidebar */
+        .order-summary {
+            background: #fff;
+            border: 1px solid var(--border);
+            border-radius: var(--radius-xl);
+            overflow: hidden;
+            position: sticky;
+            top: calc(var(--header-height) + var(--space-xl));
+        }
+
+        .order-summary-header {
+            background: var(--bg-dark);
+            color: #fff;
+            padding: var(--space-xl);
+        }
+
+        .order-summary-body {
+            padding: var(--space-xl);
+        }
+
+        .order-line {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: var(--font-size-sm);
+            padding: var(--space-sm) 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+        .order-line:last-of-type { border-bottom: none; }
+        .order-line-label { color: var(--text-light); }
+        .order-line-value { font-weight: 600; }
+
+        .order-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: var(--space-md) 0;
+            border-top: 2px solid var(--border);
+            margin-top: var(--space-sm);
+            font-size: var(--font-size-lg);
+            font-weight: 800;
+        }
+        .order-total-value { color: var(--primary); }
+
+        .escrow-notice {
+            background: var(--success-bg);
+            border: 1px solid var(--success);
+            border-radius: var(--radius);
+            padding: var(--space-md);
+            margin-top: var(--space-lg);
+            display: flex;
+            gap: var(--space-sm);
+            align-items: flex-start;
+            font-size: var(--font-size-xs);
+        }
+
+        /* Confirmation overlay */
+        #payment-success {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            padding: var(--space-3xl);
+        }
+        .success-icon { font-size: 80px; margin-bottom: var(--space-lg); animation: bounce 0.6s ease; }
+        @keyframes bounce {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+        }
+
+        @media (max-width: 768px) {
+            .payment-layout { grid-template-columns: 1fr; }
+            .order-summary { position: static; }
+            .momo-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <!-- ===== HEADER ===== -->
+    <header class="header" role="banner">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="images/logoFull.png" alt="WALANTU" width="44" height="44" onerror="this.style.display='none'">
+                <span class="logo-text">WALANTU</span>
+            </a>
+            <div style="display:flex; align-items:center; gap:var(--space-md); font-size:var(--font-size-sm); color:var(--text-muted)">
+                <span>🔒</span>
+                <span>Secure, encrypted payment</span>
+                <span style="font-size:var(--font-size-xs); opacity:0.5">·</span>
+                <span>Step 3 of 3</span>
+            </div>
+            <div></div>
+        </div>
+    </header>
+
+    <!-- Progress -->
+    <div style="background:#fff; border-bottom:1px solid var(--border); padding:var(--space-sm) 0" aria-label="Booking progress: step 3 of 3">
+        <div class="container">
+            <div class="booking-steps">
+                <div class="booking-step-item done">
+                    <div class="booking-step-num">✓</div>
+                    <span>Service Details</span>
+                </div>
+                <div class="booking-step-item done">
+                    <div class="booking-step-num">✓</div>
+                    <span>Your Information</span>
+                </div>
+                <div class="booking-step-item active">
+                    <div class="booking-step-num">3</div>
+                    <span>Payment</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <main id="main-content" class="payment-page">
+        <div class="payment-container">
+
+            <!-- Page Title -->
+            <div style="margin-bottom:var(--space-xl)">
+                <h1 style="font-size:var(--font-size-3xl); font-weight:800; margin-bottom:var(--space-xs)">Secure Payment</h1>
+                <p style="color:var(--text-muted); font-size:var(--font-size-base)">Your payment is held securely in escrow and only released when you approve the completed work.</p>
+            </div>
+
+            <div class="payment-layout">
+
+                <!-- ===== LEFT: Payment Form ===== -->
+                <div>
+
+                    <!-- Method selector -->
+                    <div class="card" style="margin-bottom:var(--space-xl)">
+                        <div class="card-header">
+                            <h2 class="card-title">Choose Payment Method</h2>
+                        </div>
+                        <div class="card-body">
+                            <div class="method-tabs" role="tablist" aria-label="Payment methods">
+
+                                <button class="method-tab active" role="tab" id="tab-card-btn" aria-selected="true" aria-controls="panel-card" onclick="selectMethod('card')">
+                                    <div class="method-tab-icon">💳</div>
+                                    <span class="method-tab-label">Credit / Debit Card</span>
+                                    <span class="method-tab-desc">Visa, Mastercard · Powered by Stripe</span>
+                                </button>
+
+                                <button class="method-tab" role="tab" id="tab-momo-btn" aria-selected="false" aria-controls="panel-momo" onclick="selectMethod('momo')">
+                                    <div class="method-tab-icon">📱</div>
+                                    <span class="method-tab-label">Ghana Mobile Money</span>
+                                    <span class="method-tab-desc">MTN, Vodafone, AirtelTigo</span>
+                                </button>
+
+                            </div>
+
+                            <!-- CARD PAYMENT PANEL -->
+                            <div id="panel-card" class="payment-form-panel active" role="tabpanel" aria-labelledby="tab-card-btn">
+
+                                <div class="alert alert-info" style="margin-bottom:var(--space-lg)">
+                                    <span class="alert-icon">💳</span>
+                                    <div class="alert-text">
+                                        <strong>Powered by Stripe</strong> — Your card details are encrypted with 256-bit SSL and never stored on our servers.
+                                    </div>
+                                </div>
+
+                                <form id="stripe-form" novalidate>
+                                    <div class="form-group">
+                                        <label class="form-label" for="cardholder-name">Cardholder Name</label>
+                                        <input type="text" id="cardholder-name" class="form-control" placeholder="Name as it appears on card" required autocomplete="cc-name">
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label" for="stripe-card-number">Card Number</label>
+                                        <div class="stripe-element-container" id="stripe-card-number" tabindex="0" role="textbox" aria-label="Card number input — powered by Stripe">
+                                            <!-- Stripe Element mounts here -->
+                                            <div style="display:flex; align-items:center; justify-content:space-between; color:var(--text-muted); font-size:var(--font-size-sm)">
+                                                <span>•••• •••• •••• ••••</span>
+                                                <span>💳</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-row">
+                                        <div class="form-group">
+                                            <label class="form-label" for="stripe-expiry">Expiry Date</label>
+                                            <div class="stripe-element-container" id="stripe-expiry" role="textbox" aria-label="Card expiry date — MM/YY">
+                                                <span style="color:var(--text-muted); font-size:var(--font-size-sm)">MM / YY</span>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label" for="stripe-cvc">CVC / CVV <span class="form-hint" style="display:inline">(3–4 digits)</span></label>
+                                            <div class="stripe-element-container" id="stripe-cvc" role="textbox" aria-label="Card security code CVC">
+                                                <span style="color:var(--text-muted); font-size:var(--font-size-sm)">•••</span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label" for="billing-email">Billing Email</label>
+                                        <input type="email" id="billing-email" class="form-control" placeholder="your@email.com" required autocomplete="email">
+                                    </div>
+
+                                    <div class="alert alert-warning" style="font-size:var(--font-size-xs); padding:var(--space-sm) var(--space-md)">
+                                        <span class="alert-icon" style="font-size:14px">ℹ️</span>
+                                        <div class="alert-text" style="font-size:var(--font-size-xs)"><strong>Test mode:</strong> Use card 4242 4242 4242 4242, any future expiry, any CVC. No real charges are made.</div>
+                                    </div>
+
+                                    <button type="submit" id="stripe-pay-btn" class="btn btn-primary btn-lg btn-full" style="margin-top:var(--space-lg)">
+                                        🔒 Pay GH₵ <span class="pay-amount">480.00</span> with Card
+                                    </button>
+                                </form>
+
+                                <div style="display:flex; align-items:center; justify-content:center; gap:var(--space-md); margin-top:var(--space-lg)">
+                                    <span style="font-size:20px">🔒</span>
+                                    <span style="font-size:var(--font-size-xs); color:var(--text-muted)">256-bit SSL encryption</span>
+                                    <span style="font-size:var(--font-size-xs); color:var(--text-muted)">·</span>
+                                    <span style="font-size:var(--font-size-xs); font-weight:700; color:#635BFF">Powered by Stripe</span>
+                                    <span style="font-size:var(--font-size-xs); color:var(--text-muted)">·</span>
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/5e/Visa_Inc._logo.svg/200px-Visa_Inc._logo.svg.png" alt="Visa" height="14" style="opacity:0.5" onerror="this.style.display='none'">
+                                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2a/Mastercard-logo.svg/200px-Mastercard-logo.svg.png" alt="Mastercard" height="20" style="opacity:0.5" onerror="this.style.display='none'">
+                                </div>
+                            </div>
+
+                            <!-- MOBILE MONEY PANEL -->
+                            <div id="panel-momo" class="payment-form-panel" role="tabpanel" aria-labelledby="tab-momo-btn">
+
+                                <div class="alert alert-info" style="margin-bottom:var(--space-xl)">
+                                    <span class="alert-icon">📱</span>
+                                    <div class="alert-text">
+                                        <strong>Ghana Mobile Money</strong> — A payment prompt will be sent to your mobile number. Approve it on your phone to complete payment.
+                                    </div>
+                                </div>
+
+                                <h3 style="font-size:var(--font-size-base); font-weight:700; margin-bottom:var(--space-md)">Select Your Network</h3>
+
+                                <form id="momo-form" novalidate>
+                                    <div class="momo-grid" role="radiogroup" aria-label="Select mobile money network">
+
+                                        <label class="momo-option selected" aria-label="MTN Mobile Money">
+                                            <input type="radio" name="momo-network" value="mtn" checked>
+                                            <div class="momo-logo">🟡</div>
+                                            <div class="momo-name">MTN MoMo</div>
+                                            <div class="momo-color">Yellow network</div>
+                                        </label>
+
+                                        <label class="momo-option" aria-label="Vodafone Cash">
+                                            <input type="radio" name="momo-network" value="vodafone">
+                                            <div class="momo-logo">🔴</div>
+                                            <div class="momo-name">Vodafone Cash</div>
+                                            <div class="momo-color">Red network</div>
+                                        </label>
+
+                                        <label class="momo-option" aria-label="AirtelTigo Money">
+                                            <input type="radio" name="momo-network" value="airteltigo">
+                                            <div class="momo-logo">🔵</div>
+                                            <div class="momo-name">AirtelTigo</div>
+                                            <div class="momo-color">Blue network</div>
+                                        </label>
+
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label" for="momo-number">Mobile Money Number</label>
+                                        <div style="display:flex; gap:var(--space-sm)">
+                                            <select class="form-control form-select" style="width:90px; flex-shrink:0" aria-label="Country code">
+                                                <option value="+233">🇬🇭 +233</option>
+                                            </select>
+                                            <input type="tel" id="momo-number" class="form-control" placeholder="24 123 4567" required pattern="[0-9]{9,10}" aria-describedby="momo-format-hint" maxlength="10">
+                                        </div>
+                                        <span class="form-hint" id="momo-format-hint">Enter your 10-digit Ghana number (e.g. 0241234567)</span>
+                                    </div>
+
+                                    <div class="form-group">
+                                        <label class="form-label" for="momo-name">Account Holder Name</label>
+                                        <input type="text" id="momo-name" class="form-control" placeholder="Name registered to this MoMo account" required>
+                                        <span class="form-hint">Must match the name on your Mobile Money account</span>
+                                    </div>
+
+                                    <!-- OTP step (hidden until number entered) -->
+                                    <div id="momo-otp-section" style="display:none">
+                                        <div class="alert alert-success">
+                                            <span class="alert-icon">📲</span>
+                                            <div class="alert-text"><strong>Prompt sent!</strong> Check your phone for a payment request from <strong id="momo-network-display">MTN MoMo</strong> and enter the PIN to approve.</div>
+                                        </div>
+                                        <div class="form-group">
+                                            <label class="form-label" for="momo-otp">Confirm OTP (if prompted)</label>
+                                            <input type="text" id="momo-otp" class="form-control" placeholder="Enter 6-digit OTP" maxlength="6" inputmode="numeric" pattern="[0-9]{6}">
+                                        </div>
+                                    </div>
+
+                                    <button type="submit" id="momo-pay-btn" class="btn btn-primary btn-lg btn-full" style="margin-top:var(--space-lg)">
+                                        📱 Pay GH₵ <span class="pay-amount">480.00</span> via Mobile Money
+                                    </button>
+
+                                    <div class="alert alert-warning" style="margin-top:var(--space-md); font-size:var(--font-size-xs); padding:var(--space-sm) var(--space-md)">
+                                        <span class="alert-icon" style="font-size:14px">ℹ️</span>
+                                        <div class="alert-text" style="font-size:var(--font-size-xs)"><strong>Demo:</strong> Use +233 24 123 4567 to simulate a successful Mobile Money payment.</div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- What happens next -->
+                    <div class="card">
+                        <div class="card-header"><h3 class="card-title">What Happens After Payment?</h3></div>
+                        <div class="card-body">
+                            <div class="project-timeline">
+                                <div class="timeline-item done">
+                                    <div class="timeline-dot done"></div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-title">Payment Received &amp; Secured</div>
+                                        <div class="timeline-date">Your funds are held in escrow — not paid to the tradesperson yet</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-title">Pro Assigned &amp; Confirmed</div>
+                                        <div class="timeline-date">You'll receive an SMS with your pro's details and ETA</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-title">Work Completed</div>
+                                        <div class="timeline-date">You inspect the work and approve on your dashboard</div>
+                                    </div>
+                                </div>
+                                <div class="timeline-item">
+                                    <div class="timeline-dot"></div>
+                                    <div class="timeline-content">
+                                        <div class="timeline-title">Payment Released &amp; Guarantee Starts</div>
+                                        <div class="timeline-date">Pro is paid. Your 3-month guarantee begins.</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- ===== RIGHT: Order Summary ===== -->
+                <div>
+                    <div class="order-summary" aria-label="Order summary">
+                        <div class="order-summary-header">
+                            <h2 style="font-size:var(--font-size-xl); font-weight:800; margin-bottom:var(--space-xs)">Order Summary</h2>
+                            <div style="font-size:var(--font-size-xs); opacity:0.7" id="job-reference">Job #WAL-2025-0034</div>
+                        </div>
+
+                        <div class="order-summary-body">
+                            <!-- Service info -->
+                            <div style="background:var(--bg-light); border-radius:var(--radius); padding:var(--space-md); margin-bottom:var(--space-lg)">
+                                <div style="display:flex; align-items:center; gap:var(--space-sm); margin-bottom:var(--space-sm)">
+                                    <div style="width:40px; height:40px; background:var(--primary-light); border-radius:var(--radius-sm); display:flex; align-items:center; justify-content:center; font-size:20px">⚡</div>
+                                    <div>
+                                        <div style="font-weight:700; font-size:var(--font-size-sm)" id="service-name">Electrical — Rewiring & Sockets</div>
+                                        <div style="font-size:var(--font-size-xs); color:var(--text-muted)" id="service-pro">Ato Kwamena · Master Electrician</div>
+                                    </div>
+                                </div>
+                                <div style="font-size:var(--font-size-xs); color:var(--text-muted)">
+                                    <span>📍 East Legon, GA-144-8765</span><br>
+                                    <span>📅 27 Feb 2025</span>
+                                </div>
+                            </div>
+
+                            <!-- Line items -->
+                            <div class="order-line">
+                                <span class="order-line-label">Labour</span>
+                                <span class="order-line-value">GH₵ 320.00</span>
+                            </div>
+                            <div class="order-line">
+                                <span class="order-line-label">Materials (6 sockets)</span>
+                                <span class="order-line-value">GH₵ 120.00</span>
+                            </div>
+                            <div class="order-line">
+                                <span class="order-line-label">Call-out fee</span>
+                                <span class="order-line-value">GH₵ 40.00</span>
+                            </div>
+                            <div class="order-line">
+                                <span class="order-line-label">WALANTU service fee</span>
+                                <span class="order-line-value">GH₵ 0.00</span>
+                            </div>
+
+                            <div class="order-total">
+                                <span>Total</span>
+                                <span class="order-total-value" id="order-total">GH₵ 480.00</span>
+                            </div>
+
+                            <!-- Escrow notice -->
+                            <div class="escrow-notice" aria-live="polite">
+                                <span style="font-size:18px; flex-shrink:0">🔒</span>
+                                <div style="color:var(--success)">
+                                    <strong>Escrow Protection</strong><br>
+                                    Your payment is held securely and only released to the tradesperson once you confirm you're satisfied with the work.
+                                </div>
+                            </div>
+
+                            <!-- Guarantee -->
+                            <div style="margin-top:var(--space-lg); padding:var(--space-md); border:1px dashed var(--primary); border-radius:var(--radius); text-align:center">
+                                <div style="font-size:24px; margin-bottom:var(--space-xs)">🛡️</div>
+                                <div style="font-size:var(--font-size-sm); font-weight:700; color:var(--primary)">3-Month Guarantee Included</div>
+                                <div style="font-size:var(--font-size-xs); color:var(--text-muted); margin-top:4px">Any workmanship issues fixed free within 90 days</div>
+                            </div>
+
+                            <!-- Insurance upsell -->
+                            <div style="margin-top:var(--space-lg); background:var(--bg-light); border-radius:var(--radius); padding:var(--space-md)">
+                                <label style="display:flex; align-items:flex-start; gap:var(--space-sm); cursor:pointer">
+                                    <input type="checkbox" id="add-insurance" style="margin-top:3px; accent-color:var(--primary); width:16px; height:16px">
+                                    <div>
+                                        <div style="font-size:var(--font-size-sm); font-weight:700">Add HomeShield Insurance +GH₵ 35</div>
+                                        <div style="font-size:var(--font-size-xs); color:var(--text-muted)">Covers accidental damage up to GH₵ 5,000 during the job</div>
+                                    </div>
+                                </label>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- ===== SUCCESS STATE ===== -->
+            <div id="payment-success" aria-live="assertive" aria-atomic="true">
+                <div class="success-icon">✅</div>
+                <h2 style="font-size:var(--font-size-4xl); font-weight:800; margin-bottom:var(--space-md)">Payment Successful!</h2>
+                <p style="color:var(--text-muted); font-size:var(--font-size-lg); margin-bottom:var(--space-xl); max-width:500px">
+                    Your payment of <strong id="paid-amount">GH₵ 480.00</strong> is securely held in escrow. You'll receive an SMS confirmation shortly.
+                </p>
+
+                <div style="background:var(--bg-light); border-radius:var(--radius-xl); padding:var(--space-2xl); max-width:480px; width:100%; margin-bottom:var(--space-xl); text-align:left">
+                    <div style="display:flex; flex-direction:column; gap:var(--space-md)">
+                        <div style="display:flex; justify-content:space-between; font-size:var(--font-size-sm)">
+                            <span style="color:var(--text-muted)">Job Reference</span>
+                            <span style="font-weight:700; font-family:monospace">#WAL-2025-0034</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; font-size:var(--font-size-sm)">
+                            <span style="color:var(--text-muted)">Service</span>
+                            <span style="font-weight:700">Electrical — Rewiring & Sockets</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; font-size:var(--font-size-sm)">
+                            <span style="color:var(--text-muted)">Professional</span>
+                            <span style="font-weight:700">Ato Kwamena</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; font-size:var(--font-size-sm)">
+                            <span style="color:var(--text-muted)">Amount Held</span>
+                            <span style="font-weight:700; color:var(--success)">GH₵ 480.00 (Escrow)</span>
+                        </div>
+                        <div style="display:flex; justify-content:space-between; font-size:var(--font-size-sm)">
+                            <span style="color:var(--text-muted)">Guarantee</span>
+                            <span style="font-weight:700; color:var(--primary)">🛡️ 3 months from completion</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="display:flex; gap:var(--space-md); flex-wrap:wrap; justify-content:center">
+                    <a href="dashboard.html" class="btn btn-primary btn-lg">View My Dashboard →</a>
+                    <button class="btn btn-outline btn-lg" onclick="window.print()">🧾 Download Receipt</button>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-bottom">
+                <p class="footer-bottom-text">&copy; 2025 WALANTU Trade Services Ltd. All rights reserved.</p>
+                <div class="footer-payment-icons">
+                    <span class="payment-icon-badge">🔒 Stripe Secured</span>
+                    <span class="payment-icon-badge">MTN MoMo</span>
+                    <span class="payment-icon-badge">Vodafone</span>
+                    <span class="payment-icon-badge">AirtelTigo</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // ============================================================
+        // Payment Method Selection
+        // ============================================================
+        function selectMethod(method) {
+            document.querySelectorAll('.method-tab').forEach(tab => {
+                tab.classList.remove('active');
+                tab.setAttribute('aria-selected', 'false');
+            });
+            document.querySelectorAll('.payment-form-panel').forEach(panel => {
+                panel.classList.remove('active');
+            });
+
+            document.getElementById('tab-' + method + '-btn').classList.add('active');
+            document.getElementById('tab-' + method + '-btn').setAttribute('aria-selected', 'true');
+            document.getElementById('panel-' + method).classList.add('active');
+        }
+
+        // ============================================================
+        // MoMo Network Selection
+        // ============================================================
+        document.querySelectorAll('.momo-option').forEach(option => {
+            option.addEventListener('click', () => {
+                document.querySelectorAll('.momo-option').forEach(o => o.classList.remove('selected'));
+                option.classList.add('selected');
+                const networkNames = { mtn: 'MTN MoMo', vodafone: 'Vodafone Cash', airteltigo: 'AirtelTigo Money' };
+                const val = option.querySelector('input').value;
+                const display = document.getElementById('momo-network-display');
+                if (display) display.textContent = networkNames[val] || val;
+            });
+        });
+
+        // ============================================================
+        // Insurance toggle — update total
+        // ============================================================
+        const insuranceCheck = document.getElementById('add-insurance');
+        const orderTotal = document.getElementById('order-total');
+        const payAmounts = document.querySelectorAll('.pay-amount');
+        const baseAmount = 480;
+
+        if (insuranceCheck) {
+            insuranceCheck.addEventListener('change', () => {
+                const total = insuranceCheck.checked ? baseAmount + 35 : baseAmount;
+                const formatted = 'GH₵ ' + total.toFixed(2);
+                if (orderTotal) orderTotal.textContent = formatted;
+                payAmounts.forEach(el => el.textContent = total.toFixed(2));
+            });
+        }
+
+        // ============================================================
+        // Stripe Form Submission (Demo)
+        // ============================================================
+        const stripeForm = document.getElementById('stripe-form');
+        const stripePayBtn = document.getElementById('stripe-pay-btn');
+
+        if (stripeForm) {
+            stripeForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                stripePayBtn.disabled = true;
+                stripePayBtn.textContent = '⏳ Processing…';
+
+                // Simulate Stripe processing
+                await new Promise(r => setTimeout(r, 2000));
+
+                showPaymentSuccess('card');
+            });
+        }
+
+        // ============================================================
+        // Mobile Money Form Submission (Demo)
+        // ============================================================
+        const momoForm = document.getElementById('momo-form');
+        const momoPayBtn = document.getElementById('momo-pay-btn');
+
+        if (momoForm) {
+            momoForm.addEventListener('submit', async (e) => {
+                e.preventDefault();
+                const number = document.getElementById('momo-number').value;
+
+                if (!number) {
+                    document.getElementById('momo-number').focus();
+                    return;
+                }
+
+                momoPayBtn.disabled = true;
+                momoPayBtn.textContent = '📲 Sending payment prompt…';
+
+                // Show OTP section after simulated delay
+                await new Promise(r => setTimeout(r, 1500));
+                const otpSection = document.getElementById('momo-otp-section');
+                if (otpSection) otpSection.style.display = 'block';
+
+                momoPayBtn.disabled = false;
+                momoPayBtn.textContent = '✅ Confirm Payment';
+
+                momoPayBtn.onclick = async (ev) => {
+                    ev.preventDefault();
+                    momoPayBtn.disabled = true;
+                    momoPayBtn.textContent = '⏳ Confirming with network…';
+                    await new Promise(r => setTimeout(r, 2000));
+                    showPaymentSuccess('momo');
+                };
+            });
+        }
+
+        // ============================================================
+        // Show Success State
+        // ============================================================
+        function showPaymentSuccess(method) {
+            document.querySelector('.payment-layout').style.display = 'none';
+            document.querySelector('h1')?.closest('div').style.display = 'none';
+
+            const successEl = document.getElementById('payment-success');
+            if (successEl) {
+                const insurance = document.getElementById('add-insurance')?.checked;
+                const total = insurance ? baseAmount + 35 : baseAmount;
+                const paidEl = document.getElementById('paid-amount');
+                if (paidEl) paidEl.textContent = 'GH₵ ' + total.toFixed(2);
+
+                successEl.style.display = 'flex';
+                successEl.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // ============================================================
+        // Stripe Elements Interaction Simulation
+        // (In production, initialise with your Stripe publishable key)
+        // const stripe = Stripe('pk_test_YOUR_PUBLISHABLE_KEY');
+        // const elements = stripe.elements();
+        // const cardNumber = elements.create('cardNumber');
+        // cardNumber.mount('#stripe-card-number');
+        // const cardExpiry = elements.create('cardExpiry');
+        // cardExpiry.mount('#stripe-expiry');
+        // const cardCvc = elements.create('cardCvc');
+        // cardCvc.mount('#stripe-cvc');
+        // ============================================================
+
+        // Simulate Stripe element focus highlight
+        document.querySelectorAll('.stripe-element-container').forEach(el => {
+            el.addEventListener('click', () => {
+                document.querySelectorAll('.stripe-element-container').forEach(e => e.classList.remove('focused'));
+                el.classList.add('focused');
+            });
+        });
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.stripe-element-container')) {
+                document.querySelectorAll('.stripe-element-container').forEach(el => el.classList.remove('focused'));
+            }
+        });
+    </script>
+</body>
+</html>

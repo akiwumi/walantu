@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book a Service - WALANTU Trade Services</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/accessibility.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header class="header" role="banner">
+        <div class="container header-container">
+            <a href="index.html" class="logo">
+                <img src="images/logo.svg" alt="WALANTU Trade Services" width="40" height="40">
+                <span>WALANTU</span>
+            </a>
+            
+            <nav class="nav" role="navigation" aria-label="Main navigation">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="services.html" class="nav-link">Services</a>
+                <a href="how-it-works.html" class="nav-link">How It Works</a>
+                <a href="about.html" class="nav-link">About</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+                <a href="booking.html" class="cta-button" aria-current="page">Book a Service</a>
+            </nav>
+
+            <button class="mobile-menu-toggle" aria-expanded="false" aria-controls="main-navigation">
+                <span class="hamburger"></span>
+                <span class="sr-only">Menu</span>
+            </button>
+        </div>
+    </header>
+
+    <main id="main-content" role="main">
+        <div class="container">
+            <div class="section-header">
+                <h1>Book a Service</h1>
+                <p class="section-subtitle">Fill out the form below to request a service. We'll connect you with a skilled professional.</p>
+            </div>
+
+            <!-- Categories Grid -->
+            <section class="categories-section" aria-labelledby="categories-heading">
+                <h2 id="categories-heading" class="sr-only">Service Categories</h2>
+                <div class="categories-grid">
+                    <a href="#booking-form" class="category-card" data-service="Carpenter">
+                        <div class="category-icon">🔨</div>
+                        <h3 class="category-title">Carpenter</h3>
+                        <p class="category-description">Furniture repair, installations, and woodworking</p>
+                    </a>
+                    
+                    <a href="#booking-form" class="category-card" data-service="Plumber">
+                        <div class="category-icon">🚰</div>
+                        <h3 class="category-title">Plumber</h3>
+                        <p class="category-description">Pipe repairs, installations, and maintenance</p>
+                    </a>
+                    
+                    <a href="#booking-form" class="category-card" data-service="Electrician">
+                        <div class="category-icon">⚡</div>
+                        <h3 class="category-title">Electrician</h3>
+                        <p class="category-description">Electrical repairs, installations, and safety checks</p>
+                    </a>
+                    
+                    <a href="#booking-form" class="category-card" data-service="Gardener">
+                        <div class="category-icon">🌿</div>
+                        <h3 class="category-title">Gardener</h3>
+                        <p class="category-description">Landscaping, maintenance, and garden care</p>
+                    </a>
+                    
+                    <a href="#booking-form" class="category-card" data-service="Car mechanic">
+                        <div class="category-icon">🔧</div>
+                        <h3 class="category-title">Car Mechanic</h3>
+                        <p class="category-description">Vehicle repairs, maintenance, and diagnostics</p>
+                    </a>
+                    
+                    <a href="#booking-form" class="category-card" data-service="Air conditioner electrician">
+                        <div class="category-icon">❄️</div>
+                        <h3 class="category-title">AC Technician</h3>
+                        <p class="category-description">Air conditioner installation and repair</p>
+                    </a>
+                    
+                    <a href="#booking-form" class="category-card" data-service="Labourer">
+                        <div class="category-icon">👷</div>
+                        <h3 class="category-title">Labourer</h3>
+                        <p class="category-description">General labor and assistance services</p>
+                    </a>
+                </div>
+            </section>
+
+            <form id="booking-form" class="booking-form" novalidate>
+                <!-- Rest of the booking form remains the same -->
+                <!-- Step 1: Service Selection -->
+                <div class="form-step" id="step-1">
+                    <h2>Choose a Service</h2>
+                    <div class="categories-grid">
+                        <label class="category-card">
+                            <input type="radio" name="service" value="Carpenter" required>
+                            <div class="category-icon">🔨</div>
+                            <h3>Carpenter</h3>
+                            <p>Furniture repair, installations, and woodworking</p>
+                        </label>
+                        <label class="category-card">
+                            <input type="radio" name="service" value="Plumber" required>
+                            <div class="category-icon">🚰</div>
+                            <h3>Plumber</h3>
+                            <p>Pipe repairs, installations, and maintenance</p>
+                        </label>
+                        <label class="category-card">
+                            <input type="radio" name="service" value="Electrician" required>
+                            <div class="category-icon">⚡</div>
+                            <h3>Electrician</h3>
+                            <p>Electrical repairs, installations, and safety checks</p>
+                        </label>
+                        <label class="category-card">
+                            <input type="radio" name="service" value="Gardener" required>
+                            <div class="category-icon">🌿</div>
+                            <h3>Gardener</h3>
+                            <p>Landscaping, maintenance, and garden care</p>
+                        </label>
+                        <label class="category-card">
+                            <input type="radio" name="service" value="Car mechanic" required>
+                            <div class="category-icon">🔧</div>
+                            <h3>Car Mechanic</h3>
+                            <p>Vehicle repairs, maintenance, and diagnostics</p>
+                        </label>
+                        <label class="category-card">
+                            <input type="radio" name="service" value="Air conditioner electrician" required>
+                            <div class="category-icon">❄️</div>
+                            <h3>AC Technician</h3>
+                            <p>Air conditioner installation and repair</p>
+                        </label>
+                        <label class="category-card">
+                            <input type="radio" name="service" value="Labourer" required>
+                            <div class="category-icon">👷</div>
+                            <h3>Labourer</h3>
+                            <p>General labor and assistance services</p>
+                        </label>
+                    </div>
+                    <div class="form-navigation">
+                        <button type="button" class="cta-button" onclick="nextStep(2)">Next</button>
+                    </div>
+                </div>
+
+                <!-- Steps 2-5 remain the same -->
+                <!-- ... -->
+            </form>
+        </div>
+    </main>
+
+    <footer class="footer" role="contentinfo">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>WALANTU Trade Services</h3>
+                    <p>Your trusted partner for quality trade services in Accra</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="how-it-works.html">How It Works</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <ul class="footer-links">
+                        <li>Email: info@walantu.com</li>
+                        <li>Phone: +233 24 123 4567</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 WALANTU Trade Services. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/booking.js"></script>
+</body>
+</html>

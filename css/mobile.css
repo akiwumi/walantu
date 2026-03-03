@@ -1,0 +1,361 @@
+/* Mobile Responsive Styles */
+@media (max-width: 768px) {
+    .mobile-menu-toggle {
+        display: block;
+    }
+
+    nav ul {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: white;
+        flex-direction: column;
+        padding: 1rem;
+        box-shadow: var(--shadow);
+        z-index: 1000;
+    }
+
+    nav ul.show {
+        display: flex;
+    }
+
+    .hero-content h1 {
+        font-size: 2rem;
+    }
+
+    .hero-content p {
+        font-size: 1rem;
+    }
+
+    .categories-grid,
+    .testimonials-grid,
+    .pricing-grid,
+    .values-grid,
+    .stats-grid,
+    .insurance-plans,
+    .faq-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-content {
+        grid-template-columns: 1fr;
+    }
+
+    .container {
+        width: 95%;
+    }
+
+    .calendar-grid {
+        grid-template-columns: repeat(7, 1fr);
+        font-size: 0.8rem;
+    }
+
+    .calendar-day {
+        padding: 0.25rem;
+    }
+
+    .process-step {
+        flex-direction: column;
+        text-align: center;
+        gap: 1rem;
+    }
+
+    .step-number {
+        align-self: center;
+    }
+
+    .guarantee-banner {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .insurance-plan.featured {
+        transform: none;
+    }
+
+    .terms-content {
+        padding: 1.5rem;
+    }
+
+    .registration-container {
+        padding: 1.5rem;
+        margin: 1rem;
+    }
+
+    .payment-method-tabs {
+        flex-direction: column;
+    }
+
+    .payment-tab {
+        text-align: center;
+    }
+
+    .form-navigation {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .form-navigation button {
+        width: 100%;
+    }
+
+    /* Profile page mobile styles */
+    .profile-layout {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+
+    .profile-sidebar {
+        order: 2;
+    }
+
+    .profile-content {
+        order: 1;
+    }
+
+    .user-details {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .user-stats {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .jobs-filter {
+        flex-direction: column;
+    }
+
+    .filter-btn {
+        text-align: center;
+    }
+
+    .job-details {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .job-info {
+        flex-direction: column;
+        gap: 0.5rem;
+    }
+
+    /* Admin mobile styles */
+    .admin-stats {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .admin-nav {
+        flex-direction: column;
+    }
+
+    .admin-nav-btn {
+        text-align: left;
+    }
+
+    .filters-bar {
+        flex-direction: column;
+        gap: 1rem;
+    }
+
+    .filter-group {
+        flex-direction: column;
+    }
+
+    .filter-group label {
+        margin-bottom: 0.5rem;
+    }
+
+    .section-header {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: flex-start;
+    }
+
+    .section-actions {
+        display: flex;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+    }
+
+    .jobs-table-container {
+        overflow-x: auto;
+    }
+
+    .admin-table {
+        font-size: 0.8rem;
+        min-width: 800px;
+    }
+
+    .tradespeople-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .reports-dashboard {
+        grid-template-columns: 1fr;
+    }
+
+    .metrics-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .modal-content.large {
+        width: 95%;
+        margin: 1rem;
+    }
+
+    .modal-tabs {
+        flex-direction: column;
+    }
+
+    .detail-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-row {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: 2rem 0;
+    }
+
+    .categories,
+    .testimonials,
+    .pricing,
+    .mission,
+    .values,
+    .team,
+    .guarantee-details,
+    .faq {
+        padding: 2rem 0;
+    }
+
+    .category-card,
+    .testimonial-card,
+    .pricing-card,
+    .value-card,
+    .insurance-plan,
+    .faq-item {
+        padding: 1rem;
+    }
+
+    .cta-button {
+        padding: 0.5rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .form-step {
+        padding: 1rem;
+    }
+
+    .booking-calendar {
+        padding: 1rem;
+    }
+
+    .payment-summary,
+    .payment-methods {
+        padding: 1rem;
+    }
+
+    .stat-number {
+        font-size: 2rem;
+    }
+
+    .admin-header {
+        padding: 1rem;
+    }
+
+    .stat-card {
+        padding: 1rem;
+    }
+
+    .admin-section {
+        padding: 1rem;
+    }
+}
+
+/* Touch device improvements */
+@media (hover: none) and (pointer: coarse) {
+    .category-card:hover,
+    .pricing-card:hover,
+    .insurance-option:hover {
+        transform: none;
+        border-color: transparent;
+    }
+
+    .category-card:active,
+    .pricing-card:active,
+    .insurance-option:active {
+        border-color: var(--primary);
+    }
+
+    .action-btn {
+        min-height: 44px;
+        min-width: 44px;
+    }
+
+    .calendar-day {
+        min-height: 44px;
+        min-width: 44px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+/* High DPI screens */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .logo img {
+        image-rendering: -webkit-optimize-contrast;
+        image-rendering: crisp-edges;
+    }
+}
+
+/* Print styles */
+@media print {
+    .no-print {
+        display: none !important;
+    }
+    
+    header, footer, .cta-button, .mobile-menu-toggle {
+        display: none !important;
+    }
+    
+    body {
+        font-size: 12pt;
+        line-height: 1.4;
+        background: white;
+        color: black;
+    }
+    
+    .container {
+        width: 100%;
+        max-width: none;
+        padding: 0;
+    }
+    
+    .hero {
+        background: white !important;
+        color: black !important;
+        padding: 1rem 0 !important;
+    }
+    
+    .categories-grid,
+    .testimonials-grid,
+    .pricing-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    a::after {
+        content: " (" attr(href) ")";
+    }
+    
+    .page-break {
+        page-break-before: always;
+    }
+}

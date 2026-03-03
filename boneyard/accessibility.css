@@ -1,0 +1,341 @@
+/* Accessibility Styles */
+
+/* Focus styles for better visibility */
+a:focus,
+button:focus,
+.form-control:focus,
+.cta-button:focus,
+.category-card:focus,
+.payment-tab:focus,
+.filter-btn:focus,
+.admin-nav-btn:focus,
+.modal-tab:focus {
+    outline: 3px solid var(--secondary);
+    outline-offset: 2px;
+}
+
+/* Remove outline for mouse users, keep for keyboard */
+body:not(.user-is-tabbing) a:focus,
+body:not(.user-is-tabbing) button:focus,
+body:not(.user-is-tabbing) input:focus,
+body:not(.user-is-tabbing) select:focus,
+body:not(.user-is-tabbing) textarea:focus {
+    outline: none;
+}
+
+/* High contrast support */
+@media (prefers-contrast: high) {
+    :root {
+        --primary: #000000;
+        --secondary: #0000FF;
+        --dark: #000000;
+        --light: #FFFFFF;
+        --gray: #666666;
+    }
+    
+    .hero {
+        background: var(--dark) !important;
+    }
+    
+    .guarantee-badge {
+        background: var(--dark);
+        color: var(--light);
+    }
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* Increased readability for visually impaired */
+.large-text {
+    font-size: 1.125rem;
+    line-height: 1.7;
+}
+
+.high-contrast {
+    background: black !important;
+    color: white !important;
+}
+
+.high-contrast .category-card,
+.high-contrast .testimonial-card,
+.high-contrast .pricing-card,
+.high-contrast .form-step,
+.high-contrast .booking-calendar {
+    background: #333 !important;
+    color: white !important;
+    border-color: #666 !important;
+}
+
+/* Form accessibility enhancements */
+.form-control:required + .form-label::after {
+    content: " *";
+    color: var(--warning);
+}
+
+.error-message {
+    color: var(--warning);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: block;
+    font-weight: 600;
+}
+
+.success-message {
+    color: var(--success);
+    font-size: 0.875rem;
+    margin-top: 0.25rem;
+    display: block;
+    font-weight: 600;
+}
+
+/* ARIA live regions for dynamic content */
+[aria-live="polite"] {
+    position: absolute;
+    left: -10000px;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.visually-hidden {
+    position: absolute !important;
+    width: 1px !important;
+    height: 1px !important;
+    padding: 0 !important;
+    margin: -1px !important;
+    overflow: hidden !important;
+    clip: rect(0, 0, 0, 0) !important;
+    white-space: nowrap !important;
+    border: 0 !important;
+}
+
+/* Focus management for modals */
+[aria-modal="true"] {
+    position: fixed;
+    z-index: 1000;
+}
+
+/* Screen reader only text */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Skip links */
+.skip-link {
+    position: absolute;
+    top: -40px;
+    left: 6px;
+    background: var(--primary);
+    color: white;
+    padding: 8px;
+    text-decoration: none;
+    z-index: 10000;
+    transition: top 0.3s;
+    border-radius: 0 0 4px 4px;
+}
+
+.skip-link:focus {
+    top: 0;
+}
+
+/* Enhanced focus indicators for interactive elements */
+button:not([disabled]):focus,
+input:not([disabled]):focus,
+select:not([disabled]):focus,
+textarea:not([disabled]):focus,
+[tabindex]:not([disabled]):focus {
+    box-shadow: 0 0 0 3px rgba(255, 107, 53, 0.3);
+}
+
+/* Status indicators for screen readers */
+[aria-invalid="true"] {
+    border-color: var(--warning);
+}
+
+[aria-invalid="true"]:focus {
+    border-color: var(--warning);
+    box-shadow: 0 0 0 3px rgba(231, 76, 60, 0.3);
+}
+
+[aria-busy="true"]::before {
+    content: "Loading...";
+    position: absolute;
+    left: -10000px;
+}
+
+/* Print accessibility */
+@media print {
+    a[href]::after {
+        content: " (" attr(href) ")";
+    }
+    
+    .no-print {
+        display: none !important;
+    }
+    
+    /* Ensure sufficient color contrast in print */
+    * {
+        color: black !important;
+        background: white !important;
+    }
+}
+
+/* Dark mode support */
+@media (prefers-color-scheme: dark) {
+    :root {
+        --dark: #f8f9fa;
+        --light: #2C3E50;
+    }
+    
+    body {
+        background: var(--light);
+        color: var(--dark);
+    }
+    
+    .category-card,
+    .testimonial-card,
+    .pricing-card,
+    .form-step,
+    .booking-calendar,
+    .payment-summary,
+    .payment-methods,
+    .registration-container {
+        background: #34495e;
+        color: var(--dark);
+    }
+    
+    .form-control {
+        background: #2c3e50;
+        border-color: #4a6572;
+        color: var(--dark);
+    }
+    
+    .form-control:focus {
+        border-color: var(--primary);
+    }
+}
+
+/* Cognitive load reduction */
+.simple-view .category-card,
+.simple-view .testimonial-card,
+.simple-view .pricing-card {
+    border: 1px solid #e0e0e0;
+    box-shadow: none;
+}
+
+.simple-view .hero {
+    background: var(--primary);
+}
+
+.simple-view .categories-grid,
+.simple-view .testimonials-grid,
+.simple-view .pricing-grid {
+    grid-template-columns: 1fr;
+}
+
+/* Dyslexia-friendly font option */
+.dyslexia-friendly {
+    font-family: "Open Dyslexic", "Comic Sans MS", sans-serif;
+    line-height: 1.8;
+    letter-spacing: 0.05em;
+}
+
+.dyslexia-friendly .form-control {
+    font-size: 1.1rem;
+    padding: 1rem;
+}
+
+/* Attention deficit support */
+.adhd-friendly .category-card,
+.adhd-friendly .testimonial-card,
+.adhd-friendly .pricing-card {
+    border-left: 4px solid var(--primary);
+}
+
+.adhd-friendly .cta-button {
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+/* Motor impairment support */
+.motor-impairment-friendly .cta-button,
+.motor-impairment-friendly .action-btn,
+.motor-impairment-friendly .calendar-day,
+.motor-impairment-friendly .filter-btn,
+.motor-impairment-friendly .admin-nav-btn,
+.motor-impairment-friendly .payment-tab,
+.motor-impairment-friendly .modal-tab {
+    min-height: 44px;
+    min-width: 44px;
+    padding: 12px 16px;
+}
+
+.motor-impairment-friendly .form-control {
+    padding: 12px;
+    font-size: 16px; /* Prevents zoom on iOS */
+}
+
+/* Color blindness support */
+.colorblind-friendly .status-badge.assessment_scheduled,
+.colorblind-friendly .status-badge.in_progress {
+    background: #e0e0e0;
+    color: #333;
+    border: 1px solid #ccc;
+}
+
+.colorblind-friendly .status-badge.completed {
+    background: #d4edda;
+    color: #155724;
+    border: 1px solid #c3e6cb;
+}
+
+.colorblind-friendly .status-badge.cancelled {
+    background: #f8d7da;
+    color: #721c24;
+    border: 1px solid #f5c6cb;
+}
+
+.colorblind-friendly .guarantee-badge {
+    background: #e0e0e0;
+    color: #333;
+}
+
+/* Language direction support */
+[dir="rtl"] {
+    text-align: right;
+}
+
+[dir="rtl"] .logo {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .process-step {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .form-navigation {
+    flex-direction: row-reverse;
+}
+
+[dir="rtl"] .order-item,
+[dir="rtl"] .total-amount {
+    flex-direction: row-reverse;
+}

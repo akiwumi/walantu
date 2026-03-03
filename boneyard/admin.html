@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard - WALANTU Trade Services</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/accessibility.css">
+</head>
+<body>
+    <a href="#main-content" class="skip-link">Skip to main content</a>
+
+    <header role="banner">
+        <div class="container">
+            <div class="nav-container">
+                <div class="logo">
+                    <img src="images/logo-placeholder.png" alt="WALANTU Trade Services Logo" width="50" height="50">
+                    <span class="logo-text">WALANTU ADMIN</span>
+                </div>
+                <nav role="navigation" aria-label="Main navigation">
+                    <button class="mobile-menu-toggle" aria-expanded="false" aria-controls="main-menu">
+                        <span class="hamburger"></span>
+                        <span class="sr-only">Menu</span>
+                    </button>
+                    <ul id="main-menu">
+                        <li><a href="index.html">Public Site</a></li>
+                        <li><a href="admin.html" class="cta-button" aria-current="page">Admin Dashboard</a></li>
+                    </ul>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main id="main-content" role="main">
+        <div class="container">
+            <!-- Admin Header -->
+            <div class="admin-header">
+                <h1>Admin Dashboard</h1>
+                <div class="admin-stats">
+                    <div class="stat-card">
+                        <div class="stat-number" id="total-jobs-count">0</div>
+                        <div class="stat-label">Total Jobs</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="pending-jobs-count">0</div>
+                        <div class="stat-label">Pending</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="active-jobs-count">0</div>
+                        <div class="stat-label">In Progress</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number" id="completed-jobs-count">0</div>
+                        <div class="stat-label">Completed</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Admin Navigation -->
+            <nav class="admin-nav" role="navigation" aria-label="Admin sections">
+                <button class="admin-nav-btn active" data-section="jobs">Jobs Management</button>
+                <button class="admin-nav-btn" data-section="tradespeople">Tradespeople</button>
+                <button class="admin-nav-btn" data-section="reports">Reports & Analytics</button>
+                <button class="admin-nav-btn" data-section="communications">Communications</button>
+            </nav>
+
+            <!-- Jobs Management Section -->
+            <section id="jobs-section" class="admin-section active" aria-labelledby="jobs-heading">
+                <div class="section-header">
+                    <h2 id="jobs-heading">Jobs Management</h2>
+                    <div class="section-actions">
+                        <button class="cta-button" id="export-jobs">Export Jobs</button>
+                        <button class="cta-button secondary" id="refresh-jobs">Refresh</button>
+                    </div>
+                </div>
+
+                <div class="filters-bar">
+                    <div class="filter-group">
+                        <label for="status-filter">Status:</label>
+                        <select id="status-filter">
+                            <option value="all">All Statuses</option>
+                            <option value="assessment_scheduled">Assessment Scheduled</option>
+                            <option value="assessment_completed">Assessment Completed</option>
+                            <option value="quote_provided">Quote Provided</option>
+                            <option value="in_progress">In Progress</option>
+                            <option value="completed">Completed</option>
+                            <option value="cancelled">Cancelled</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="service-filter">Service:</label>
+                        <select id="service-filter">
+                            <option value="all">All Services</option>
+                            <option value="Carpenter">Carpenter</option>
+                            <option value="Plumber">Plumber</option>
+                            <option value="Electrician">Electrician</option>
+                            <option value="Gardener">Gardener</option>
+                            <option value="Car mechanic">Car Mechanic</option>
+                            <option value="Air conditioner electrician">AC Technician</option>
+                            <option value="Labourer">Labourer</option>
+                        </select>
+                    </div>
+                    <div class="filter-group">
+                        <label for="date-filter">Date Range:</label>
+                        <input type="date" id="date-from">
+                        <span>to</span>
+                        <input type="date" id="date-to">
+                    </div>
+                </div>
+
+                <div class="jobs-table-container">
+                    <table class="admin-table" aria-describedby="jobs-heading">
+                        <thead>
+                            <tr>
+                                <th>Job ID</th>
+                                <th>Customer</th>
+                                <th>Service</th>
+                                <th>Status</th>
+                                <th>Location</th>
+                                <th>Assessment Date</th>
+                                <th>Tradesperson</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody id="jobs-table-body">
+                            <!-- Jobs will be loaded here -->
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+
+            <!-- Tradespeople Management Section -->
+            <section id="tradespeople-section" class="admin-section" aria-labelledby="tradespeople-heading">
+                <div class="section-header">
+                    <h2 id="tradespeople-heading">Tradespeople Management</h2>
+                    <button class="cta-button" id="add-tradesperson">Add New Tradesperson</button>
+                </div>
+
+                <div class="tradespeople-grid" id="tradespeople-grid">
+                    <!-- Tradespeople cards will be loaded here -->
+                </div>
+            </section>
+
+            <!-- Reports Section -->
+            <section id="reports-section" class="admin-section" aria-labelledby="reports-heading">
+                <div class="section-header">
+                    <h2 id="reports-heading">Reports & Analytics</h2>
+                    <div class="section-actions">
+                        <button class="cta-button" id="generate-report">Generate Report</button>
+                        <button class="cta-button secondary" id="export-report">Export Data</button>
+                    </div>
+                </div>
+
+                <div class="reports-dashboard">
+                    <div class="report-card">
+                        <h3>Revenue Overview</h3>
+                        <div class="chart-placeholder" id="revenue-chart">
+                            <!-- Chart would be implemented with a library like Chart.js -->
+                            <p>Revenue chart would display here</p>
+                        </div>
+                    </div>
+                    <div class="report-card">
+                        <h3>Service Distribution</h3>
+                        <div class="chart-placeholder" id="services-chart">
+                            <p>Services distribution chart would display here</p>
+                        </div>
+                    </div>
+                    <div class="report-card">
+                        <h3>Performance Metrics</h3>
+                        <div class="metrics-grid">
+                            <div class="metric">
+                                <span class="metric-value" id="avg-completion-time">0</span>
+                                <span class="metric-label">Avg. Completion (days)</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value" id="customer-satisfaction">0%</span>
+                                <span class="metric-label">Satisfaction Rate</span>
+                            </div>
+                            <div class="metric">
+                                <span class="metric-value" id="repeat-customers">0%</span>
+                                <span class="metric-label">Repeat Customers</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Communications Section -->
+            <section id="communications-section" class="admin-section" aria-labelledby="communications-heading">
+                <div class="section-header">
+                    <h2 id="communications-heading">Communications Log</h2>
+                </div>
+
+                <div class="communications-log" id="communications-log">
+                    <!-- Communications will be loaded here -->
+                </div>
+            </section>
+        </div>
+    </main>
+
+    <!-- Job Details Modal -->
+    <div id="job-details-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="job-modal-title">
+        <div class="modal-content large">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <h2 id="job-modal-title">Job Details</h2>
+            <div class="modal-tabs">
+                <button class="modal-tab active" data-tab="overview">Overview</button>
+                <button class="modal-tab" data-tab="assessment">Assessment</button>
+                <button class="modal-tab" data-tab="parts">Parts & Materials</button>
+                <button class="modal-tab" data-tab="timeline">Timeline</button>
+                <button class="modal-tab" data-tab="inspection">Inspection</button>
+            </div>
+            <div id="job-modal-content">
+                <!-- Job details tabs content will be loaded here -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Add Tradesperson Modal -->
+    <div id="add-tradesperson-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="add-tradesperson-title">
+        <div class="modal-content">
+            <button class="modal-close" aria-label="Close modal">&times;</button>
+            <h2 id="add-tradesperson-title">Add New Tradesperson</h2>
+            <form id="add-tradesperson-form">
+                <div class="form-group">
+                    <label for="tradesperson-name" class="form-label">Full Name</label>
+                    <input type="text" id="tradesperson-name" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="tradesperson-email" class="form-label">Email</label>
+                    <input type="email" id="tradesperson-email" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="tradesperson-phone" class="form-label">Phone</label>
+                    <input type="tel" id="tradesperson-phone" class="form-control" required>
+                </div>
+                <div class="form-group">
+                    <label for="tradesperson-service" class="form-label">Service Category</label>
+                    <select id="tradesperson-service" class="form-control" required>
+                        <option value="">Select Service</option>
+                        <option value="Carpenter">Carpenter</option>
+                        <option value="Plumber">Plumber</option>
+                        <option value="Electrician">Electrician</option>
+                        <option value="Gardener">Gardener</option>
+                        <option value="Car mechanic">Car Mechanic</option>
+                        <option value="Air conditioner electrician">AC Technician</option>
+                        <option value="Labourer">Labourer</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="tradesperson-experience" class="form-label">Years of Experience</label>
+                    <input type="number" id="tradesperson-experience" class="form-control" min="0" required>
+                </div>
+                <div class="form-actions">
+                    <button type="submit" class="cta-button">Add Tradesperson</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <footer role="contentinfo">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2024 WALANTU Trade Services. Admin Dashboard v1.0</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/main.js"></script>
+    <script src="js/admin.js"></script>
+</body>
+</html>
