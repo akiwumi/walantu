@@ -1,0 +1,2184 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WALANTU CRM</title>
+    <link rel="icon" href="images/logoBlk.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="css/crm.css">
+</head>
+<body>
+
+<!-- ============================================================
+     CRM APP SHELL
+     ============================================================ -->
+<div class="crm-app" id="crm-app">
+
+    <!-- ---- HEADER ---- -->
+    <header class="crm-header" id="crm-header">
+        <div class="crm-header-left">
+            <img src="images/walantu-logo.jpg" alt="WALANTU" class="crm-header-logo"
+                 onerror="this.style.display='none'">
+            <span class="crm-header-wordmark">WALANTU <span>CRM</span></span>
+            <div class="crm-header-divider"></div>
+        </div>
+
+        <div class="crm-header-center">
+            <span class="crm-header-user-name" id="hdr-user-name">Loading…</span>
+            <span class="crm-role-badge" id="hdr-role-badge">—</span>
+        </div>
+
+        <div class="crm-header-right">
+            <button class="crm-icon-btn" id="notif-btn" title="Notifications" aria-label="Notifications">
+                🔔
+                <span class="crm-notif-badge" id="notif-count">3</span>
+            </button>
+            <button class="crm-signout-btn" id="signout-btn">Sign Out</button>
+        </div>
+    </header>
+
+    <!-- ---- BODY (sidebar + main) ---- -->
+    <div class="crm-body">
+
+        <!-- ---- SIDEBAR ---- -->
+        <nav class="crm-sidebar" id="crm-sidebar" aria-label="CRM navigation">
+            <span class="crm-nav-section-label">Main</span>
+
+            <div class="crm-nav-item active" data-tab="dashboard">
+                <span class="crm-nav-icon">🏠</span>
+                <span>Dashboard</span>
+            </div>
+            <div class="crm-nav-item" data-tab="customers">
+                <span class="crm-nav-icon">👥</span>
+                <span>Customers</span>
+            </div>
+            <div class="crm-nav-item" data-tab="jobs">
+                <span class="crm-nav-icon">🔨</span>
+                <span>Jobs</span>
+            </div>
+            <div class="crm-nav-item" data-tab="messages">
+                <span class="crm-nav-icon">💬</span>
+                <span>Messages</span>
+                <span class="crm-nav-badge" id="nav-msg-badge">2</span>
+            </div>
+            <div class="crm-nav-item" data-tab="my-activity">
+                <span class="crm-nav-icon">📋</span>
+                <span>My Activity</span>
+            </div>
+            <div class="crm-nav-item" data-tab="orders">
+                <span class="crm-nav-icon">📦</span>
+                <span>Parts & Orders</span>
+            </div>
+
+            <!-- Admin-only items injected by JS -->
+            <div id="admin-nav-items" style="display:none;">
+                <span class="crm-nav-section-label">Admin</span>
+                <div class="crm-nav-item" data-tab="cs-team">
+                    <span class="crm-nav-icon">👤</span>
+                    <span>CS Team</span>
+                </div>
+                <div class="crm-nav-item" data-tab="reports">
+                    <span class="crm-nav-icon">📊</span>
+                    <span>Reports</span>
+                </div>
+                <div class="crm-nav-item" data-tab="settings">
+                    <span class="crm-nav-icon">⚙️</span>
+                    <span>Settings</span>
+                </div>
+            </div>
+        </nav>
+
+        <!-- ---- MAIN CONTENT ---- -->
+        <main class="crm-main" id="crm-main">
+
+            <!-- ============================================================
+                 PANEL 1: DASHBOARD
+                 ============================================================ -->
+            <section class="crm-tab active" id="tab-dashboard">
+                <!-- Content injected by JS -->
+            </section>
+
+            <!-- ============================================================
+                 PANEL 2: CUSTOMERS
+                 ============================================================ -->
+            <section class="crm-tab" id="tab-customers">
+                <div class="crm-panel-header">
+                    <div>
+                        <div class="crm-panel-title">Customers</div>
+                        <div class="crm-panel-subtitle">All registered customers on the WALANTU platform</div>
+                    </div>
+                </div>
+                <div class="crm-panel-content">
+                    <div class="crm-filter-bar">
+                        <div class="crm-search-wrap">
+                            <span class="crm-search-icon">🔍</span>
+                            <input type="text" class="crm-search-input" id="customer-search"
+                                   placeholder="Search by name, email, area…"
+                                   oninput="renderCustomerTable()">
+                        </div>
+                    </div>
+                    <div class="crm-card">
+                        <div class="crm-table-wrap">
+                            <table class="crm-table" id="customer-table">
+                                <thead>
+                                    <tr>
+                                        <th>Customer</th>
+                                        <th>Email</th>
+                                        <th>Phone</th>
+                                        <th>Area</th>
+                                        <th>GPS</th>
+                                        <th>Total Jobs</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="customer-table-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================
+                 PANEL 3: JOBS
+                 ============================================================ -->
+            <section class="crm-tab" id="tab-jobs">
+                <div class="crm-panel-header">
+                    <div>
+                        <div class="crm-panel-title">Jobs</div>
+                        <div class="crm-panel-subtitle">All service jobs on the platform</div>
+                    </div>
+                </div>
+                <div class="crm-panel-content">
+                    <div class="crm-filter-bar">
+                        <div class="crm-search-wrap">
+                            <span class="crm-search-icon">🔍</span>
+                            <input type="text" class="crm-search-input" id="job-search"
+                                   placeholder="Search job#, customer, service…"
+                                   oninput="renderJobsTable()">
+                        </div>
+                        <div class="crm-filter-btns" id="job-filter-btns">
+                            <button class="crm-filter-btn active" data-filter="All" onclick="setJobFilter('All', this)">All</button>
+                            <button class="crm-filter-btn" data-filter="In Progress" onclick="setJobFilter('In Progress', this)">In Progress</button>
+                            <button class="crm-filter-btn" data-filter="Scheduled" onclick="setJobFilter('Scheduled', this)">Scheduled</button>
+                            <button class="crm-filter-btn" data-filter="Completed" onclick="setJobFilter('Completed', this)">Completed</button>
+                            <button class="crm-filter-btn" data-filter="Pending" onclick="setJobFilter('Pending', this)">Pending</button>
+                        </div>
+                    </div>
+                    <div class="crm-card">
+                        <div class="crm-table-wrap">
+                            <table class="crm-table" id="jobs-table">
+                                <thead>
+                                    <tr>
+                                        <th>Job #</th>
+                                        <th>Customer</th>
+                                        <th>Service</th>
+                                        <th>Pro</th>
+                                        <th>Status</th>
+                                        <th>Date</th>
+                                        <th>Cost</th>
+                                        <th>Assigned CS</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="jobs-table-body"></tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================
+                 PANEL 4: MESSAGES
+                 ============================================================ -->
+            <section class="crm-tab" id="tab-messages" style="padding:0;">
+                <div class="chat-layout">
+                    <!-- Conversation list (left) -->
+                    <div class="chat-list">
+                        <div class="chat-list-header">Conversations</div>
+                        <div class="chat-list-scroll" id="chat-list-scroll">
+                            <!-- Injected by JS -->
+                        </div>
+                    </div>
+
+                    <!-- Thread (right) -->
+                    <div class="chat-thread" id="chat-thread">
+                        <div class="chat-empty" id="chat-empty-state">
+                            <div class="chat-empty-icon">💬</div>
+                            <div>Select a conversation to start messaging</div>
+                        </div>
+                        <!-- Active thread injected by JS -->
+                    </div>
+                </div>
+
+                <!-- Hidden file input for attachments -->
+                <input type="file" id="chat-file-input" style="display:none" accept="*/*">
+            </section>
+
+            <!-- ============================================================
+                 PANEL 5: MY ACTIVITY
+                 ============================================================ -->
+            <section class="crm-tab" id="tab-my-activity">
+                <div class="crm-panel-header">
+                    <div>
+                        <div class="crm-panel-title">My Activity</div>
+                        <div class="crm-panel-subtitle">Your recent actions in the CRM</div>
+                    </div>
+                </div>
+                <div class="crm-panel-content">
+                    <div class="crm-card">
+                        <div class="crm-card-header">
+                            <span class="crm-card-title">Recent Actions</span>
+                        </div>
+                        <div class="crm-card-body">
+                            <div class="crm-activity-feed" id="my-activity-feed"></div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- ============================================================
+                 PANEL 6: CS TEAM (admin only)
+                 ============================================================ -->
+            <section class="crm-tab" id="tab-cs-team">
+                <div class="crm-panel-header">
+                    <div>
+                        <div class="crm-panel-title">CS Team</div>
+                        <div class="crm-panel-subtitle">Customer service agents and their activity</div>
+                    </div>
+                </div>
+                <div class="crm-panel-content" id="cs-team-content">
+                    <!-- Injected by JS with access check -->
+                </div>
+            </section>
+
+            <!-- ============================================================
+                 PANEL 7: REPORTS (admin only)
+                 ============================================================ -->
+            <section class="crm-tab" id="tab-reports">
+                <div class="crm-panel-header">
+                    <div>
+                        <div class="crm-panel-title">Reports</div>
+                        <div class="crm-panel-subtitle">Revenue, job statistics and CS performance</div>
+                    </div>
+                </div>
+                <div class="crm-panel-content" id="reports-content">
+                    <!-- Injected by JS with access check -->
+                </div>
+            </section>
+
+            <!-- ============================================================
+                 PANEL 9: PARTS & ORDERS
+                 ============================================================ -->
+            <section class="crm-tab" id="tab-orders">
+                <div class="crm-panel-header">
+                    <div>
+                        <div class="crm-panel-title">Parts &amp; Orders</div>
+                        <div class="crm-panel-subtitle">All materials and parts ordered for active and completed jobs</div>
+                    </div>
+                    <div style="display:flex;gap:10px;align-items:center;">
+                        <button class="crm-btn crm-btn-secondary crm-btn-sm" onclick="exportPartsCSV()">⬇ Export CSV</button>
+                    </div>
+                </div>
+
+                <!-- Summary stat cards -->
+                <div id="orders-summary" style="display:grid;grid-template-columns:repeat(4,1fr);gap:16px;padding:0 24px 20px;"></div>
+
+                <!-- Filters -->
+                <div class="crm-panel-content" style="padding-top:0;">
+                    <div class="crm-filter-bar" style="margin-bottom:16px;">
+                        <div class="crm-search-wrap">
+                            <span class="crm-search-icon">🔍</span>
+                            <input type="text" class="crm-search-input" id="parts-search"
+                                   placeholder="Search part name, supplier, job#…"
+                                   oninput="renderOrders()">
+                        </div>
+                        <div class="crm-filter-btns" id="parts-filter-btns">
+                            <button class="crm-filter-btn active" data-filter="All"          onclick="setPartsFilter('All', this)">All</button>
+                            <button class="crm-filter-btn" data-filter="Delivered"            onclick="setPartsFilter('Delivered', this)">Delivered</button>
+                            <button class="crm-filter-btn" data-filter="Ordered"              onclick="setPartsFilter('Ordered', this)">Ordered</button>
+                            <button class="crm-filter-btn" data-filter="Pending"              onclick="setPartsFilter('Pending', this)">Pending</button>
+                            <button class="crm-filter-btn" data-filter="Back-ordered"         onclick="setPartsFilter('Back-ordered', this)">Back-ordered</button>
+                        </div>
+                    </div>
+
+                    <!-- Grouped job sections injected by JS -->
+                    <div id="orders-job-sections"></div>
+                </div>
+            </section>
+
+            <!-- ============================================================
+                 PANEL 8: SETTINGS (admin only)
+                 ============================================================ -->
+            <section class="crm-tab" id="tab-settings">
+                <div class="crm-panel-header">
+                    <div>
+                        <div class="crm-panel-title">Settings</div>
+                        <div class="crm-panel-subtitle">System configuration and user management</div>
+                    </div>
+                </div>
+                <div class="crm-panel-content" id="settings-content">
+                    <!-- Injected by JS with access check -->
+                </div>
+            </section>
+
+        </main>
+    </div>
+</div>
+
+<!-- ============================================================
+     CUSTOMER DETAIL SLIDE-IN PANEL
+     ============================================================ -->
+<div class="crm-detail-overlay" id="customer-overlay" onclick="closeCustomerPanel()"></div>
+<div class="crm-detail-panel" id="customer-panel">
+    <div class="crm-detail-header">
+        <div id="customer-panel-header-content"></div>
+        <button class="crm-detail-close" onclick="closeCustomerPanel()">×</button>
+    </div>
+    <div class="crm-detail-body" id="customer-panel-body"></div>
+    <div class="crm-detail-footer">
+        <button class="crm-btn crm-btn-primary" id="msg-customer-btn" onclick="messageCustomerFromPanel()">
+            💬 Send Message
+        </button>
+        <button class="crm-btn crm-btn-ghost" onclick="closeCustomerPanel()">Close</button>
+    </div>
+</div>
+
+<!-- ============================================================
+     JOB DETAIL SLIDE-IN PANEL
+     ============================================================ -->
+<div class="crm-detail-overlay" id="job-overlay" onclick="closeJobPanel()"></div>
+<div class="crm-detail-panel" id="job-panel">
+    <div class="crm-detail-header">
+        <div id="job-panel-header-content"></div>
+        <button class="crm-detail-close" onclick="closeJobPanel()">×</button>
+    </div>
+    <div class="crm-detail-body" id="job-panel-body"></div>
+    <div class="crm-detail-footer">
+        <button class="crm-btn crm-btn-ghost" onclick="closeJobPanel()">Close</button>
+    </div>
+</div>
+
+<!-- ============================================================
+     CS WORKER ACTIVITY MODAL
+     ============================================================ -->
+<div class="crm-modal-overlay" id="cs-modal-overlay">
+    <div class="crm-modal">
+        <div class="crm-modal-header">
+            <span class="crm-modal-title" id="cs-modal-title">Activity Log</span>
+            <button class="crm-modal-close" onclick="closeCsModal()">×</button>
+        </div>
+        <div class="crm-modal-body" id="cs-modal-body"></div>
+        <div class="crm-modal-footer">
+            <button class="crm-btn crm-btn-secondary" onclick="closeCsModal()">Close</button>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================
+     ADD STAFF MODAL
+     ============================================================ -->
+<div class="crm-modal-overlay" id="add-staff-modal-overlay">
+    <div class="crm-modal">
+        <div class="crm-modal-header">
+            <span class="crm-modal-title">Add Staff Account</span>
+            <button class="crm-modal-close" onclick="closeAddStaffModal()">×</button>
+        </div>
+        <div class="crm-modal-body">
+            <form id="add-staff-form" onsubmit="submitAddStaff(event)">
+                <div class="crm-form-group">
+                    <label class="crm-form-label" for="staff-name">Full Name</label>
+                    <input type="text" id="staff-name" class="crm-form-control" required placeholder="e.g. Adwoa Kusi">
+                </div>
+                <div class="crm-form-group">
+                    <label class="crm-form-label" for="staff-email">Email Address</label>
+                    <input type="email" id="staff-email" class="crm-form-control" required placeholder="name@walantu.com">
+                </div>
+                <div class="crm-form-group">
+                    <label class="crm-form-label" for="staff-password">Temporary Password</label>
+                    <input type="text" id="staff-password" class="crm-form-control" required placeholder="Walantu#Temp1">
+                </div>
+                <div class="crm-form-group">
+                    <label class="crm-form-label" for="staff-role">Role</label>
+                    <select id="staff-role" class="crm-form-control crm-form-select">
+                        <option value="customer_service">Customer Service</option>
+                        <option value="super_admin">Super Admin</option>
+                    </select>
+                </div>
+                <div class="crm-form-group">
+                    <label class="crm-form-label" for="staff-dept">Department</label>
+                    <input type="text" id="staff-dept" class="crm-form-control" placeholder="e.g. Customer Service">
+                </div>
+                <div id="add-staff-error" style="color:#DC2626;font-size:13px;display:none;margin-top:8px;"></div>
+            </form>
+        </div>
+        <div class="crm-modal-footer">
+            <button class="crm-btn crm-btn-secondary" onclick="closeAddStaffModal()">Cancel</button>
+            <button class="crm-btn crm-btn-primary" onclick="document.getElementById('add-staff-form').requestSubmit()">Add Staff</button>
+        </div>
+    </div>
+</div>
+
+<!-- ============================================================
+     SCRIPTS
+     ============================================================ -->
+<script src="js/users.js"></script>
+<script src="js/crm-data.js"></script>
+<script>
+// =============================================================================
+// WALANTU CRM — Main Application Script
+// =============================================================================
+
+// ---------------------------------------------------------------------------
+// GLOBALS
+// ---------------------------------------------------------------------------
+
+/** Currently logged-in CRM user (from sessionStorage). */
+let CRM_SESSION = null;
+
+/** Active job status filter (Jobs panel). */
+let activeJobFilter = 'All';
+
+/** The customer ID shown in the customer detail panel. */
+let activeCustomerId = null;
+
+/** The job ID shown in the job detail panel. */
+let activeJobId = null;
+
+/** Active conversation object: { type, participantA, participantB, name, avatar } */
+let activeConversation = null;
+
+// ---------------------------------------------------------------------------
+// BOOT — check session and initialise
+// ---------------------------------------------------------------------------
+
+(function boot() {
+    CRM_SESSION = crmGetSession();
+    if (!CRM_SESSION) {
+        window.location.replace('admin.html');
+        return;
+    }
+
+    // Header
+    document.getElementById('hdr-user-name').textContent = CRM_SESSION.name;
+    const badgeEl = document.getElementById('hdr-role-badge');
+    if (CRM_SESSION.role === 'super_admin') {
+        badgeEl.textContent = 'Super Admin';
+        badgeEl.className = 'crm-role-badge admin';
+    } else {
+        badgeEl.textContent = 'CS Agent';
+        badgeEl.className = 'crm-role-badge cs';
+    }
+
+    // Show admin nav items
+    if (CRM_SESSION.role === 'super_admin') {
+        document.getElementById('admin-nav-items').style.display = 'block';
+    }
+
+    // Sidebar navigation click handler
+    document.querySelectorAll('.crm-nav-item').forEach(item => {
+        item.addEventListener('click', function () {
+            const tab = this.dataset.tab;
+            if (tab) switchTab(tab);
+        });
+    });
+
+    // Sign out
+    document.getElementById('signout-btn').addEventListener('click', crmSignOut);
+
+    // Notification bell (placeholder)
+    document.getElementById('notif-btn').addEventListener('click', function () {
+        alert('Notifications:\n• WAL-2025-001 materials confirmed for tomorrow\n• New customer message from Kofi Mensah\n• WAL-2025-004 is still pending assignment');
+    });
+
+    // Init panels
+    renderDashboard();
+    renderCustomerTable();
+    renderJobsTable();
+    renderChatList();
+    renderMyActivity();
+    renderOrders();
+    renderCsTeam();
+    renderReports();
+    renderSettings();
+}());
+
+// ---------------------------------------------------------------------------
+// TAB SWITCHING
+// ---------------------------------------------------------------------------
+
+function switchTab(tabId) {
+    // Sidebar active state
+    document.querySelectorAll('.crm-nav-item').forEach(n => n.classList.remove('active'));
+    const navItem = document.querySelector(`.crm-nav-item[data-tab="${tabId}"]`);
+    if (navItem) navItem.classList.add('active');
+
+    // Panel visibility
+    document.querySelectorAll('.crm-tab').forEach(t => t.classList.remove('active'));
+    const panel = document.getElementById('tab-' + tabId);
+    if (panel) panel.classList.add('active');
+
+    // Log activity
+    crmLogActivity('Opened tab', tabId);
+}
+
+// ---------------------------------------------------------------------------
+// HELPERS
+// ---------------------------------------------------------------------------
+
+function escapeHtml(str) {
+    if (!str) return '';
+    return String(str)
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;');
+}
+
+function statusBadgeHtml(status) {
+    const map = {
+        'In Progress': 'status-inprogress',
+        'Scheduled':   'status-scheduled',
+        'Completed':   'status-completed',
+        'Pending':     'status-pending'
+    };
+    const cls = map[status] || 'status-pending';
+    return `<span class="crm-badge ${cls}">${escapeHtml(status)}</span>`;
+}
+
+/**
+ * Build the combined customer list from WALANTU_USERS + CRM_INLINE_CUSTOMERS.
+ * Returns objects normalised to { id, displayName, firstName, lastName, email, phone, area, digitalAddress, avatar, totalJobs, memberSince }
+ */
+function getAllCustomers() {
+    const fromUsers = (typeof WALANTU_USERS !== 'undefined' ? WALANTU_USERS : []).map(u => ({
+        id: u.id,
+        displayName: u.firstName + ' ' + u.lastName,
+        firstName: u.firstName,
+        lastName: u.lastName,
+        email: u.email,
+        phone: u.phone,
+        area: u.area,
+        digitalAddress: u.digitalAddress,
+        avatar: u.avatar,
+        totalJobs: (u.activeProjects || []).length + (u.serviceHistory || []).length,
+        memberSince: u.memberSince,
+        activeProjects: u.activeProjects || [],
+        serviceHistory: u.serviceHistory || [],
+        verified: u.verified
+    }));
+
+    const fromInline = (typeof CRM_INLINE_CUSTOMERS !== 'undefined' ? CRM_INLINE_CUSTOMERS : []).map(c => ({
+        id: c.id,
+        displayName: c.firstName + ' ' + c.lastName,
+        firstName: c.firstName,
+        lastName: c.lastName,
+        email: c.email,
+        phone: c.phone,
+        area: c.area,
+        digitalAddress: c.digitalAddress,
+        avatar: c.avatar,
+        totalJobs: c.totalJobs || 0,
+        memberSince: c.memberSince,
+        activeProjects: [],
+        serviceHistory: [],
+        verified: false
+    }));
+
+    return [...fromUsers, ...fromInline];
+}
+
+// ---------------------------------------------------------------------------
+// PANEL 1: DASHBOARD
+// ---------------------------------------------------------------------------
+
+function renderDashboard() {
+    const panel = document.getElementById('tab-dashboard');
+    const isAdmin = CRM_SESSION.role === 'super_admin';
+
+    const totalJobs    = CRM_JOBS.length;
+    const activeJobs   = CRM_JOBS.filter(j => j.status === 'In Progress').length;
+    const completedJobs = CRM_JOBS.filter(j => j.status === 'Completed').length;
+    const pendingJobs  = CRM_JOBS.filter(j => j.status === 'Pending').length;
+    const scheduledJobs = CRM_JOBS.filter(j => j.status === 'Scheduled').length;
+
+    // Revenue: sum of 'paid' values (strip non-numeric)
+    let totalRevenue = 0;
+    CRM_JOBS.forEach(j => {
+        const match = (j.paid || '').replace(/[^0-9.]/g, '');
+        if (match) totalRevenue += parseFloat(match) || 0;
+    });
+
+    const onlineCS = CRM_USERS.filter(u => u.role !== 'super_admin' && u.lastSeen === 'Online').length;
+
+    let html = '';
+
+    if (isAdmin) {
+        // ---- Admin dashboard ----
+        html += `
+        <div class="crm-panel-header">
+            <div>
+                <div class="crm-panel-title">Dashboard</div>
+                <div class="crm-panel-subtitle">Welcome back, ${escapeHtml(CRM_SESSION.name)}</div>
+            </div>
+        </div>
+        <div class="crm-panel-content">
+            <div class="crm-stats-grid">
+                <div class="crm-stat-card">
+                    <div class="crm-stat-icon">📋</div>
+                    <span class="crm-stat-value">${totalJobs}</span>
+                    <span class="crm-stat-label">Total Jobs</span>
+                </div>
+                <div class="crm-stat-card">
+                    <div class="crm-stat-icon">🔧</div>
+                    <span class="crm-stat-value">${activeJobs}</span>
+                    <span class="crm-stat-label">In Progress</span>
+                </div>
+                <div class="crm-stat-card">
+                    <div class="crm-stat-icon">💰</div>
+                    <span class="crm-stat-value">GH₵ ${totalRevenue.toLocaleString()}</span>
+                    <span class="crm-stat-label">Revenue Collected</span>
+                </div>
+                <div class="crm-stat-card">
+                    <div class="crm-stat-icon">📅</div>
+                    <span class="crm-stat-value">${scheduledJobs}</span>
+                    <span class="crm-stat-label">Scheduled</span>
+                </div>
+                <div class="crm-stat-card">
+                    <div class="crm-stat-icon">👤</div>
+                    <span class="crm-stat-value">${onlineCS}</span>
+                    <span class="crm-stat-label">CS Online Now</span>
+                </div>
+                <div class="crm-stat-card">
+                    <div class="crm-stat-icon">⏳</div>
+                    <span class="crm-stat-value">${pendingJobs}</span>
+                    <span class="crm-stat-label">Pending Assignment</span>
+                </div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+                <div class="crm-card">
+                    <div class="crm-card-header">
+                        <span class="crm-card-title">Recent Activity</span>
+                    </div>
+                    <div class="crm-card-body" style="padding:0 20px;">
+                        <div class="crm-activity-feed">
+                            ${buildActivityFeedHtml(crmGetActivity().slice(0, 8))}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="crm-card">
+                    <div class="crm-card-header">
+                        <span class="crm-card-title">CS Team Status</span>
+                    </div>
+                    <div class="crm-card-body" style="padding:0;">
+                        <table class="crm-table">
+                            <thead>
+                                <tr>
+                                    <th>Agent</th>
+                                    <th>Status</th>
+                                    <th>Active Jobs</th>
+                                    <th>Last Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                ${CRM_USERS.filter(u => u.role !== 'super_admin').map(u => {
+                                    const assignedCount = CRM_JOBS.filter(j => j.assignedCS === u.id).length;
+                                    const statusCls = u.lastSeen === 'Online' ? 'online' : 'away';
+                                    return `<tr>
+                                        <td>
+                                            <div style="display:flex;align-items:center;gap:8px;">
+                                                <div class="crm-avatar" style="width:30px;height:30px;font-size:11px;">${escapeHtml(u.avatar)}</div>
+                                                <span style="font-weight:600;">${escapeHtml(u.name)}</span>
+                                            </div>
+                                        </td>
+                                        <td><span class="crm-badge ${statusCls}">${escapeHtml(u.lastSeen)}</span></td>
+                                        <td>${assignedCount}</td>
+                                        <td style="font-size:12px;color:#9CA3AF;">09:30 today</td>
+                                    </tr>`;
+                                }).join('')}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>`;
+
+    } else {
+        // ---- CS worker dashboard ----
+        const myJobs = CRM_JOBS.filter(j => j.assignedCS === CRM_SESSION.id);
+        const myActive = myJobs.filter(j => j.status === 'In Progress' || j.status === 'Scheduled').length;
+        const myResolved = myJobs.filter(j => j.status === 'Completed').length;
+        const myActivity = crmGetActivity().filter(a => a.userId === CRM_SESSION.id);
+
+        html += `
+        <div class="crm-panel-header">
+            <div>
+                <div class="crm-panel-title">My Dashboard</div>
+                <div class="crm-panel-subtitle">Welcome back, ${escapeHtml(CRM_SESSION.name)}</div>
+            </div>
+        </div>
+        <div class="crm-panel-content">
+            <div class="crm-stats-grid">
+                <div class="crm-stat-card">
+                    <div class="crm-stat-icon">🔨</div>
+                    <span class="crm-stat-value">${myActive}</span>
+                    <span class="crm-stat-label">My Active Jobs</span>
+                </div>
+                <div class="crm-stat-card">
+                    <div class="crm-stat-icon">💬</div>
+                    <span class="crm-stat-value">2</span>
+                    <span class="crm-stat-label">Open Messages</span>
+                </div>
+                <div class="crm-stat-card">
+                    <div class="crm-stat-icon">✅</div>
+                    <span class="crm-stat-value">${myResolved}</span>
+                    <span class="crm-stat-label">Resolved Jobs</span>
+                </div>
+            </div>
+
+            <div class="crm-card">
+                <div class="crm-card-header">
+                    <span class="crm-card-title">My Assigned Jobs</span>
+                    <button class="crm-btn crm-btn-secondary crm-btn-sm" onclick="switchTab('jobs')">View All Jobs</button>
+                </div>
+                <div class="crm-card-body" style="padding:0;">
+                    <table class="crm-table">
+                        <thead>
+                            <tr>
+                                <th>Job #</th>
+                                <th>Customer</th>
+                                <th>Service</th>
+                                <th>Status</th>
+                                <th>Date</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${myJobs.slice(0,5).map(job => `
+                            <tr onclick="openJobPanel('${escapeHtml(job.id)}')">
+                                <td style="font-family:monospace;font-weight:600;">${escapeHtml(job.id)}</td>
+                                <td>${escapeHtml(job.customerName)}</td>
+                                <td>${escapeHtml(job.service)}</td>
+                                <td>${statusBadgeHtml(job.status)}</td>
+                                <td>${escapeHtml(job.date)}</td>
+                            </tr>`).join('') || '<tr><td colspan="5" style="text-align:center;color:#9CA3AF;padding:24px;">No jobs assigned</td></tr>'}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="crm-card">
+                <div class="crm-card-header"><span class="crm-card-title">Quick Actions</span></div>
+                <div class="crm-card-body" style="display:flex;gap:10px;flex-wrap:wrap;">
+                    <button class="crm-btn crm-btn-primary" onclick="switchTab('messages')">💬 Open Messages</button>
+                    <button class="crm-btn crm-btn-secondary" onclick="switchTab('customers')">👥 View Customers</button>
+                    <button class="crm-btn crm-btn-secondary" onclick="switchTab('jobs')">🔨 View Jobs</button>
+                </div>
+            </div>
+        </div>`;
+    }
+
+    panel.innerHTML = html;
+}
+
+function buildActivityFeedHtml(activities) {
+    if (!activities || !activities.length) {
+        return '<div class="crm-empty-state" style="padding:24px;"><div class="crm-empty-state-text">No activity yet</div></div>';
+    }
+    return activities.map(a => `
+        <div class="crm-activity-item">
+            <div class="crm-activity-icon">${a.icon || '📋'}</div>
+            <div class="crm-activity-text">
+                <div class="crm-activity-who">${escapeHtml(a.userName)}</div>
+                <div class="crm-activity-action">${escapeHtml(a.action)} — <span class="crm-activity-target">${escapeHtml(a.target)}</span></div>
+            </div>
+            <div class="crm-activity-time">${escapeHtml(a.timestamp)}</div>
+        </div>
+    `).join('');
+}
+
+// ---------------------------------------------------------------------------
+// PANEL 2: CUSTOMERS
+// ---------------------------------------------------------------------------
+
+function renderCustomerTable() {
+    const query = (document.getElementById('customer-search')?.value || '').toLowerCase();
+    const customers = getAllCustomers().filter(c => {
+        if (!query) return true;
+        return (
+            c.displayName.toLowerCase().includes(query) ||
+            c.email.toLowerCase().includes(query) ||
+            (c.area || '').toLowerCase().includes(query) ||
+            (c.phone || '').includes(query)
+        );
+    });
+
+    const tbody = document.getElementById('customer-table-body');
+    if (!tbody) return;
+
+    if (!customers.length) {
+        tbody.innerHTML = '<tr><td colspan="7" style="text-align:center;padding:32px;color:#9CA3AF;">No customers found</td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = customers.map(c => `
+        <tr onclick="openCustomerPanel('${escapeHtml(c.id)}')" title="Click to view profile">
+            <td>
+                <div style="display:flex;align-items:center;gap:10px;">
+                    <div class="crm-avatar" style="width:32px;height:32px;font-size:11px;flex-shrink:0;">${escapeHtml(c.avatar || c.displayName.substring(0,2).toUpperCase())}</div>
+                    <div>
+                        <div style="font-weight:600;">${escapeHtml(c.displayName)}</div>
+                        <div style="font-size:11px;color:#9CA3AF;">Member since ${escapeHtml(c.memberSince || '—')}</div>
+                    </div>
+                </div>
+            </td>
+            <td>${escapeHtml(c.email)}</td>
+            <td>${escapeHtml(c.phone || '—')}</td>
+            <td>${escapeHtml(c.area || '—')}</td>
+            <td><code style="font-size:11px;background:#F3F4F6;padding:2px 6px;border-radius:4px;">${escapeHtml(c.digitalAddress || '—')}</code></td>
+            <td style="text-align:center;">${c.totalJobs}</td>
+            <td><span class="crm-badge ${c.verified ? 'status-completed' : 'status-pending'}">${c.verified ? 'Verified' : 'Unverified'}</span></td>
+        </tr>
+    `).join('');
+}
+
+// ---- Customer detail panel ----
+
+function openCustomerPanel(customerId) {
+    activeCustomerId = customerId;
+    crmLogActivity('Viewed customer profile', customerId);
+
+    const customers = getAllCustomers();
+    const customer = customers.find(c => c.id === customerId);
+    if (!customer) return;
+
+    // Header
+    document.getElementById('customer-panel-header-content').innerHTML = `
+        <div style="display:flex;align-items:center;gap:12px;">
+            <div class="crm-avatar lg">${escapeHtml(customer.avatar || customer.displayName.substring(0,2).toUpperCase())}</div>
+            <div>
+                <div style="font-size:18px;font-weight:800;color:#111827;">${escapeHtml(customer.displayName)}</div>
+                <div style="font-size:13px;color:#9CA3AF;">Customer ID: ${escapeHtml(customer.id)}</div>
+            </div>
+        </div>`;
+
+    // Jobs for this customer
+    const customerJobs = CRM_JOBS.filter(j => j.customerId === customerId);
+
+    // Body
+    document.getElementById('customer-panel-body').innerHTML = `
+        <div class="crm-detail-row"><span class="crm-detail-row-label">Email</span><span class="crm-detail-row-value">${escapeHtml(customer.email)}</span></div>
+        <div class="crm-detail-row"><span class="crm-detail-row-label">Phone</span><span class="crm-detail-row-value">${escapeHtml(customer.phone || '—')}</span></div>
+        <div class="crm-detail-row"><span class="crm-detail-row-label">Area</span><span class="crm-detail-row-value">${escapeHtml(customer.area || '—')}</span></div>
+        <div class="crm-detail-row"><span class="crm-detail-row-label">GPS Code</span><span class="crm-detail-row-value"><code style="font-size:13px;background:#F3F4F6;padding:2px 8px;border-radius:4px;">${escapeHtml(customer.digitalAddress || '—')}</code></span></div>
+        <div class="crm-detail-row"><span class="crm-detail-row-label">Member Since</span><span class="crm-detail-row-value">${escapeHtml(customer.memberSince || '—')}</span></div>
+        <div class="crm-detail-row"><span class="crm-detail-row-label">Status</span><span class="crm-detail-row-value"><span class="crm-badge ${customer.verified ? 'status-completed' : 'status-pending'}">${customer.verified ? 'Verified' : 'Unverified'}</span></span></div>
+
+        <div style="margin-top:20px;margin-bottom:10px;font-size:14px;font-weight:700;color:#111827;">
+            Job History (${customerJobs.length})
+        </div>
+
+        ${customerJobs.length === 0
+            ? '<div style="color:#9CA3AF;font-size:13px;padding:12px 0;">No jobs found for this customer.</div>'
+            : customerJobs.map(job => `
+                <div style="background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:12px;margin-bottom:8px;cursor:pointer;" onclick="closeCustomerPanel(); openJobPanel('${escapeHtml(job.id)}')">
+                    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                        <span style="font-family:monospace;font-size:12px;font-weight:700;color:#374151;">${escapeHtml(job.id)}</span>
+                        ${statusBadgeHtml(job.status)}
+                    </div>
+                    <div style="font-size:13px;font-weight:600;color:#111827;">${escapeHtml(job.service)}</div>
+                    <div style="font-size:12px;color:#9CA3AF;margin-top:2px;">${escapeHtml(job.date)} · ${escapeHtml(job.cost)}</div>
+                </div>
+            `).join('')
+        }
+
+        ${customer.serviceHistory && customer.serviceHistory.length > 0 ? `
+        <div style="margin-top:8px;font-size:14px;font-weight:700;color:#111827;">
+            Past Service History
+        </div>
+        ${customer.serviceHistory.map(h => `
+            <div style="background:#F9FAFB;border:1px solid #E5E7EB;border-radius:8px;padding:12px;margin-top:8px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:4px;">
+                    <span style="font-size:12px;color:#6B7280;">${escapeHtml(h.date)}</span>
+                    <span class="crm-badge status-completed">Completed</span>
+                </div>
+                <div style="font-size:13px;font-weight:600;color:#111827;">${escapeHtml(h.service)}</div>
+                <div style="font-size:12px;color:#9CA3AF;margin-top:2px;">Pro: ${escapeHtml(h.pro)} · ${escapeHtml(h.cost)} · ${'⭐'.repeat(h.rating || 0)}</div>
+            </div>
+        `).join('')}
+        ` : ''}
+    `;
+
+    document.getElementById('customer-overlay').classList.add('open');
+    document.getElementById('customer-panel').classList.add('open');
+}
+
+function closeCustomerPanel() {
+    document.getElementById('customer-overlay').classList.remove('open');
+    document.getElementById('customer-panel').classList.remove('open');
+    activeCustomerId = null;
+}
+
+function messageCustomerFromPanel() {
+    const customerId = activeCustomerId;
+    closeCustomerPanel();
+    if (!customerId) return;
+
+    switchTab('messages');
+
+    // Pre-select the conversation with this customer
+    setTimeout(() => {
+        const convItem = document.querySelector(`.chat-list-item[data-conv-customer="${customerId}"]`);
+        if (convItem) convItem.click();
+    }, 100);
+}
+
+// ---------------------------------------------------------------------------
+// PANEL 3: JOBS
+// ---------------------------------------------------------------------------
+
+function setJobFilter(filter, btn) {
+    activeJobFilter = filter;
+    document.querySelectorAll('#job-filter-btns .crm-filter-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    renderJobsTable();
+}
+
+function renderJobsTable() {
+    const query = (document.getElementById('job-search')?.value || '').toLowerCase();
+    let jobs = CRM_JOBS;
+
+    // Role filter: CS workers see only their assigned jobs
+    if (CRM_SESSION.role !== 'super_admin') {
+        jobs = jobs.filter(j => j.assignedCS === CRM_SESSION.id);
+    }
+
+    // Status filter
+    if (activeJobFilter && activeJobFilter !== 'All') {
+        jobs = jobs.filter(j => j.status === activeJobFilter);
+    }
+
+    // Search
+    if (query) {
+        jobs = jobs.filter(j =>
+            j.id.toLowerCase().includes(query) ||
+            j.customerName.toLowerCase().includes(query) ||
+            j.service.toLowerCase().includes(query) ||
+            (j.pro || '').toLowerCase().includes(query)
+        );
+    }
+
+    const tbody = document.getElementById('jobs-table-body');
+    if (!tbody) return;
+
+    if (!jobs.length) {
+        tbody.innerHTML = '<tr><td colspan="8" style="text-align:center;padding:32px;color:#9CA3AF;">No jobs match this filter</td></tr>';
+        return;
+    }
+
+    tbody.innerHTML = jobs.map(job => `
+        <tr onclick="openJobPanel('${escapeHtml(job.id)}')" title="Click to view details">
+            <td style="font-family:monospace;font-weight:700;font-size:12px;color:#E8440A;">${escapeHtml(job.id)}</td>
+            <td>
+                <div style="font-weight:600;">${escapeHtml(job.customerName)}</div>
+                <div style="font-size:11px;color:#9CA3AF;">${escapeHtml(job.customerArea)}</div>
+            </td>
+            <td>${escapeHtml(job.service)}</td>
+            <td>${escapeHtml(job.pro)}</td>
+            <td>${statusBadgeHtml(job.status)}</td>
+            <td>${escapeHtml(job.date)}</td>
+            <td style="font-weight:600;">${escapeHtml(job.cost)}</td>
+            <td>
+                <div style="font-size:12px;">${escapeHtml(job.assignedCSName || '—')}</div>
+            </td>
+        </tr>
+    `).join('');
+}
+
+// ---- Job detail panel ----
+
+function openJobPanel(jobId) {
+    activeJobId = jobId;
+    crmLogActivity('Opened job details', jobId);
+
+    const job = CRM_JOBS.find(j => j.id === jobId);
+    if (!job) return;
+
+    document.getElementById('job-panel-header-content').innerHTML = `
+        <div>
+            <div style="font-size:18px;font-weight:800;color:#111827;font-family:monospace;">${escapeHtml(job.id)}</div>
+            <div style="font-size:13px;color:#9CA3AF;margin-top:2px;">${escapeHtml(job.service)}</div>
+        </div>`;
+
+    document.getElementById('job-panel-body').innerHTML = `
+        <div style="margin-bottom:16px;">${statusBadgeHtml(job.status)}</div>
+
+        <div class="crm-detail-row"><span class="crm-detail-row-label">Customer</span><span class="crm-detail-row-value">${escapeHtml(job.customerName)}</span></div>
+        <div class="crm-detail-row"><span class="crm-detail-row-label">Customer Phone</span><span class="crm-detail-row-value">${escapeHtml(job.customerPhone || '—')}</span></div>
+        <div class="crm-detail-row"><span class="crm-detail-row-label">Service</span><span class="crm-detail-row-value">${escapeHtml(job.service)}</span></div>
+        <div class="crm-detail-row"><span class="crm-detail-row-label">Tradesperson</span><span class="crm-detail-row-value">${escapeHtml(job.pro)}</span></div>
+        <div class="crm-detail-row"><span class="crm-detail-row-label">Pro Phone</span><span class="crm-detail-row-value">${escapeHtml(job.proPhone || '—')}</span></div>
+        <div class="crm-detail-row"><span class="crm-detail-row-label">Start Date</span><span class="crm-detail-row-value">${escapeHtml(job.date)}</span></div>
+        <div class="crm-detail-row"><span class="crm-detail-row-label">Est. Completion</span><span class="crm-detail-row-value">${escapeHtml(job.estCompletion)}</span></div>
+        <div class="crm-detail-row"><span class="crm-detail-row-label">Address</span><span class="crm-detail-row-value">${escapeHtml(job.address)}</span></div>
+        <div class="crm-detail-row"><span class="crm-detail-row-label">GPS Code</span><span class="crm-detail-row-value"><code style="font-size:13px;background:#F3F4F6;padding:2px 8px;border-radius:4px;">${escapeHtml(job.gps)}</code></span></div>
+        <div class="crm-detail-row"><span class="crm-detail-row-label">Total Cost</span><span class="crm-detail-row-value" style="font-weight:700;">${escapeHtml(job.cost)}</span></div>
+        <div class="crm-detail-row"><span class="crm-detail-row-label">Paid</span><span class="crm-detail-row-value" style="color:#059669;font-weight:600;">${escapeHtml(job.paid)}</span></div>
+        <div class="crm-detail-row"><span class="crm-detail-row-label">Remaining</span><span class="crm-detail-row-value" style="color:${job.remaining === 'GH₵ 0' ? '#059669' : '#DC2626'};font-weight:600;">${escapeHtml(job.remaining)}</span></div>
+        <div class="crm-detail-row"><span class="crm-detail-row-label">Assigned CS</span><span class="crm-detail-row-value">${escapeHtml(job.assignedCSName || '—')}</span></div>
+
+        ${job.progress > 0 ? `
+        <div style="margin-top:16px;">
+            <div style="display:flex;justify-content:space-between;font-size:12px;margin-bottom:6px;">
+                <span style="font-weight:600;color:#374151;">Progress</span>
+                <span style="color:#9CA3AF;">${job.progress}%</span>
+            </div>
+            <div class="crm-progress-bar">
+                <div class="crm-progress-fill" style="width:${job.progress}%"></div>
+            </div>
+        </div>` : ''}
+
+        ${job.notes ? `
+        <div style="margin-top:16px;background:#F9FAFB;border-radius:8px;padding:14px;">
+            <div style="font-size:11px;font-weight:700;color:#9CA3AF;text-transform:uppercase;letter-spacing:0.5px;margin-bottom:6px;">Notes</div>
+            <div style="font-size:13px;color:#374151;line-height:1.6;">${escapeHtml(job.notes)}</div>
+        </div>` : ''}
+    `;
+
+    document.getElementById('job-overlay').classList.add('open');
+    document.getElementById('job-panel').classList.add('open');
+}
+
+function closeJobPanel() {
+    document.getElementById('job-overlay').classList.remove('open');
+    document.getElementById('job-panel').classList.remove('open');
+    activeJobId = null;
+}
+
+// ---------------------------------------------------------------------------
+// PANEL 4: MESSAGES
+// ---------------------------------------------------------------------------
+
+/**
+ * Build the list of conversations visible to the current user.
+ * - CS workers see their own internal chats and their own customer chats.
+ * - Admin sees everything.
+ */
+function buildConversationList() {
+    const conversations = [];
+    const me = CRM_SESSION;
+
+    if (me.role === 'super_admin') {
+        // Admin: show all internal CS chats
+        const seen = new Set();
+        CRM_USERS.filter(u => u.role !== 'super_admin').forEach(u => {
+            CRM_USERS.filter(v => v.role !== 'super_admin' && v.id !== u.id).forEach(v => {
+                const key = [u.id, v.id].sort().join('_');
+                if (!seen.has(key)) {
+                    seen.add(key);
+                    const msgs = crmLoadMessages('internal', u.id, v.id);
+                    const last = msgs[msgs.length - 1];
+                    conversations.push({
+                        type: 'internal',
+                        participantA: u.id,
+                        participantB: v.id,
+                        name: u.name + ' ↔ ' + v.name,
+                        avatarA: u.avatar,
+                        avatarB: v.avatar,
+                        lastMsg: last ? last.text : '(no messages)',
+                        lastTime: last ? last.timestamp : '',
+                        unread: 0,
+                        forCustomer: null
+                    });
+                }
+            });
+        });
+
+        // Admin: all customer chats
+        const csWorkers = CRM_USERS.filter(u => u.role !== 'super_admin');
+        const custList = getAllCustomers();
+        csWorkers.forEach(cs => {
+            custList.forEach(cust => {
+                const msgs = crmLoadMessages('customer', cs.id, cust.id);
+                if (msgs.length > 0) {
+                    const last = msgs[msgs.length - 1];
+                    conversations.push({
+                        type: 'customer',
+                        participantA: cs.id,
+                        participantB: cust.id,
+                        name: cust.displayName,
+                        avatarA: cs.avatar,
+                        avatarB: cust.avatar || cust.displayName.substring(0,2).toUpperCase(),
+                        lastMsg: last.text,
+                        lastTime: last.timestamp,
+                        unread: 0,
+                        forCustomer: cust.id,
+                        csName: cs.name
+                    });
+                }
+            });
+        });
+
+    } else {
+        // CS worker: own internal chats with other CS workers
+        CRM_USERS.filter(u => u.id !== me.id && u.role !== 'super_admin').forEach(other => {
+            const msgs = crmLoadMessages('internal', me.id, other.id);
+            const last = msgs[msgs.length - 1];
+            conversations.push({
+                type: 'internal',
+                participantA: me.id,
+                participantB: other.id,
+                name: other.name,
+                avatarA: me.avatar,
+                avatarB: other.avatar,
+                lastMsg: last ? last.text : '(no messages)',
+                lastTime: last ? last.timestamp : '',
+                unread: 0,
+                forCustomer: null
+            });
+        });
+
+        // CS worker: own customer chats
+        const custList = getAllCustomers();
+        custList.forEach(cust => {
+            const msgs = crmLoadMessages('customer', me.id, cust.id);
+            if (msgs.length > 0) {
+                const last = msgs[msgs.length - 1];
+                conversations.push({
+                    type: 'customer',
+                    participantA: me.id,
+                    participantB: cust.id,
+                    name: cust.displayName,
+                    avatarA: me.avatar,
+                    avatarB: cust.avatar || cust.displayName.substring(0,2).toUpperCase(),
+                    lastMsg: last.text,
+                    lastTime: last.timestamp,
+                    unread: 0,
+                    forCustomer: cust.id
+                });
+            }
+        });
+    }
+
+    return conversations;
+}
+
+function renderChatList() {
+    const listEl = document.getElementById('chat-list-scroll');
+    if (!listEl) return;
+
+    const conversations = buildConversationList();
+    const internals = conversations.filter(c => c.type === 'internal');
+    const customers = conversations.filter(c => c.type === 'customer');
+
+    let html = '';
+
+    // Internal section
+    html += `<div class="chat-list-section-label">INTERNAL</div>`;
+    if (internals.length === 0) {
+        html += `<div style="padding:10px 16px;font-size:12px;color:#D1D5DB;">No internal conversations</div>`;
+    } else {
+        internals.forEach((conv, i) => {
+            const isActive = activeConversation &&
+                activeConversation.type === conv.type &&
+                activeConversation.participantA === conv.participantA &&
+                activeConversation.participantB === conv.participantB;
+
+            html += `
+            <div class="chat-list-item${isActive ? ' active' : ''}"
+                 data-conv-index="${i}"
+                 onclick="selectConversation('internal','${escapeHtml(conv.participantA)}','${escapeHtml(conv.participantB)}')">
+                <div class="crm-avatar" style="width:36px;height:36px;font-size:12px;flex-shrink:0;">${escapeHtml(conv.avatarB || '?')}</div>
+                <div class="chat-list-item-info">
+                    <div class="chat-list-item-name">${escapeHtml(conv.name)}</div>
+                    <div class="chat-list-item-preview">${escapeHtml((conv.lastMsg || '').substring(0, 40))}${(conv.lastMsg || '').length > 40 ? '…' : ''}</div>
+                </div>
+                <div class="chat-list-item-meta">
+                    <span class="chat-list-item-time">${escapeHtml(conv.lastTime || '')}</span>
+                </div>
+            </div>`;
+        });
+    }
+
+    // Customer section
+    html += `<div class="chat-list-section-label" style="margin-top:8px;">CUSTOMERS</div>`;
+    if (customers.length === 0) {
+        html += `<div style="padding:10px 16px;font-size:12px;color:#D1D5DB;">No customer conversations</div>`;
+    } else {
+        customers.forEach((conv) => {
+            const isActive = activeConversation &&
+                activeConversation.type === conv.type &&
+                activeConversation.participantA === conv.participantA &&
+                activeConversation.participantB === conv.participantB;
+
+            html += `
+            <div class="chat-list-item${isActive ? ' active' : ''}"
+                 data-conv-customer="${escapeHtml(conv.forCustomer || '')}"
+                 onclick="selectConversation('customer','${escapeHtml(conv.participantA)}','${escapeHtml(conv.participantB)}')">
+                <div class="crm-avatar blue" style="width:36px;height:36px;font-size:12px;flex-shrink:0;">${escapeHtml(conv.avatarB || '?')}</div>
+                <div class="chat-list-item-info">
+                    <div class="chat-list-item-name">${escapeHtml(conv.name)}</div>
+                    <div class="chat-list-item-preview">${escapeHtml((conv.lastMsg || '').substring(0, 40))}${(conv.lastMsg || '').length > 40 ? '…' : ''}</div>
+                </div>
+                <div class="chat-list-item-meta">
+                    <span class="chat-list-item-time">${escapeHtml(conv.lastTime || '')}</span>
+                </div>
+            </div>`;
+        });
+    }
+
+    listEl.innerHTML = html;
+}
+
+function selectConversation(type, participantA, participantB) {
+    activeConversation = { type, participantA, participantB };
+    renderChatList(); // re-render to highlight active
+    renderChatThread();
+}
+
+function renderChatThread() {
+    const threadEl = document.getElementById('chat-thread');
+    if (!threadEl || !activeConversation) return;
+
+    const { type, participantA, participantB } = activeConversation;
+    const messages = crmLoadMessages(type, participantA, participantB);
+
+    // Resolve names
+    let contactName = '';
+    let contactStatus = '';
+
+    if (type === 'internal') {
+        // The "other" participant from CRM_USERS
+        const otherId = participantA === CRM_SESSION.id ? participantB : participantA;
+        const other = CRM_USERS.find(u => u.id === otherId);
+        if (other) {
+            contactName = other.name;
+            contactStatus = other.lastSeen === 'Online' ? 'online' : other.lastSeen;
+        } else {
+            // Admin viewing: show both names
+            const a = CRM_USERS.find(u => u.id === participantA);
+            const b = CRM_USERS.find(u => u.id === participantB);
+            contactName = (a ? a.name : participantA) + ' ↔ ' + (b ? b.name : participantB);
+            contactStatus = 'Internal';
+        }
+    } else {
+        const customers = getAllCustomers();
+        const cust = customers.find(c => c.id === participantB) || customers.find(c => c.id === participantA);
+        contactName = cust ? cust.displayName : 'Customer';
+        contactStatus = 'Customer';
+    }
+
+    const contactAvatarText = contactName.substring(0, 2).toUpperCase();
+
+    // Determine which side is "me" (sent = appears on right, orange)
+    // For CS worker: messages from CRM_SESSION.id are "sent"
+    // For admin viewing internal: use participantA as "sent" perspective
+
+    const sentId = CRM_SESSION.role === 'super_admin' && type === 'internal'
+        ? participantA
+        : CRM_SESSION.id;
+
+    // Render message bubbles
+    const bubblesHtml = messages.map(msg => {
+        const isSent = msg.from === sentId;
+        const senderInitials = msg.fromName ? msg.fromName.substring(0, 2).toUpperCase() : '??';
+
+        if (msg.type === 'file') {
+            const fileHtml = `
+                <div class="msg-file-chip" title="${escapeHtml(msg.fileName || 'attachment')}">
+                    📄 ${escapeHtml(msg.fileName || 'attachment')}
+                    <span style="font-size:11px;opacity:0.7;">· Download</span>
+                </div>`;
+            return `
+            <div class="msg-bubble ${isSent ? 'sent' : 'received'}">
+                <div class="msg-bubble-avatar">${senderInitials}</div>
+                <div class="msg-bubble-content">
+                    <div class="msg-bubble-text">${fileHtml}</div>
+                    <div class="msg-bubble-time">${escapeHtml(msg.timestamp || '')}</div>
+                </div>
+            </div>`;
+        }
+
+        return `
+        <div class="msg-bubble ${isSent ? 'sent' : 'received'}">
+            <div class="msg-bubble-avatar">${senderInitials}</div>
+            <div class="msg-bubble-content">
+                <div class="msg-bubble-text">${escapeHtml(msg.text || '')}</div>
+                <div class="msg-bubble-time">${escapeHtml(msg.timestamp || '')}</div>
+            </div>
+        </div>`;
+    }).join('');
+
+    const statusCls = contactStatus === 'Online' || contactStatus === 'online' ? 'online' : '';
+
+    threadEl.innerHTML = `
+        <div class="chat-thread-header">
+            <div class="crm-avatar ${type === 'customer' ? 'blue' : ''}" style="width:38px;height:38px;font-size:13px;flex-shrink:0;">${contactAvatarText}</div>
+            <div class="chat-thread-header-info">
+                <div class="chat-thread-name">${escapeHtml(contactName)}</div>
+                <div class="chat-thread-status ${statusCls}">${type === 'internal' ? '🔒 Internal' : '👤 Customer'} · ${escapeHtml(contactStatus)}</div>
+            </div>
+        </div>
+
+        <div class="chat-thread-messages" id="chat-messages-container">
+            ${bubblesHtml || '<div class="chat-empty"><div class="chat-empty-icon">💬</div><div>No messages yet. Start the conversation!</div></div>'}
+        </div>
+
+        <div class="chat-compose">
+            <button class="chat-compose-attach" title="Attach file" onclick="triggerFileAttach()">📎</button>
+            <textarea
+                class="chat-compose-input"
+                id="chat-input"
+                placeholder="Type a message…"
+                rows="1"
+                onkeydown="handleChatKeydown(event)"
+                oninput="autoResizeTextarea(this)"
+            ></textarea>
+            <button class="chat-compose-send" title="Send message" onclick="sendMessage()">➤</button>
+        </div>`;
+
+    // Scroll to bottom
+    setTimeout(() => {
+        const container = document.getElementById('chat-messages-container');
+        if (container) container.scrollTop = container.scrollHeight;
+    }, 50);
+}
+
+function handleChatKeydown(e) {
+    // Send on Enter (without Shift for newline)
+    if (e.key === 'Enter' && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+    }
+}
+
+function autoResizeTextarea(el) {
+    el.style.height = 'auto';
+    el.style.height = Math.min(el.scrollHeight, 100) + 'px';
+}
+
+function sendMessage() {
+    if (!activeConversation) return;
+
+    const inputEl = document.getElementById('chat-input');
+    const text = (inputEl ? inputEl.value : '').trim();
+    if (!text) return;
+
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+
+    const { type, participantA, participantB } = activeConversation;
+
+    // Determine correct from/to based on role
+    let fromId, fromName, toId, toName;
+
+    if (CRM_SESSION.role === 'super_admin' && type === 'internal') {
+        // Admin sends as participantA
+        const a = CRM_USERS.find(u => u.id === participantA);
+        const b = CRM_USERS.find(u => u.id === participantB);
+        fromId   = participantA;
+        fromName = a ? a.name : participantA;
+        toId     = participantB;
+        toName   = b ? b.name : participantB;
+    } else {
+        fromId   = CRM_SESSION.id;
+        fromName = CRM_SESSION.name;
+
+        if (type === 'internal') {
+            toId   = participantA === CRM_SESSION.id ? participantB : participantA;
+            const other = CRM_USERS.find(u => u.id === toId);
+            toName = other ? other.name : toId;
+        } else {
+            toId   = participantA === CRM_SESSION.id ? participantB : participantA;
+            const customers = getAllCustomers();
+            const cust = customers.find(c => c.id === toId);
+            toName = cust ? cust.displayName : toId;
+        }
+    }
+
+    const msg = {
+        id: 'msg_' + Date.now(),
+        from: fromId,
+        fromName: fromName,
+        to: toId,
+        toName: toName,
+        text: text,
+        timestamp: timeStr,
+        date: 'Today',
+        type: 'text'
+    };
+
+    crmSaveMessage(type, participantA, participantB, msg);
+    crmLogActivity('Sent message', toName);
+
+    if (inputEl) {
+        inputEl.value = '';
+        inputEl.style.height = 'auto';
+    }
+
+    // Re-render thread and conversation list
+    renderChatThread();
+    renderChatList();
+}
+
+// ---- File attachment ----
+
+function triggerFileAttach() {
+    const input = document.getElementById('chat-file-input');
+    if (input) input.click();
+}
+
+document.addEventListener('change', function (e) {
+    if (e.target && e.target.id === 'chat-file-input') {
+        const file = e.target.files[0];
+        if (!file || !activeConversation) return;
+
+        const now = new Date();
+        const timeStr = now.toLocaleTimeString('en-GB', { hour: '2-digit', minute: '2-digit' });
+        const { type, participantA, participantB } = activeConversation;
+
+        let fromId = CRM_SESSION.id, fromName = CRM_SESSION.name;
+        if (CRM_SESSION.role === 'super_admin' && type === 'internal') {
+            fromId = participantA;
+            const a = CRM_USERS.find(u => u.id === participantA);
+            fromName = a ? a.name : participantA;
+        }
+
+        const toId   = participantA === fromId ? participantB : participantA;
+        const customers = getAllCustomers();
+        const cust   = customers.find(c => c.id === toId);
+        const other  = CRM_USERS.find(u => u.id === toId);
+        const toName = cust ? cust.displayName : (other ? other.name : toId);
+
+        // Create a blob URL so the "Download" link has something to point to
+        const blobUrl = URL.createObjectURL(file);
+
+        const msg = {
+            id: 'msg_' + Date.now(),
+            from: fromId,
+            fromName: fromName,
+            to: toId,
+            toName: toName,
+            text: '',
+            fileName: file.name,
+            fileSize: (file.size / 1024).toFixed(1) + ' KB',
+            fileUrl: blobUrl,
+            timestamp: timeStr,
+            date: 'Today',
+            type: 'file'
+        };
+
+        crmSaveMessage(type, participantA, participantB, msg);
+        crmLogActivity('Sent file attachment', toName);
+
+        // Reset file input
+        e.target.value = '';
+
+        renderChatThread();
+        renderChatList();
+    }
+});
+
+// ---------------------------------------------------------------------------
+// PANEL 5: MY ACTIVITY
+// ---------------------------------------------------------------------------
+
+function renderMyActivity() {
+    const feedEl = document.getElementById('my-activity-feed');
+    if (!feedEl) return;
+
+    const allActivity = crmGetActivity();
+    const myActivity  = allActivity.filter(a => a.userId === CRM_SESSION.id);
+
+    if (!myActivity.length) {
+        feedEl.innerHTML = '<div class="crm-empty-state"><div class="crm-empty-state-icon">📋</div><div class="crm-empty-state-text">No activity recorded yet</div></div>';
+        return;
+    }
+
+    feedEl.innerHTML = buildActivityFeedHtml(myActivity.slice(0, 30));
+}
+
+// ---------------------------------------------------------------------------
+// PANEL 6: CS TEAM (admin only)
+// ---------------------------------------------------------------------------
+
+function renderCsTeam() {
+    const el = document.getElementById('cs-team-content');
+    if (!el) return;
+
+    if (CRM_SESSION.role !== 'super_admin') {
+        el.innerHTML = `
+            <div class="crm-access-denied">
+                <div class="crm-access-denied-icon">🔒</div>
+                <div class="crm-access-denied-title">Access Denied</div>
+                <div class="crm-access-denied-text">This section is restricted to Super Admins only.</div>
+            </div>`;
+        return;
+    }
+
+    const csWorkers = CRM_USERS.filter(u => u.role !== 'super_admin');
+    const allActivity = crmGetActivity();
+
+    let html = `<div class="crm-team-grid">`;
+
+    csWorkers.forEach(worker => {
+        const isOnline = worker.lastSeen === 'Online';
+        const assignedJobs = CRM_JOBS.filter(j => j.assignedCS === worker.id);
+        const activeJobs   = assignedJobs.filter(j => j.status === 'In Progress' || j.status === 'Scheduled').length;
+        const doneJobs     = assignedJobs.filter(j => j.status === 'Completed').length;
+
+        html += `
+        <div class="crm-team-card" onclick="openCsModal('${escapeHtml(worker.id)}')">
+            <div class="crm-team-card-header">
+                <div class="crm-avatar" style="width:44px;height:44px;font-size:15px;">${escapeHtml(worker.avatar)}</div>
+                <div>
+                    <div class="crm-team-card-name">${escapeHtml(worker.name)}</div>
+                    <div class="crm-team-card-role">${escapeHtml(worker.department)}</div>
+                </div>
+                <div class="crm-online-dot ${isOnline ? 'online' : ''}"></div>
+            </div>
+            <div style="margin-bottom:12px;">
+                <span class="crm-badge ${isOnline ? 'online' : 'away'}">${isOnline ? '● Online' : '○ ' + escapeHtml(worker.lastSeen)}</span>
+                <span class="crm-badge role-cs" style="margin-left:6px;">CS Agent</span>
+            </div>
+            <div class="crm-team-card-stats">
+                <div class="crm-team-stat">
+                    <span class="crm-team-stat-value">${activeJobs}</span>
+                    <span class="crm-team-stat-label">Active Jobs</span>
+                </div>
+                <div class="crm-team-stat">
+                    <span class="crm-team-stat-value">${doneJobs}</span>
+                    <span class="crm-team-stat-label">Completed</span>
+                </div>
+            </div>
+            <div style="margin-top:12px;font-size:11px;color:#9CA3AF;">Click to view activity log</div>
+        </div>`;
+    });
+
+    html += `</div>`;
+
+    // Full activity log table
+    html += `
+    <div class="crm-card">
+        <div class="crm-card-header">
+            <span class="crm-card-title">Live Activity Log</span>
+        </div>
+        <div class="crm-table-wrap">
+            <table class="crm-table">
+                <thead>
+                    <tr>
+                        <th>Agent</th>
+                        <th>Action</th>
+                        <th>Target</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${allActivity.slice(0, 20).map(a => `
+                    <tr>
+                        <td>
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <div style="font-size:16px;">${a.icon || '📋'}</div>
+                                <span style="font-weight:600;">${escapeHtml(a.userName)}</span>
+                            </div>
+                        </td>
+                        <td>${escapeHtml(a.action)}</td>
+                        <td style="color:var(--primary);font-weight:500;">${escapeHtml(a.target)}</td>
+                        <td style="font-size:12px;color:#9CA3AF;">${escapeHtml(a.timestamp)}</td>
+                    </tr>`).join('')}
+                </tbody>
+            </table>
+        </div>
+    </div>`;
+
+    el.innerHTML = html;
+}
+
+function openCsModal(userId) {
+    const worker = CRM_USERS.find(u => u.id === userId);
+    if (!worker) return;
+
+    document.getElementById('cs-modal-title').textContent = worker.name + ' — Activity Log';
+
+    const activity = crmGetActivity().filter(a => a.userId === userId);
+
+    let html = `
+    <div style="display:flex;align-items:center;gap:12px;margin-bottom:20px;padding-bottom:16px;border-bottom:1px solid #E5E7EB;">
+        <div class="crm-avatar lg">${escapeHtml(worker.avatar)}</div>
+        <div>
+            <div style="font-size:16px;font-weight:700;">${escapeHtml(worker.name)}</div>
+            <div style="font-size:13px;color:#9CA3AF;">${escapeHtml(worker.email)} · ${escapeHtml(worker.department)}</div>
+            <div style="margin-top:4px;"><span class="crm-badge ${worker.lastSeen === 'Online' ? 'online' : 'away'}">${escapeHtml(worker.lastSeen)}</span></div>
+        </div>
+    </div>
+    <div style="font-size:13px;font-weight:700;color:#374151;margin-bottom:12px;">Recent Actions (${activity.length})</div>
+    <div class="crm-activity-feed">
+        ${activity.length > 0 ? buildActivityFeedHtml(activity) : '<div style="color:#9CA3AF;font-size:13px;padding:12px 0;">No activity recorded for this agent.</div>'}
+    </div>`;
+
+    document.getElementById('cs-modal-body').innerHTML = html;
+    document.getElementById('cs-modal-overlay').classList.add('open');
+}
+
+function closeCsModal() {
+    document.getElementById('cs-modal-overlay').classList.remove('open');
+}
+
+// ---------------------------------------------------------------------------
+// PANEL 7: REPORTS (admin only)
+// ---------------------------------------------------------------------------
+
+function renderReports() {
+    const el = document.getElementById('reports-content');
+    if (!el) return;
+
+    if (CRM_SESSION.role !== 'super_admin') {
+        el.innerHTML = `
+            <div class="crm-access-denied">
+                <div class="crm-access-denied-icon">🔒</div>
+                <div class="crm-access-denied-title">Access Denied</div>
+                <div class="crm-access-denied-text">Reports are restricted to Super Admins only.</div>
+            </div>`;
+        return;
+    }
+
+    // Build revenue by service
+    const revenueByService = {};
+    CRM_JOBS.forEach(j => {
+        const service = j.service.split('—')[0].trim().split(' — ')[0].split(' ')[0];
+        const paid = parseFloat((j.paid || '').replace(/[^0-9.]/g, '')) || 0;
+        revenueByService[service] = (revenueByService[service] || 0) + paid;
+    });
+
+    const statusCounts = { 'In Progress': 0, 'Scheduled': 0, 'Completed': 0, 'Pending': 0 };
+    CRM_JOBS.forEach(j => { statusCounts[j.status] = (statusCounts[j.status] || 0) + 1; });
+
+    const csPerf = CRM_USERS.filter(u => u.role !== 'super_admin').map(u => {
+        const assigned = CRM_JOBS.filter(j => j.assignedCS === u.id);
+        const completed = assigned.filter(j => j.status === 'Completed').length;
+        return { name: u.name, assigned: assigned.length, completed };
+    });
+
+    el.innerHTML = `
+    <div class="crm-reports-grid">
+
+        <!-- Revenue by service -->
+        <div class="crm-card">
+            <div class="crm-card-header">
+                <span class="crm-card-title">Revenue by Service</span>
+                <button class="crm-btn crm-btn-secondary crm-btn-sm" onclick="exportCSV('revenue')">⬇ Export CSV</button>
+            </div>
+            <div class="crm-table-wrap">
+                <table class="crm-table">
+                    <thead><tr><th>Service</th><th>Revenue Collected</th></tr></thead>
+                    <tbody>
+                        ${Object.entries(revenueByService).map(([svc, rev]) =>
+                            `<tr><td>${escapeHtml(svc)}</td><td style="font-weight:600;">GH₵ ${rev.toLocaleString()}</td></tr>`
+                        ).join('')}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Jobs by status -->
+        <div class="crm-card">
+            <div class="crm-card-header">
+                <span class="crm-card-title">Jobs by Status</span>
+                <button class="crm-btn crm-btn-secondary crm-btn-sm" onclick="exportCSV('status')">⬇ Export CSV</button>
+            </div>
+            <div class="crm-table-wrap">
+                <table class="crm-table">
+                    <thead><tr><th>Status</th><th>Count</th><th>Visual</th></tr></thead>
+                    <tbody>
+                        ${Object.entries(statusCounts).map(([status, count]) => {
+                            const pct = CRM_JOBS.length > 0 ? Math.round((count / CRM_JOBS.length) * 100) : 0;
+                            return `<tr>
+                                <td>${statusBadgeHtml(status)}</td>
+                                <td style="font-weight:700;">${count}</td>
+                                <td style="width:120px;">
+                                    <div style="height:6px;background:#F3F4F6;border-radius:4px;overflow:hidden;">
+                                        <div style="height:100%;width:${pct}%;background:var(--primary);border-radius:4px;"></div>
+                                    </div>
+                                    <span style="font-size:11px;color:#9CA3AF;">${pct}%</span>
+                                </td>
+                            </tr>`;
+                        }).join('')}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- CS Performance -->
+        <div class="crm-card" style="grid-column:1/-1;">
+            <div class="crm-card-header">
+                <span class="crm-card-title">CS Team Performance</span>
+                <button class="crm-btn crm-btn-secondary crm-btn-sm" onclick="exportCSV('performance')">⬇ Export CSV</button>
+            </div>
+            <div class="crm-table-wrap">
+                <table class="crm-table">
+                    <thead>
+                        <tr>
+                            <th>Agent</th>
+                            <th>Jobs Assigned</th>
+                            <th>Completed</th>
+                            <th>Completion Rate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        ${csPerf.map(p => {
+                            const rate = p.assigned > 0 ? Math.round((p.completed / p.assigned) * 100) : 0;
+                            return `<tr>
+                                <td style="font-weight:600;">${escapeHtml(p.name)}</td>
+                                <td>${p.assigned}</td>
+                                <td>${p.completed}</td>
+                                <td>
+                                    <div style="display:flex;align-items:center;gap:8px;">
+                                        <div style="flex:1;height:6px;background:#F3F4F6;border-radius:4px;overflow:hidden;max-width:80px;">
+                                            <div style="height:100%;width:${rate}%;background:#059669;border-radius:4px;"></div>
+                                        </div>
+                                        <span style="font-weight:600;color:#059669;">${rate}%</span>
+                                    </div>
+                                </td>
+                            </tr>`;
+                        }).join('')}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+    </div>`;
+}
+
+/**
+ * Generate and download a CSV file for a given report type.
+ * @param {'revenue'|'status'|'performance'} reportType
+ */
+function exportCSV(reportType) {
+    let csv = '';
+    let filename = 'walantu-report.csv';
+
+    if (reportType === 'revenue') {
+        const revenueByService = {};
+        CRM_JOBS.forEach(j => {
+            const service = j.service.split('—')[0].trim();
+            const paid = parseFloat((j.paid || '').replace(/[^0-9.]/g, '')) || 0;
+            revenueByService[service] = (revenueByService[service] || 0) + paid;
+        });
+        csv = 'Service,Revenue (GH₵)\n' + Object.entries(revenueByService).map(([s, r]) => `"${s}",${r}`).join('\n');
+        filename = 'walantu-revenue-by-service.csv';
+    } else if (reportType === 'status') {
+        const statusCounts = {};
+        CRM_JOBS.forEach(j => { statusCounts[j.status] = (statusCounts[j.status] || 0) + 1; });
+        csv = 'Status,Count\n' + Object.entries(statusCounts).map(([s, c]) => `"${s}",${c}`).join('\n');
+        filename = 'walantu-jobs-by-status.csv';
+    } else if (reportType === 'performance') {
+        csv = 'Agent,Assigned,Completed,Rate\n';
+        CRM_USERS.filter(u => u.role !== 'super_admin').forEach(u => {
+            const assigned  = CRM_JOBS.filter(j => j.assignedCS === u.id).length;
+            const completed = CRM_JOBS.filter(j => j.assignedCS === u.id && j.status === 'Completed').length;
+            const rate      = assigned > 0 ? Math.round((completed / assigned) * 100) : 0;
+            csv += `"${u.name}",${assigned},${completed},${rate}%\n`;
+        });
+        filename = 'walantu-cs-performance.csv';
+    }
+
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url  = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = filename;
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+}
+
+// ---------------------------------------------------------------------------
+// PANEL 8: SETTINGS (admin only)
+// ---------------------------------------------------------------------------
+
+function renderSettings() {
+    const el = document.getElementById('settings-content');
+    if (!el) return;
+
+    if (CRM_SESSION.role !== 'super_admin') {
+        el.innerHTML = `
+            <div class="crm-access-denied">
+                <div class="crm-access-denied-icon">🔒</div>
+                <div class="crm-access-denied-title">Access Denied</div>
+                <div class="crm-access-denied-text">Settings are restricted to Super Admins only.</div>
+            </div>`;
+        return;
+    }
+
+    // Merge default users with any added via the form
+    let staffList = [...CRM_USERS];
+    try {
+        const extra = JSON.parse(localStorage.getItem('walantu_crm_extra_staff') || '[]');
+        staffList = staffList.concat(extra);
+    } catch { /* ignore */ }
+
+    el.innerHTML = `
+    <!-- System settings -->
+    <div class="crm-settings-section">
+        <div class="crm-settings-section-header">System Settings</div>
+        <div class="crm-settings-section-body">
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;">
+                <div class="crm-form-group">
+                    <label class="crm-form-label">Platform Name</label>
+                    <input type="text" class="crm-form-control" value="WALANTU Trade Services" readonly>
+                </div>
+                <div class="crm-form-group">
+                    <label class="crm-form-label">Support Email</label>
+                    <input type="email" class="crm-form-control" value="support@walantu.com" readonly>
+                </div>
+                <div class="crm-form-group">
+                    <label class="crm-form-label">Default Currency</label>
+                    <input type="text" class="crm-form-control" value="GH₵ (Ghana Cedis)" readonly>
+                </div>
+                <div class="crm-form-group">
+                    <label class="crm-form-label">Guarantee Period</label>
+                    <input type="text" class="crm-form-control" value="3 months (90 days)" readonly>
+                </div>
+            </div>
+            <p style="font-size:12px;color:#9CA3AF;margin-top:8px;">Settings are read-only in this demo. Connect to a backend to enable editing.</p>
+        </div>
+    </div>
+
+    <!-- User Management -->
+    <div class="crm-settings-section">
+        <div class="crm-settings-section-header" style="display:flex;align-items:center;justify-content:space-between;">
+            <span>CRM User Management</span>
+            <button class="crm-btn crm-btn-primary crm-btn-sm" onclick="openAddStaffModal()">+ Add Staff Account</button>
+        </div>
+        <div class="crm-table-wrap">
+            <table class="crm-table" id="settings-staff-table">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Role</th>
+                        <th>Department</th>
+                        <th>Last Login</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${staffList.map(u => `
+                    <tr>
+                        <td>
+                            <div style="display:flex;align-items:center;gap:8px;">
+                                <div class="crm-avatar" style="width:30px;height:30px;font-size:11px;">${escapeHtml(u.avatar || u.name.substring(0,2).toUpperCase())}</div>
+                                <span style="font-weight:600;">${escapeHtml(u.name)}</span>
+                            </div>
+                        </td>
+                        <td>${escapeHtml(u.email)}</td>
+                        <td><span class="crm-badge ${u.role === 'super_admin' ? 'role-admin' : 'role-cs'}">${u.role === 'super_admin' ? 'Super Admin' : 'CS Agent'}</span></td>
+                        <td>${escapeHtml(u.department || '—')}</td>
+                        <td style="font-size:12px;color:#9CA3AF;">${escapeHtml(u.lastLogin || '—')}</td>
+                        <td><span class="crm-badge ${u.lastSeen === 'Online' ? 'online' : 'away'}">${escapeHtml(u.lastSeen || 'Offline')}</span></td>
+                    </tr>`).join('')}
+                </tbody>
+            </table>
+        </div>
+    </div>`;
+}
+
+// ---------------------------------------------------------------------------
+// PANEL 9: PARTS & ORDERS
+// ---------------------------------------------------------------------------
+
+/** Active status filter for the Parts & Orders panel. */
+let activePartsFilter = 'All';
+
+function setPartsFilter(filter, btn) {
+    activePartsFilter = filter;
+    document.querySelectorAll('#parts-filter-btns .crm-filter-btn').forEach(b => b.classList.remove('active'));
+    if (btn) btn.classList.add('active');
+    renderOrders();
+}
+
+/** Map part status → CSS badge class */
+function partStatusBadge(status) {
+    const map = {
+        'Delivered':    'status-completed',
+        'Ordered':      'status-scheduled',
+        'Pending':      'status-pending',
+        'Back-ordered': 'status-inprogress'
+    };
+    const cls = map[status] || 'status-pending';
+    return `<span class="crm-badge ${cls}">${escapeHtml(status)}</span>`;
+}
+
+/** Format a number as GH₵ with 2dp */
+function ghc(n) {
+    return 'GH₵ ' + Number(n).toLocaleString('en-GH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+}
+
+function renderOrders() {
+    const summaryEl  = document.getElementById('orders-summary');
+    const sectionsEl = document.getElementById('orders-job-sections');
+    if (!summaryEl || !sectionsEl) return;
+
+    const search = (document.getElementById('parts-search')?.value || '').toLowerCase();
+
+    // Apply search + status filter across all parts
+    const filtered = CRM_PARTS.filter(p => {
+        const matchStatus = activePartsFilter === 'All' || p.status === activePartsFilter;
+        const matchSearch = !search ||
+            p.name.toLowerCase().includes(search) ||
+            p.supplier.toLowerCase().includes(search) ||
+            p.jobId.toLowerCase().includes(search) ||
+            p.category.toLowerCase().includes(search);
+        return matchStatus && matchSearch;
+    });
+
+    // ---- Summary cards ----
+    const totalValue    = CRM_PARTS.reduce((s, p) => s + p.qty * p.unitPrice, 0);
+    const totalItems    = CRM_PARTS.length;
+    const delivered     = CRM_PARTS.filter(p => p.status === 'Delivered').length;
+    const pending       = CRM_PARTS.filter(p => p.status === 'Pending' || p.status === 'Back-ordered').length;
+
+    summaryEl.innerHTML = `
+        <div class="crm-stat-card">
+            <div class="crm-stat-label">Total Parts Value</div>
+            <div class="crm-stat-value">${ghc(totalValue)}</div>
+            <div class="crm-stat-sub">Across all jobs</div>
+        </div>
+        <div class="crm-stat-card">
+            <div class="crm-stat-label">Total Line Items</div>
+            <div class="crm-stat-value">${totalItems}</div>
+            <div class="crm-stat-sub">Unique SKUs</div>
+        </div>
+        <div class="crm-stat-card">
+            <div class="crm-stat-label">Delivered</div>
+            <div class="crm-stat-value" style="color:#16A34A;">${delivered}</div>
+            <div class="crm-stat-sub">Items on-site</div>
+        </div>
+        <div class="crm-stat-card">
+            <div class="crm-stat-label">Pending / Back-ordered</div>
+            <div class="crm-stat-value" style="color:#DC2626;">${pending}</div>
+            <div class="crm-stat-sub">Items awaiting delivery</div>
+        </div>`;
+
+    // ---- Group filtered parts by job ----
+    const byJob = {};
+    filtered.forEach(p => {
+        if (!byJob[p.jobId]) byJob[p.jobId] = [];
+        byJob[p.jobId].push(p);
+    });
+
+    if (!filtered.length) {
+        sectionsEl.innerHTML = `
+            <div class="crm-empty-state">
+                <div class="crm-empty-state-icon">📦</div>
+                <div class="crm-empty-state-text">No parts match your search or filter.</div>
+            </div>`;
+        return;
+    }
+
+    let html = '';
+
+    Object.entries(byJob).forEach(([jobId, parts]) => {
+        const job = CRM_JOBS.find(j => j.id === jobId);
+        const jobSubtotal = parts.reduce((s, p) => s + p.qty * p.unitPrice, 0);
+        const jobAllParts = CRM_PARTS.filter(p => p.jobId === jobId);
+        const jobTotalValue = jobAllParts.reduce((s, p) => s + p.qty * p.unitPrice, 0);
+
+        const deliveredCount  = parts.filter(p => p.status === 'Delivered').length;
+        const pendingCount    = parts.filter(p => p.status !== 'Delivered').length;
+
+        html += `
+        <div class="crm-card" style="margin-bottom:20px;">
+            <div class="crm-card-header" style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;">
+                <div style="display:flex;align-items:center;gap:12px;">
+                    <span style="font-size:16px;font-weight:700;color:#1A1A2E;">${escapeHtml(jobId)}</span>
+                    <span style="color:#6B7280;font-size:14px;">${job ? escapeHtml(job.service) : ''}</span>
+                    ${job ? statusBadgeHtml(job.status) : ''}
+                </div>
+                <div style="display:flex;align-items:center;gap:16px;font-size:13px;color:#6B7280;">
+                    <span>Customer: <strong style="color:#1A1A2E;">${job ? escapeHtml(job.customerName) : '—'}</strong></span>
+                    <span>Pro: <strong style="color:#1A1A2E;">${job ? escapeHtml(job.pro) : '—'}</strong></span>
+                    <span style="color:#16A34A;">✓ ${deliveredCount} delivered</span>
+                    ${pendingCount ? `<span style="color:#DC2626;">⏳ ${pendingCount} pending</span>` : ''}
+                    <span style="font-weight:700;color:#E8440A;">Subtotal: ${ghc(jobSubtotal)}</span>
+                    ${filtered.length !== jobAllParts.length ? `<span style="font-size:11px;color:#9CA3AF;">(filtered — job total: ${ghc(jobTotalValue)})</span>` : ''}
+                </div>
+            </div>
+            <div class="crm-card-body" style="padding:0;">
+                <div class="crm-table-wrap">
+                    <table class="crm-table">
+                        <thead>
+                            <tr>
+                                <th>Part / Material</th>
+                                <th>Category</th>
+                                <th style="text-align:center;">Qty</th>
+                                <th>Unit</th>
+                                <th style="text-align:right;">Unit Price</th>
+                                <th style="text-align:right;">Total</th>
+                                <th>Supplier</th>
+                                <th>Date Ordered</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            ${parts.map(p => {
+                                const lineTotal = p.qty * p.unitPrice;
+                                return `
+                                <tr>
+                                    <td style="font-weight:500;">${escapeHtml(p.name)}</td>
+                                    <td><span class="crm-badge" style="background:#F3F4F6;color:#374151;">${escapeHtml(p.category)}</span></td>
+                                    <td style="text-align:center;">${p.qty}</td>
+                                    <td>${escapeHtml(p.unit)}</td>
+                                    <td style="text-align:right;">${ghc(p.unitPrice)}</td>
+                                    <td style="text-align:right;font-weight:600;">${ghc(lineTotal)}</td>
+                                    <td style="color:#6B7280;">${escapeHtml(p.supplier)}</td>
+                                    <td style="color:#6B7280;font-size:12px;">${escapeHtml(p.orderedDate)}</td>
+                                    <td>${partStatusBadge(p.status)}</td>
+                                </tr>`;
+                            }).join('')}
+                        </tbody>
+                        <tfoot>
+                            <tr style="background:#F9FAFB;">
+                                <td colspan="5" style="text-align:right;font-weight:600;color:#374151;">Job Subtotal</td>
+                                <td style="text-align:right;font-weight:700;color:#E8440A;">${ghc(jobSubtotal)}</td>
+                                <td colspan="3"></td>
+                            </tr>
+                        </tfoot>
+                    </table>
+                </div>
+            </div>
+        </div>`;
+    });
+
+    // Grand total row
+    const grandTotal = filtered.reduce((s, p) => s + p.qty * p.unitPrice, 0);
+    html += `
+        <div class="crm-card" style="background:#1A1A2E;color:#fff;border:none;">
+            <div class="crm-card-body" style="display:flex;align-items:center;justify-content:space-between;padding:16px 20px;">
+                <span style="font-size:15px;font-weight:600;">
+                    Grand Total — ${filtered.length} line item${filtered.length !== 1 ? 's' : ''}
+                    across ${Object.keys(byJob).length} job${Object.keys(byJob).length !== 1 ? 's' : ''}
+                    ${activePartsFilter !== 'All' ? `(${activePartsFilter} filter)` : ''}
+                </span>
+                <span style="font-size:22px;font-weight:800;color:#E8440A;">${ghc(grandTotal)}</span>
+            </div>
+        </div>`;
+
+    sectionsEl.innerHTML = html;
+}
+
+/**
+ * Export visible (filtered) parts to CSV.
+ */
+function exportPartsCSV() {
+    const search = (document.getElementById('parts-search')?.value || '').toLowerCase();
+    const filtered = CRM_PARTS.filter(p => {
+        const matchStatus = activePartsFilter === 'All' || p.status === activePartsFilter;
+        const matchSearch = !search ||
+            p.name.toLowerCase().includes(search) ||
+            p.supplier.toLowerCase().includes(search) ||
+            p.jobId.toLowerCase().includes(search) ||
+            p.category.toLowerCase().includes(search);
+        return matchStatus && matchSearch;
+    });
+
+    const rows = [['Job ID', 'Service', 'Customer', 'Part / Material', 'Category', 'Qty', 'Unit', 'Unit Price (GH₵)', 'Total (GH₵)', 'Supplier', 'Date Ordered', 'Status']];
+    filtered.forEach(p => {
+        const job = CRM_JOBS.find(j => j.id === p.jobId);
+        rows.push([
+            p.jobId,
+            job ? job.service : '',
+            job ? job.customerName : '',
+            p.name,
+            p.category,
+            p.qty,
+            p.unit,
+            p.unitPrice.toFixed(2),
+            (p.qty * p.unitPrice).toFixed(2),
+            p.supplier,
+            p.orderedDate,
+            p.status
+        ]);
+    });
+
+    const csv = rows.map(r => r.map(c => `"${String(c).replace(/"/g, '""')}"`).join(',')).join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const url  = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = 'walantu-parts-orders.csv';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    URL.revokeObjectURL(url);
+    crmLogActivity('Exported CSV', 'Parts & Orders');
+}
+
+function openAddStaffModal() {
+    document.getElementById('add-staff-modal-overlay').classList.add('open');
+    document.getElementById('add-staff-error').style.display = 'none';
+    document.getElementById('add-staff-form').reset();
+}
+
+function closeAddStaffModal() {
+    document.getElementById('add-staff-modal-overlay').classList.remove('open');
+}
+
+function submitAddStaff(e) {
+    e.preventDefault();
+    const name    = document.getElementById('staff-name').value.trim();
+    const email   = document.getElementById('staff-email').value.trim();
+    const password = document.getElementById('staff-password').value.trim();
+    const role    = document.getElementById('staff-role').value;
+    const dept    = document.getElementById('staff-dept').value.trim();
+    const errEl   = document.getElementById('add-staff-error');
+
+    if (!name || !email || !password) {
+        errEl.textContent = 'Please fill in all required fields.';
+        errEl.style.display = 'block';
+        return;
+    }
+
+    // Check for email uniqueness
+    const allStaff = [...CRM_USERS];
+    try {
+        const extra = JSON.parse(localStorage.getItem('walantu_crm_extra_staff') || '[]');
+        allStaff.push(...extra);
+    } catch { /* ignore */ }
+
+    if (allStaff.find(u => u.email.toLowerCase() === email.toLowerCase())) {
+        errEl.textContent = 'This email address is already in use.';
+        errEl.style.display = 'block';
+        return;
+    }
+
+    const newStaff = {
+        id: 'crm_' + Date.now(),
+        name,
+        email,
+        password,
+        role,
+        avatar: name.split(' ').map(n => n[0]).join('').toUpperCase().substring(0, 2),
+        department: dept || 'Customer Service',
+        lastSeen: 'Offline',
+        lastLogin: 'Never'
+    };
+
+    let extra = [];
+    try { extra = JSON.parse(localStorage.getItem('walantu_crm_extra_staff') || '[]'); } catch { extra = []; }
+    extra.push(newStaff);
+    localStorage.setItem('walantu_crm_extra_staff', JSON.stringify(extra));
+
+    crmLogActivity('Added staff account', name + ' (' + role + ')');
+
+    closeAddStaffModal();
+    renderSettings(); // refresh table
+    alert(`Staff account for ${name} created successfully!\nTemporary password: ${password}`);
+}
+
+</script>
+</body>
+</html>

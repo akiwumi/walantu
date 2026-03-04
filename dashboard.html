@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="WALANTU Customer Dashboard — manage your service history, projects, payments, and account details.">
     <title>My Dashboard | WALANTU Trade Services</title>
+    <link rel="icon" href="images/logoBlk.png" type="image/png">
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
@@ -16,7 +17,7 @@
     <header class="header" role="banner">
         <div class="container header-container">
             <a href="index.html" class="logo" aria-label="WALANTU Home">
-                <img src="images/logoFull.png" alt="WALANTU" width="44" height="44" onerror="this.style.display='none'">
+                <img src="images/walantu-logo.jpg" alt="WALANTU" width="44" height="44" onerror="this.style.display='none'">
                 <span class="logo-text">WALANTU</span>
             </a>
 
@@ -1500,6 +1501,53 @@
                 setTimeout(() => { bar.style.width = target; }, 200);
             });
         });
+    </script>
+
+    <!-- ===== USER SESSION ===== -->
+    <script src="js/users.js"></script>
+    <script>
+        (function () {
+            const user = walantuGetSession();
+
+            // If no session, fall back to demo user so dashboard always works
+            const u = user || WALANTU_USERS[0];
+
+            // Header avatar
+            const headerAvatar = document.querySelector('[aria-label^="User menu"]');
+            if (headerAvatar) headerAvatar.textContent = u.avatar;
+
+            // Sidebar
+            const sidebarAvatar = document.querySelector('.sidebar-avatar');
+            if (sidebarAvatar) sidebarAvatar.textContent = u.avatar;
+            const sidebarName = document.querySelector('.sidebar-user-name');
+            if (sidebarName) sidebarName.textContent = u.firstName + ' ' + u.lastName;
+            const sidebarEmail = document.querySelector('.sidebar-user-email');
+            if (sidebarEmail) sidebarEmail.textContent = u.email;
+
+            // Dashboard greeting
+            const greeting = document.querySelector('.dashboard-topbar-title');
+            if (greeting) {
+                const hour = new Date().getHours();
+                const tod = hour < 12 ? 'morning' : hour < 17 ? 'afternoon' : 'evening';
+                greeting.textContent = `Good ${tod}, ${u.firstName} 👋`;
+            }
+
+            // Today's date
+            const dateEl = document.querySelector('.dashboard-topbar-title + div');
+            if (dateEl) {
+                const now = new Date();
+                dateEl.textContent = now.toLocaleDateString('en-GB', {
+                    weekday: 'long', day: 'numeric', month: 'long', year: 'numeric'
+                }) + ' • Accra, Ghana';
+            }
+
+            // Sign out link
+            document.querySelectorAll('a[href="index.html"].sidebar-nav-item').forEach(el => {
+                el.removeAttribute('href');
+                el.style.cursor = 'pointer';
+                el.addEventListener('click', walantuSignOut);
+            });
+        })();
     </script>
 </body>
 </html>

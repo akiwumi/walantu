@@ -330,7 +330,7 @@ input, select, textarea { font-family: inherit; }
 .hero {
     padding-top: var(--header-height);
     position: relative;
-    background: linear-gradient(135deg, #1C1C1C 0%, #2D1810 50%, #1C1C1C 100%);
+    background: #1C1C1C;
     min-height: 580px;
     display: flex;
     align-items: center;
@@ -340,21 +340,13 @@ input, select, textarea { font-family: inherit; }
 .hero-bg {
     position: absolute;
     inset: 0;
-    background-image: url('images/workmen-banner-1.jpg');
+    background-image: url('../images/workers-1.jpg');
     background-size: cover;
     background-position: center 30%;
-    opacity: 0.3;
 }
 
 .hero-overlay {
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-        90deg,
-        rgba(28,28,28,0.85) 0%,
-        rgba(28,28,28,0.5) 60%,
-        rgba(28,28,28,0.2) 100%
-    );
+    /* no overlay */
 }
 
 .hero-content {

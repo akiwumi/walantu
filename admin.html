@@ -3,493 +3,561 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Dashboard - WALANTU Trade Services</title>
+    <meta name="description" content="WALANTU CRM — Staff login portal. Authorised personnel only.">
+    <title>CRM Login | WALANTU Trade Services</title>
+    <link rel="icon" href="images/logoBlk.png" type="image/png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="css/style.css">
-    <link rel="stylesheet" href="css/accessibility.css">
+    <link rel="stylesheet" href="css/crm.css">
+    <style>
+        /* ====================================================================
+           CRM Login Page — full-page split layout
+           ==================================================================== */
+        html, body {
+            height: 100%;
+            margin: 0;
+            background: #0D0D1A;
+        }
+
+        .crm-login-page {
+            min-height: 100vh;
+            display: grid;
+            grid-template-columns: 1fr 440px;
+        }
+
+        /* ---- Left brand panel ---- */
+        .crm-login-brand {
+            background: linear-gradient(135deg, #0D0D1A 0%, #1A1230 50%, #0D1A2E 100%);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px;
+            overflow: hidden;
+        }
+
+        .crm-login-brand-bg {
+            position: absolute;
+            inset: 0;
+            background-image:
+                radial-gradient(circle at 20% 50%, rgba(232,68,10,0.12) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(37,99,235,0.08) 0%, transparent 50%);
+        }
+
+        .crm-login-brand-content {
+            position: relative;
+            z-index: 1;
+        }
+
+        .crm-login-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 56px;
+        }
+
+        .crm-login-logo img {
+            width: 48px;
+            height: 48px;
+            border-radius: 10px;
+            object-fit: cover;
+        }
+
+        .crm-login-logo-text {
+            font-size: 20px;
+            font-weight: 800;
+            color: #ffffff;
+            letter-spacing: 0.5px;
+            font-family: var(--font-primary);
+        }
+
+        .crm-login-logo-text span {
+            color: var(--primary);
+        }
+
+        .crm-login-headline {
+            font-size: 42px;
+            font-weight: 800;
+            color: #ffffff;
+            line-height: 1.15;
+            letter-spacing: -1px;
+            margin-bottom: 20px;
+            font-family: var(--font-primary);
+        }
+
+        .crm-login-headline span {
+            color: var(--primary);
+        }
+
+        .crm-login-tagline {
+            font-size: 16px;
+            color: rgba(255,255,255,0.55);
+            line-height: 1.7;
+            max-width: 400px;
+            margin-bottom: 48px;
+            font-family: var(--font-primary);
+        }
+
+        .crm-login-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 16px;
+            margin-bottom: 48px;
+        }
+
+        .crm-login-stat {
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            border-radius: 12px;
+            padding: 20px 16px;
+            text-align: center;
+        }
+
+        .crm-login-stat-value {
+            font-size: 28px;
+            font-weight: 800;
+            color: var(--primary);
+            font-family: var(--font-primary);
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        .crm-login-stat-label {
+            font-size: 12px;
+            color: rgba(255,255,255,0.45);
+            font-family: var(--font-primary);
+        }
+
+        .crm-login-features {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
+        .crm-login-feature {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: rgba(255,255,255,0.7);
+            font-size: 14px;
+            font-family: var(--font-primary);
+        }
+
+        .crm-login-feature-icon {
+            width: 32px;
+            height: 32px;
+            background: rgba(232,68,10,0.15);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .crm-login-restrict {
+            margin-top: 48px;
+            background: rgba(220,38,38,0.08);
+            border: 1px solid rgba(220,38,38,0.2);
+            border-radius: 10px;
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.5);
+            font-family: var(--font-primary);
+        }
+
+        .crm-login-restrict-icon {
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        /* ---- Right form panel ---- */
+        .crm-login-form-panel {
+            background: #111827;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 48px 44px;
+            border-left: 1px solid rgba(255,255,255,0.06);
+        }
+
+        .crm-form-header {
+            margin-bottom: 36px;
+        }
+
+        .crm-form-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            background: rgba(232,68,10,0.12);
+            border: 1px solid rgba(232,68,10,0.25);
+            border-radius: 20px;
+            padding: 4px 12px;
+            font-size: 11px;
+            font-weight: 700;
+            color: var(--primary);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-family: var(--font-primary);
+            margin-bottom: 16px;
+        }
+
+        .crm-form-title {
+            font-size: 30px;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 8px;
+            font-family: var(--font-primary);
+            letter-spacing: -0.5px;
+        }
+
+        .crm-form-subtitle {
+            font-size: 14px;
+            color: rgba(255,255,255,0.4);
+            font-family: var(--font-primary);
+        }
+
+        /* Demo credentials hint */
+        .crm-demo-hint {
+            background: rgba(37,99,235,0.08);
+            border: 1px solid rgba(37,99,235,0.2);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-bottom: 28px;
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+            font-family: var(--font-primary);
+            line-height: 1.6;
+        }
+
+        .crm-demo-hint strong {
+            color: #60a5fa;
+            display: block;
+            margin-bottom: 4px;
+        }
+
+        /* Form fields — dark theme overrides */
+        .crm-login-form-panel .form-group {
+            margin-bottom: 20px;
+        }
+
+        .crm-login-form-panel .form-label {
+            color: rgba(255,255,255,0.6);
+            font-size: 13px;
+            font-weight: 600;
+            margin-bottom: 8px;
+            display: block;
+            font-family: var(--font-primary);
+        }
+
+        .crm-login-form-panel .form-control {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            color: #ffffff;
+            font-size: 15px;
+            padding: 12px 16px;
+            border-radius: 8px;
+            font-family: var(--font-primary);
+            width: 100%;
+            box-sizing: border-box;
+            transition: border-color 0.2s, background 0.2s;
+            outline: none;
+        }
+
+        .crm-login-form-panel .form-control::placeholder {
+            color: rgba(255,255,255,0.25);
+        }
+
+        .crm-login-form-panel .form-control:focus {
+            border-color: var(--primary);
+            background: rgba(232,68,10,0.05);
+        }
+
+        /* Submit button */
+        .crm-login-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--primary);
+            color: #ffffff;
+            border: none;
+            border-radius: 8px;
+            font-size: 15px;
+            font-weight: 700;
+            font-family: var(--font-primary);
+            cursor: pointer;
+            transition: background 0.2s, transform 0.1s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 4px;
+        }
+
+        .crm-login-btn:hover:not(:disabled) {
+            background: var(--primary-dark);
+        }
+
+        .crm-login-btn:active:not(:disabled) {
+            transform: scale(0.99);
+        }
+
+        .crm-login-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Error alert */
+        .crm-login-error {
+            display: none;
+            background: rgba(220,38,38,0.1);
+            border: 1px solid rgba(220,38,38,0.3);
+            border-radius: 8px;
+            padding: 12px 16px;
+            color: #fca5a5;
+            font-size: 13px;
+            font-family: var(--font-primary);
+            margin-bottom: 20px;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .crm-login-error.visible {
+            display: flex;
+        }
+
+        /* Back to site link */
+        .crm-back-link {
+            display: block;
+            text-align: center;
+            margin-top: 28px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.3);
+            text-decoration: none;
+            font-family: var(--font-primary);
+            transition: color 0.2s;
+        }
+
+        .crm-back-link:hover {
+            color: rgba(255,255,255,0.6);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .crm-login-page { grid-template-columns: 1fr; }
+            .crm-login-brand { display: none; }
+            .crm-login-form-panel {
+                padding: 40px 28px;
+                min-height: 100vh;
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
-    <a href="#main-content" class="skip-link">Skip to main content</a>
 
-    <header role="banner">
-        <div class="container">
-            <div class="nav-container">
-                <div class="logo">
-                    <img src="images/logo-placeholder.png" alt="WALANTU Trade Services Logo" width="50" height="50">
-                    <span class="logo-text">WALANTU ADMIN</span>
-                </div>
-                <nav role="navigation" aria-label="Main navigation">
-                    <button class="mobile-menu-toggle" aria-expanded="false" aria-controls="main-menu">
-                        <span class="hamburger"></span>
-                        <span class="sr-only">Menu</span>
-                    </button>
-                    <ul id="main-menu">
-                        <li><a href="index.html">Public Site</a></li>
-                        <li><a href="admin.html" class="cta-button" aria-current="page">Admin Dashboard</a></li>
-                    </ul>
-                </nav>
+<div class="crm-login-page">
+
+    <!-- ===== LEFT: Brand Panel ===== -->
+    <aside class="crm-login-brand" aria-hidden="true">
+        <div class="crm-login-brand-bg"></div>
+        <div class="crm-login-brand-content">
+
+            <div class="crm-login-logo">
+                <img src="images/walantu-logo.jpg" alt="WALANTU" onerror="this.style.display='none'">
+                <span class="crm-login-logo-text">WALANTU <span>CRM</span></span>
             </div>
-        </div>
-    </header>
 
-    <main id="main-content" role="main">
-        <div class="container">
-            <!-- Admin Header -->
-            <div class="admin-header">
-                <h1>Admin Dashboard</h1>
-                <div class="admin-stats">
-                    <div class="stat-card">
-                        <div class="stat-number" id="total-jobs-count">0</div>
-                        <div class="stat-label">Total Jobs</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="pending-jobs-count">0</div>
-                        <div class="stat-label">Pending</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="active-jobs-count">0</div>
-                        <div class="stat-label">In Progress</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="completed-jobs-count">0</div>
-                        <div class="stat-label">Completed</div>
-                    </div>
-                    <div class="stat-card">
-                        <div class="stat-number" id="total-revenue">GH₵ 0</div>
-                        <div class="stat-label">Total Revenue</div>
-                    </div>
+            <h1 class="crm-login-headline">
+                Customer Relations<br>
+                <span>Management</span><br>
+                Portal
+            </h1>
+
+            <p class="crm-login-tagline">
+                The internal operations hub for the WALANTU team. Manage jobs, customers, messages, and CS performance — all in one place.
+            </p>
+
+            <div class="crm-login-stats">
+                <div class="crm-login-stat">
+                    <span class="crm-login-stat-value">6</span>
+                    <span class="crm-login-stat-label">Active Jobs</span>
+                </div>
+                <div class="crm-login-stat">
+                    <span class="crm-login-stat-value">3</span>
+                    <span class="crm-login-stat-label">CS Agents</span>
+                </div>
+                <div class="crm-login-stat">
+                    <span class="crm-login-stat-value">98%</span>
+                    <span class="crm-login-stat-label">Satisfaction</span>
                 </div>
             </div>
 
-            <!-- Admin Navigation -->
-            <nav class="admin-nav" role="navigation" aria-label="Admin sections">
-                <button class="admin-nav-btn active" data-section="jobs">Jobs Management</button>
-                <button class="admin-nav-btn" data-section="tradespeople">Tradespeople</button>
-                <button class="admin-nav-btn" data-section="accounting">Accounting & Finance</button>
-                <button class="admin-nav-btn" data-section="crm">CRM & Analytics</button>
-                <button class="admin-nav-btn" data-section="reports">Reports</button>
-                <button class="admin-nav-btn" data-section="communications">Communications</button>
-            </nav>
-
-            <!-- Jobs Management Section -->
-            <section id="jobs-section" class="admin-section active" aria-labelledby="jobs-heading">
-                <!-- Existing jobs management content -->
-            </section>
-
-            <!-- Tradespeople Management Section -->
-            <section id="tradespeople-section" class="admin-section" aria-labelledby="tradespeople-heading">
-                <!-- Existing tradespeople content -->
-            </section>
-
-            <!-- NEW: Accounting & Finance Section -->
-            <section id="accounting-section" class="admin-section" aria-labelledby="accounting-heading">
-                <div class="section-header">
-                    <h2 id="accounting-heading">Accounting & Finance</h2>
-                    <div class="section-actions">
-                        <button class="cta-button" id="export-financials">Export Financial Data</button>
-                        <button class="cta-button secondary" id="refresh-financials">Refresh</button>
-                    </div>
+            <div class="crm-login-features">
+                <div class="crm-login-feature">
+                    <div class="crm-login-feature-icon">📋</div>
+                    <span>Real-time job tracking and status management</span>
                 </div>
-
-                <div class="financial-overview">
-                    <div class="financial-cards">
-                        <div class="financial-card">
-                            <h3>Total Revenue</h3>
-                            <div class="amount" id="total-revenue-amount">GH₵ 0.00</div>
-                            <div class="trend positive">+12% this month</div>
-                        </div>
-                        <div class="financial-card">
-                            <h3>VAT Collected</h3>
-                            <div class="amount" id="vat-collected">GH₵ 0.00</div>
-                            <div class="trend positive">+8% this month</div>
-                        </div>
-                        <div class="financial-card">
-                            <h3>Service Tax</h3>
-                            <div class="amount" id="service-tax">GH₵ 0.00</div>
-                            <div class="trend positive">+10% this month</div>
-                        </div>
-                        <div class="financial-card">
-                            <h3>Net Profit</h3>
-                            <div class="amount" id="net-profit">GH₵ 0.00</div>
-                            <div class="trend positive">+15% this month</div>
-                        </div>
-                    </div>
-
-                    <div class="accounting-tabs">
-                        <button class="accounting-tab active" data-tab="transactions">Transactions</button>
-                        <button class="accounting-tab" data-tab="taxes">Tax Breakdown</button>
-                        <button class="accounting-tab" data-tab="payouts">Worker Payouts</button>
-                        <button class="accounting-tab" data-tab="insurance">Insurance Revenue</button>
-                    </div>
-
-                    <div class="accounting-content">
-                        <div class="accounting-tab-content active" id="transactions-tab">
-                            <div class="table-container">
-                                <table class="admin-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Date</th>
-                                            <th>Job ID</th>
-                                            <th>Customer</th>
-                                            <th>Amount</th>
-                                            <th>VAT</th>
-                                            <th>Service Tax</th>
-                                            <th>Net</th>
-                                            <th>Method</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="transactions-table">
-                                        <!-- Transactions will be loaded here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="accounting-tab-content" id="taxes-tab">
-                            <div class="tax-breakdown">
-                                <div class="tax-card">
-                                    <h4>VAT Breakdown</h4>
-                                    <div class="tax-details">
-                                        <div class="tax-item">
-                                            <span>Standard Rate (12.5%)</span>
-                                            <span id="vat-standard">GH₵ 0.00</span>
-                                        </div>
-                                        <div class="tax-item">
-                                            <span>Total VAT Collected</span>
-                                            <span id="vat-total">GH₵ 0.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="tax-card">
-                                    <h4>Service Tax</h4>
-                                    <div class="tax-details">
-                                        <div class="tax-item">
-                                            <span>Service Levy (2.5%)</span>
-                                            <span id="service-levy">GH₵ 0.00</span>
-                                        </div>
-                                        <div class="tax-item">
-                                            <span>Total Service Tax</span>
-                                            <span id="service-tax-total">GH₵ 0.00</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="accounting-tab-content" id="payouts-tab">
-                            <div class="table-container">
-                                <table class="admin-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Worker</th>
-                                            <th>Service</th>
-                                            <th>Jobs Completed</th>
-                                            <th>Base Salary</th>
-                                            <th>Bonus</th>
-                                            <th>Total Payout</th>
-                                            <th>Month</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="payouts-table">
-                                        <!-- Payouts will be loaded here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="accounting-tab-content" id="insurance-tab">
-                            <div class="insurance-revenue">
-                                <div class="insurance-stats">
-                                    <div class="insurance-stat">
-                                        <h4>Insurance Revenue</h4>
-                                        <div class="amount" id="total-insurance">GH₵ 0.00</div>
-                                    </div>
-                                    <div class="insurance-stat">
-                                        <h4>Active Policies</h4>
-                                        <div class="amount" id="active-policies">0</div>
-                                    </div>
-                                    <div class="insurance-stat">
-                                        <h4>Claims Filed</h4>
-                                        <div class="amount" id="claims-filed">0</div>
-                                    </div>
-                                </div>
-                                <div class="table-container">
-                                    <table class="admin-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Job ID</th>
-                                                <th>Customer</th>
-                                                <th>Insurance Type</th>
-                                                <th>Duration</th>
-                                                <th>Premium</th>
-                                                <th>Status</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="insurance-table">
-                                            <!-- Insurance policies will be loaded here -->
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="crm-login-feature">
+                    <div class="crm-login-feature-icon">💬</div>
+                    <span>Internal CS chat and customer messaging</span>
                 </div>
-            </section>
-
-            <!-- NEW: CRM & Analytics Section -->
-            <section id="crm-section" class="admin-section" aria-labelledby="crm-heading">
-                <div class="section-header">
-                    <h2 id="crm-heading">CRM & Analytics</h2>
-                    <div class="section-actions">
-                        <button class="cta-button" id="export-crm">Export CRM Data</button>
-                        <button class="cta-button secondary" id="refresh-crm">Refresh</button>
-                    </div>
+                <div class="crm-login-feature">
+                    <div class="crm-login-feature-icon">📊</div>
+                    <span>Performance reports and revenue analytics</span>
                 </div>
-
-                <div class="crm-dashboard">
-                    <div class="crm-overview">
-                        <div class="crm-card">
-                            <h3>Worker Performance</h3>
-                            <div class="performance-grid" id="worker-performance-grid">
-                                <!-- Worker performance cards will be loaded here -->
-                            </div>
-                        </div>
-
-                        <div class="crm-card">
-                            <h3>Customer Satisfaction</h3>
-                            <div class="satisfaction-metrics">
-                                <div class="metric">
-                                    <span class="metric-value" id="avg-rating">0.0</span>
-                                    <span class="metric-label">Average Rating</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value" id="recommend-rate">0%</span>
-                                    <span class="metric-label">Recommendation Rate</span>
-                                </div>
-                                <div class="metric">
-                                    <span class="metric-value" id="repeat-customers">0%</span>
-                                    <span class="metric-label">Repeat Customers</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="crm-tabs">
-                        <button class="crm-tab active" data-tab="workers">Worker Rankings</button>
-                        <button class="crm-tab" data-tab="ratings">Customer Ratings</button>
-                        <button class="crm-tab" data-tab="insurance-analytics">Insurance Analytics</button>
-                        <button class="crm-tab" data-tab="client-insights">Client Insights</button>
-                    </div>
-
-                    <div class="crm-content">
-                        <div class="crm-tab-content active" id="workers-tab">
-                            <div class="table-container">
-                                <table class="admin-table">
-                                    <thead>
-                                        <tr>
-                                            <th>Rank</th>
-                                            <th>Worker</th>
-                                            <th>Service</th>
-                                            <th>Jobs Completed</th>
-                                            <th>Avg Rating</th>
-                                            <th>Total Revenue</th>
-                                            <th>Salary + Bonus</th>
-                                            <th>Performance Score</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody id="worker-rankings-table">
-                                        <!-- Worker rankings will be loaded here -->
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-
-                        <div class="crm-tab-content" id="ratings-tab">
-                            <div class="ratings-grid">
-                                <div class="ratings-list">
-                                    <h4>Recent Customer Reviews</h4>
-                                    <div id="recent-reviews">
-                                        <!-- Recent reviews will be loaded here -->
-                                    </div>
-                                </div>
-                                <div class="ratings-summary">
-                                    <h4>Rating Distribution</h4>
-                                    <div class="rating-bars">
-                                        <div class="rating-bar">
-                                            <span>5 Stars</span>
-                                            <div class="bar-container">
-                                                <div class="bar" id="rating-5" style="width: 0%"></div>
-                                            </div>
-                                            <span id="count-5">0</span>
-                                        </div>
-                                        <div class="rating-bar">
-                                            <span>4 Stars</span>
-                                            <div class="bar-container">
-                                                <div class="bar" id="rating-4" style="width: 0%"></div>
-                                            </div>
-                                            <span id="count-4">0</span>
-                                        </div>
-                                        <div class="rating-bar">
-                                            <span>3 Stars</span>
-                                            <div class="bar-container">
-                                                <div class="bar" id="rating-3" style="width: 0%"></div>
-                                            </div>
-                                            <span id="count-3">0</span>
-                                        </div>
-                                        <div class="rating-bar">
-                                            <span>2 Stars</span>
-                                            <div class="bar-container">
-                                                <div class="bar" id="rating-2" style="width: 0%"></div>
-                                            </div>
-                                            <span id="count-2">0</span>
-                                        </div>
-                                        <div class="rating-bar">
-                                            <span>1 Star</span>
-                                            <div class="bar-container">
-                                                <div class="bar" id="rating-1" style="width: 0%"></div>
-                                            </div>
-                                            <span id="count-1">0</span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="crm-tab-content" id="insurance-analytics-tab">
-                            <div class="insurance-analytics">
-                                <div class="analytics-cards">
-                                    <div class="analytics-card">
-                                        <h4>Insurance Uptake Rate</h4>
-                                        <div class="percentage" id="insurance-uptake">0%</div>
-                                        <div class="description">of customers choose extended insurance</div>
-                                    </div>
-                                    <div class="analytics-card">
-                                        <h4>Most Popular Insurance</h4>
-                                        <div class="insurance-type" id="popular-insurance">3 months</div>
-                                        <div class="description">most chosen duration</div>
-                                    </div>
-                                    <div class="analytics-card">
-                                        <h4>Claims Rate</h4>
-                                        <div class="percentage" id="claims-rate">0%</div>
-                                        <div class="description">of insurance policies have claims</div>
-                                    </div>
-                                </div>
-                                <div class="table-container">
-                                    <table class="admin-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Insurance Duration</th>
-                                                <th>Number Sold</th>
-                                                <th>Total Revenue</th>
-                                                <th>Claims Filed</th>
-                                                <th>Claims Rate</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="insurance-analytics-table">
-                                            <!-- Insurance analytics will be loaded here -->
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="crm-tab-content" id="client-insights-tab">
-                            <div class="client-insights">
-                                <div class="insights-grid">
-                                    <div class="insight-card">
-                                        <h4>Client Demographics</h4>
-                                        <div class="demographic-data" id="client-demographics">
-                                            <!-- Demographic data will be loaded here -->
-                                        </div>
-                                    </div>
-                                    <div class="insight-card">
-                                        <h4>Service Popularity</h4>
-                                        <div class="service-popularity" id="service-popularity">
-                                            <!-- Service popularity will be loaded here -->
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="table-container">
-                                    <table class="admin-table">
-                                        <thead>
-                                            <tr>
-                                                <th>Client</th>
-                                                <th>Jobs Booked</th>
-                                                <th>Total Spent</th>
-                                                <th>Avg Rating</th>
-                                                <th>Insurance Preference</th>
-                                                <th>Last Job</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody id="client-insights-table">
-                                            <!-- Client insights will be loaded here -->
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                <div class="crm-login-feature">
+                    <div class="crm-login-feature-icon">🛡️</div>
+                    <span>Role-based access — Admin and CS tiers</span>
                 </div>
-            </section>
+            </div>
 
-            <!-- Reports Section -->
-            <section id="reports-section" class="admin-section" aria-labelledby="reports-heading">
-                <div class="section-header">
-                    <h2 id="reports-heading">Reports & Analytics</h2>
-                    <div class="section-actions">
-                        <button class="cta-button" id="generate-report">Generate Report</button>
-                        <button class="cta-button secondary" id="export-report">Export Data</button>
-                    </div>
-                </div>
+            <div class="crm-login-restrict">
+                <span class="crm-login-restrict-icon">🔒</span>
+                <span>Restricted access. Authorised WALANTU staff only. Unauthorised access is a violation of company policy.</span>
+            </div>
 
-                <div class="reports-dashboard">
-                    <!-- Existing reports content -->
-                </div>
-            </section>
-
-            <!-- Communications Section -->
-            <section id="communications-section" class="admin-section" aria-labelledby="communications-heading">
-                <div class="section-header">
-                    <h2 id="communications-heading">Communications Log</h2>
-                </div>
-
-                <div class="communications-log" id="communications-log">
-                    <!-- Communications will be loaded here -->
-                </div>
-            </section>
         </div>
+    </aside>
+
+    <!-- ===== RIGHT: Login Form ===== -->
+    <main class="crm-login-form-panel">
+
+        <div class="crm-form-header">
+            <div class="crm-form-badge">
+                <span>🔐</span>
+                <span>Staff Portal</span>
+            </div>
+            <h2 class="crm-form-title">Sign in to CRM</h2>
+            <p class="crm-form-subtitle">Enter your WALANTU staff credentials to continue</p>
+        </div>
+
+        <!-- Demo credentials hint -->
+        <div class="crm-demo-hint">
+            <strong>Demo credentials</strong>
+            Admin: admin@walantu.com / WalantuAdmin#1<br>
+            CS Worker: afi.boateng@walantu.com / Walantu#CS1
+        </div>
+
+        <!-- Error alert -->
+        <div class="crm-login-error" id="crm-login-error" role="alert" aria-live="polite">
+            <span>⚠️</span>
+            <span id="crm-login-error-text">Invalid email or password. Please try again.</span>
+        </div>
+
+        <form id="crm-login-form" novalidate>
+
+            <div class="form-group">
+                <label class="form-label" for="crm-email">Staff Email Address</label>
+                <input
+                    type="email"
+                    id="crm-email"
+                    class="form-control"
+                    required
+                    autocomplete="email"
+                    placeholder="yourname@walantu.com"
+                    aria-describedby="crm-login-error"
+                >
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="crm-password">Password</label>
+                <input
+                    type="password"
+                    id="crm-password"
+                    class="form-control"
+                    required
+                    autocomplete="current-password"
+                    placeholder="Your CRM password"
+                >
+            </div>
+
+            <button type="submit" class="crm-login-btn" id="crm-login-btn">
+                <span id="crm-login-btn-text">Sign In to CRM</span>
+                <span id="crm-login-btn-arrow">→</span>
+            </button>
+
+        </form>
+
+        <a href="index.html" class="crm-back-link">← Back to main site</a>
+
     </main>
 
-    <!-- Job Details Modal -->
-    <div id="job-details-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="job-modal-title">
-        <!-- Existing modal content -->
-    </div>
+</div>
 
-    <!-- Add Tradesperson Modal -->
-    <div id="add-tradesperson-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="add-tradesperson-title">
-        <!-- Existing modal content -->
-    </div>
+<script src="js/crm-data.js"></script>
+<script>
+    // =========================================================================
+    // CRM Login — form submission handler
+    // =========================================================================
+    (function () {
+        const form      = document.getElementById('crm-login-form');
+        const emailEl   = document.getElementById('crm-email');
+        const passEl    = document.getElementById('crm-password');
+        const btn       = document.getElementById('crm-login-btn');
+        const btnText   = document.getElementById('crm-login-btn-text');
+        const btnArrow  = document.getElementById('crm-login-btn-arrow');
+        const errorBox  = document.getElementById('crm-login-error');
+        const errorText = document.getElementById('crm-login-error-text');
 
-    <!-- NEW: Worker Performance Modal -->
-    <div id="worker-performance-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="worker-performance-title">
-        <div class="modal-content large">
-            <button class="modal-close" aria-label="Close modal">&times;</button>
-            <h2 id="worker-performance-title">Worker Performance Details</h2>
-            <div id="worker-performance-content">
-                <!-- Worker performance details will be loaded here -->
-            </div>
-        </div>
-    </div>
+        // If already authenticated, skip directly to CRM
+        if (crmGetSession()) {
+            window.location.replace('crm.html');
+            return;
+        }
 
-    <footer role="contentinfo">
-        <div class="container">
-            <div class="footer-bottom">
-                <p>&copy; 2024 WALANTU Trade Services. Admin Dashboard v2.0</p>
-            </div>
-        </div>
-    </footer>
+        function showError(msg) {
+            errorText.textContent = msg;
+            errorBox.classList.add('visible');
+            passEl.value = '';
+            passEl.focus();
+        }
 
-    <script src="js/main.js"></script>
-    <script src="js/admin.js"></script>
-    <script src="js/admin-crm.js"></script>
+        function hideError() {
+            errorBox.classList.remove('visible');
+        }
+
+        function setLoading(on) {
+            btn.disabled = on;
+            btnText.textContent = on ? 'Signing in…' : 'Sign In to CRM';
+            btnArrow.textContent = on ? '⏳' : '→';
+        }
+
+        form.addEventListener('submit', async function (e) {
+            e.preventDefault();
+            hideError();
+
+            const email = emailEl.value.trim();
+            const pass  = passEl.value;
+
+            if (!email || !pass) {
+                showError('Please enter both your email address and password.');
+                return;
+            }
+
+            setLoading(true);
+
+            // Simulate a brief network delay for realism
+            await new Promise(r => setTimeout(r, 700));
+
+            const user = crmLogin(email, pass);
+            if (user) {
+                crmSetSession(user);
+                crmLogActivity('Logged in to CRM', 'System');
+                window.location.href = 'crm.html';
+            } else {
+                setLoading(false);
+                showError('Invalid email or password. Please check your credentials and try again.');
+            }
+        });
+
+        // Clear error on input change
+        [emailEl, passEl].forEach(el => el.addEventListener('input', hideError));
+    }());
+</script>
+
 </body>
 </html>

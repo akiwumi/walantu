@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Create your free WALANTU account and start booking trusted trade services in Accra, Ghana.">
     <title>Create Account | WALANTU Trade Services</title>
+    <link rel="icon" href="images/logoBlk.png" type="image/png">
     <link rel="stylesheet" href="css/style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
@@ -250,8 +251,7 @@
             <div class="auth-brand-content">
 
                 <div class="auth-brand-logo">
-                    <img src="images/logoFull.png" alt="WALANTU" width="44" height="44" onerror="this.style.display='none'">
-                    <span class="logo-text">WALANTU</span>
+                    <img src="images/logoFull.png" alt="WALANTU" width="120" height="auto" style="object-fit:contain" onerror="this.style.display='none'">
                 </div>
 
                 <h2 class="auth-brand-title">
@@ -449,6 +449,12 @@
 
                 <div class="divider-text">or sign in with email</div>
 
+                <!-- Demo credentials hint -->
+                <div style="background:#FFF8F5;border:1px solid var(--primary);border-radius:var(--radius-sm);padding:var(--space-sm) var(--space-md);margin-bottom:var(--space-lg);font-size:var(--font-size-xs);color:var(--text-muted)">
+                    <strong style="color:var(--primary)">Demo account:</strong>
+                    kofi.mensah@email.com / Walantu123!
+                </div>
+
                 <form id="login-form" novalidate>
                     <div class="form-group">
                         <label class="form-label" for="login-email">Email Address</label>
@@ -483,6 +489,7 @@
         </main>
     </div>
 
+    <script src="js/users.js"></script>
     <script src="js/registration.js"></script>
     <script>
         // ============================================================
@@ -583,13 +590,43 @@
         // ============================================================
         const loginForm = document.getElementById('login-form');
         if (loginForm) {
+            // Inject error element if not present
+            if (!document.getElementById('login-error')) {
+                const errDiv = document.createElement('div');
+                errDiv.id = 'login-error';
+                errDiv.className = 'alert alert-error';
+                errDiv.style.display = 'none';
+                errDiv.setAttribute('role', 'alert');
+                errDiv.innerHTML = '<span class="alert-icon">⚠️</span><div class="alert-text" id="login-error-text"></div>';
+                loginForm.querySelector('[type=submit]').before(errDiv);
+            }
+
             loginForm.addEventListener('submit', async (e) => {
                 e.preventDefault();
                 const btn = loginForm.querySelector('[type=submit]');
+                const emailVal = document.getElementById('login-email').value.trim();
+                const passVal  = document.getElementById('login-password').value;
+                const errBox   = document.getElementById('login-error');
+                const errText  = document.getElementById('login-error-text');
+
+                errBox.style.display = 'none';
                 btn.disabled = true;
                 btn.textContent = '⏳ Signing in…';
-                await new Promise(r => setTimeout(r, 1000));
-                window.location.href = 'dashboard.html';
+
+                await new Promise(r => setTimeout(r, 800));
+
+                const user = walantuLogin(emailVal, passVal);
+                if (user) {
+                    walantuSetSession(user);
+                    window.location.href = 'dashboard.html';
+                } else {
+                    btn.disabled = false;
+                    btn.textContent = 'Sign In →';
+                    errText.textContent = 'Incorrect email or password. Please try again.';
+                    errBox.style.display = 'flex';
+                    document.getElementById('login-password').value = '';
+                    document.getElementById('login-password').focus();
+                }
             });
         }
     </script>
