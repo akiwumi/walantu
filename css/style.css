@@ -783,6 +783,15 @@ input, select, textarea { font-family: inherit; }
 }
 .testimonial-card:hover { box-shadow: var(--shadow-md); border-color: var(--primary-mid); }
 
+.testimonial-empty { justify-content: center; align-items: center; text-align: center; }
+.testimonial-empty .testimonial-empty-text {
+    font-size: var(--font-size-base);
+    color: var(--text-muted);
+    font-style: normal;
+    margin: 0;
+}
+.testimonial-empty .testimonial-empty-text::before { display: none; }
+
 .testimonial-stars { display: flex; gap: 4px; }
 .testimonial-star { color: #F59E0B; font-size: 18px; }
 
