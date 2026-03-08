@@ -289,9 +289,10 @@ function updateCustomerRatings(ratingsData) {
     // Update rating distribution
     ratingsData.ratingDistribution.forEach((count, index) => {
         const rating = 5 - index;
-        const percentage = (count / ratingsData.totalRatings) * 100;
+        const percentage = ratingsData.totalRatings > 0 ? (count / ratingsData.totalRatings) * 100 : 0;
         updateElementText(`count-${rating}`, count);
-        document.getElementById(`rating-${rating}`).style.width = `${percentage}%`;
+        const el = document.getElementById(`rating-${rating}`);
+        if (el) el.style.width = `${percentage}%`;
     });
 }
 
@@ -549,60 +550,60 @@ async function simulateAccountingDataFetch() {
     
     return {
         financialOverview: {
-            totalRevenue: 125000,
-            vatCollected: 15625,
-            serviceTax: 3125,
-            netProfit: 106250
+            totalRevenue: 0,
+            vatCollected: 0,
+            serviceTax: 0,
+            netProfit: 0
         },
         transactions: [
             {
                 date: '2024-02-15',
                 jobId: 'JOB_001',
                 customer: 'Kofi Mensah',
-                amount: 350,
-                vat: 43.75,
-                serviceTax: 8.75,
-                net: 297.5,
+                amount: 0,
+                vat: 0,
+                serviceTax: 0,
+                net: 0,
                 method: 'momo'
             },
             {
                 date: '2024-02-14',
                 jobId: 'JOB_002',
                 customer: 'Abena Asante',
-                amount: 280,
-                vat: 35,
-                serviceTax: 7,
-                net: 238,
+                amount: 0,
+                vat: 0,
+                serviceTax: 0,
+                net: 0,
                 method: 'card'
             }
         ],
         taxBreakdown: {
-            vatStandard: 15625,
-            vatTotal: 15625,
-            serviceLevy: 3125,
-            serviceTaxTotal: 3125
+            vatStandard: 0,
+            vatTotal: 0,
+            serviceLevy: 0,
+            serviceTaxTotal: 0
         },
         payouts: [
             {
                 worker: 'Kwame Asante',
                 service: 'Plumber',
-                jobsCompleted: 8,
-                baseSalary: 1200,
-                bonus: 240,
-                totalPayout: 1440,
+                jobsCompleted: 0,
+                baseSalary: 0,
+                bonus: 0,
+                totalPayout: 0,
                 month: 'February 2024'
             }
         ],
         insurance: {
-            totalRevenue: 12500,
-            activePolicies: 45,
-            claimsFiled: 2,
+            totalRevenue: 0,
+            activePolicies: 0,
+            claimsFiled: 0,
             policies: [
                 {
                     jobId: 'JOB_001',
                     customer: 'Kofi Mensah',
                     duration: 6,
-                    premium: 80,
+                    premium: 0,
                     status: 'active'
                 }
             ]
@@ -619,75 +620,75 @@ async function simulateCRMDataFetch() {
                 id: '1',
                 name: 'Kwame Asante',
                 service: 'Plumber',
-                jobsCompleted: 8,
-                rating: 4.8,
-                revenue: '12,400',
-                bonus: '620',
-                performanceScore: 92
+                jobsCompleted: 0,
+                rating: 0,
+                revenue: '0',
+                bonus: '0',
+                performanceScore: 0
             }
         ],
         customerSatisfaction: {
-            averageRating: 4.7,
-            recommendationRate: 95,
-            repeatCustomers: 35
+            averageRating: 0,
+            recommendationRate: 0,
+            repeatCustomers: 0
         },
         workerRankings: [
             {
                 name: 'Kwame Asante',
                 service: 'Plumber',
-                jobsCompleted: 8,
-                averageRating: 4.8,
-                ratingCount: 8,
-                totalRevenue: 12400,
-                totalPayout: 1820,
-                performanceScore: 92
+                jobsCompleted: 0,
+                averageRating: 0,
+                ratingCount: 0,
+                totalRevenue: 0,
+                totalPayout: 0,
+                performanceScore: 0
             }
         ],
         customerRatings: {
             recentReviews: [
                 {
                     customer: 'Kofi Mensah',
-                    rating: 5,
+                    rating: 0,
                     review: 'Excellent work, very professional and timely.',
                     worker: 'Kwame Asante',
                     service: 'Plumber',
                     date: '2024-02-15'
                 }
             ],
-            ratingDistribution: [45, 30, 15, 8, 2],
-            totalRatings: 100
+            ratingDistribution: [0, 0, 0, 0, 0],
+            totalRatings: 0
         },
         insuranceAnalytics: {
-            uptakeRate: 65,
-            mostPopular: 6,
-            claimsRate: 4.5,
+            uptakeRate: 0,
+            mostPopular: 0,
+            claimsRate: 0,
             breakdown: [
-                { duration: 3, sold: 25, revenue: 1250, claims: 1, claimsRate: 4.0 },
-                { duration: 6, sold: 15, revenue: 1200, claims: 1, claimsRate: 6.7 },
-                { duration: 12, sold: 5, revenue: 600, claims: 0, claimsRate: 0.0 }
+                { duration: 3, sold: 0, revenue: 0, claims: 0, claimsRate: 0 },
+                { duration: 6, sold: 0, revenue: 0, claims: 0, claimsRate: 0 },
+                { duration: 12, sold: 0, revenue: 0, claims: 0, claimsRate: 0 }
             ]
         },
         clientInsights: {
-            totalClients: 150,
-            repeatClients: 52,
-            repeatRate: 35,
-            avgJobsPerClient: 1.8,
-            avgSpendPerClient: 850,
+            totalClients: 0,
+            repeatClients: 0,
+            repeatRate: 0,
+            avgJobsPerClient: 0,
+            avgSpendPerClient: 0,
             servicePopularity: [
-                { name: 'Plumber', percentage: 25 },
-                { name: 'Electrician', percentage: 20 },
-                { name: 'Carpenter', percentage: 18 },
-                { name: 'AC Technician', percentage: 15 },
-                { name: 'Car Mechanic', percentage: 12 },
-                { name: 'Gardener', percentage: 8 },
-                { name: 'Labourer', percentage: 2 }
+                { name: 'Plumber', percentage: 0 },
+                { name: 'Electrician', percentage: 0 },
+                { name: 'Carpenter', percentage: 0 },
+                { name: 'AC Technician', percentage: 0 },
+                { name: 'Car Mechanic', percentage: 0 },
+                { name: 'Gardener', percentage: 0 },
+                { name: 'Labourer', percentage: 0 }
             ],
             topClients: [
                 {
                     name: 'Kofi Mensah',
-                    jobsBooked: 3,
-                    totalSpent: 2850,
-                    avgRating: 4.8,
+                    jobsBooked: 0,
+                    totalSpent: 0,
+                    avgRating: 0,
                     insurancePreference: '6 months',
                     lastJob: '2024-02-15'
                 }
